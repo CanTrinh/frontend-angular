@@ -1,0 +1,6 @@
+{
+    "weatherUrl": "http://api.weatherapi.com/v1/current.json?key=7baf5398ee89483b8d8151105230911&q=Ho Chi Minh City",
+    "jsonFile": "assets/jsonFile.json",
+    "yamahaUrl": "http://localhost:3000/yamaha"
+}
+

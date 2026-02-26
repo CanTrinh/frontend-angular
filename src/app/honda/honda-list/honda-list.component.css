@@ -1,0 +1,53 @@
+
+.listxe {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  .listxe li {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .listxe li:hover {
+    left: .1em;
+  }
+  
+  .listxe a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 1.2rem;
+    background-color: #eee;
+    margin: .5rem .5rem .5rem 0;
+    padding: .5rem 0;
+    border-radius: 4px;
+  }
+  
+  .listxe a:hover {
+    color: #2c3a41;
+    background-color: #e6e6e6;
+  }
+  
+  .listxe a:active {
+    background-color: #525252;
+    color: #fafafa;
+  }
+  
+  .listxe .selected a {
+    background-color: #d6e6f7;
+  }
+  
+  .listxe .selected a:hover {
+    background-color: #bdd7f5;
+  }
+  
+  .listxe .badge {
+    padding: .5em .6em;
+    color: white;
+    background-color: #435b60;
+    min-width: 16px;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }

@@ -1,0 +1,10 @@
+
+<ul class="listxe">
+  <li *ngFor="let xe of listxe$ | async" [class.selected]="xe.id === selectedId">
+    <a [routerLink]="['/honda', xe.id]">
+      <span class="badge">{{ xe.id }}</span>{{ xe.name }}
+    </a>
+  </li>
+</ul>
+
+<button type="button" routerLink="/sidekicks">Go to sidekicks</button>

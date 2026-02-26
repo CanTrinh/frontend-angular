@@ -1,0 +1,167 @@
+/*.level {
+    width:300px;
+    display: flex;
+    gap: 0.625%;
+}
+.level a {
+    flex: 1;
+    text-decoration: none;
+    outline: none;
+    text-align: center;
+    line-height: 2;
+    color: black;
+    border-radius: 5px;
+}
+
+
+.level a:link,
+.level a:visited,
+.level a:focus {
+    background: palegoldenrod;
+    color: black;
+}
+
+.level a:hover {
+    background: orange;
+}
+
+.level a:active {
+    background: darkred;
+    color: white;
+}*/
+
+/*
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: #0078d7; */   /* Microsoft blue */
+  /*
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: #005a9e;
+}
+
+.example-box {
+  width: 200px;
+  height: 200px;
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  font-family: sans-serif;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.example-box:active {
+  box-shadow:
+    0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+*/
+
+* .post-form, .post-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #fff;
+}
+
+* .form-group {
+  margin-bottom: 1rem;
+}
+
+* .form-actions {
+  text-align: right;
+}
+
+* .post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+* .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+* .post-body {
+  margin-bottom: 1rem;
+}
+
+* .post-media {
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.post-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.comments {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid #eee;
+}

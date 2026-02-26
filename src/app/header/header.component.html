@@ -1,0 +1,33 @@
+<div class="logo">
+    <!--<img [src]="sanitizeUrl('../Angular/website/src/assets/img/logo.svg')" alt="">
+    <app-svg></app-svg>-->
+    <img class="mylogo" src="../../assets/img/logoweb.svg" alt="">
+    <p>CanTrinh</p>
+    <img class="tet" src="../../assets/img/yellow apricot blossom flower.svg" alt="">
+</div>
+
+<div class="date-time"> {{result}} {{today | date: 'dd/MM/yy'}}|| {{tetDay}}</div>
+<div class="weather">
+    <select id="town" name="town" (change)="onChangeValue($event)">
+        <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
+    </select>
+    <img [src]="icon" alt="" appIcon>
+    <p class="temp">{{temp}}</p>
+    <code>&deg;C</code>
+</div>
+<div class="mode">
+    <ul>
+        <li>
+            <input type="checkbox" name="power" id="power" (change)="toggleTheme($event)">
+            <label for="power"><span class="on" ><img src="../../assets/img/moon-star.svg" alt=""> </span><span class="off"><img src="../../assets/img/sun.svg" alt=""></span></label>
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,128 @@
+.weather{
+    display: flex;
+    height: 43.04px ;
+    border-right: 1px solid black;
+}
+.weather p{
+    padding: 10px 0;
+  }
+
+  code {
+    padding: 10px 0;
+  }
+
+  .date-time{
+    padding: 10px 0;
+    border-right: 1px solid black;
+    color: #ffaa00;
+  }
+
+  .logo img {
+      max-width: 100%;
+      display: block;
+  }
+
+  .logo p {
+    padding: 10px;
+  }
+  
+  .logo {
+    font-size: 1.2rem;
+    height:40px;
+    margin-left: 10px;
+    display: flex;
+    box-sizing: content-box;
+    overflow: hidden;
+    border-right: 1px solid black;
+  }
+
+  .logo .mylogo{
+    max-width:100%;
+    max-height:100%;
+    object-fit:fill;
+    object-position: center;
+    overflow: hidden;
+  }
+
+  .logo .tet {
+    width:45%;
+    max-height:100%;
+    margin-bottom: 0;
+    object-fit:cover;
+    object-position: center;
+    overflow: hidden;
+
+  }
+
+  .mode ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .mode ul li {
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      }
+        label {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            position: relative;
+        }
+        
+          label span {
+          position: absolute;
+          }
+        input[type="checkbox"] {
+            appearance: none;
+            width: 38px;
+            height: 20px;
+            border-radius: 12px ;
+            border: 2px solid black;
+            background: #eee;
+            transition: all 0.4s;
+        }
+
+        input[type="checkbox"]::before {
+          width: 12px;
+          height: 12px;
+          border-radius: 5px;
+          background-color: black;
+          content: '';
+          position: absolute;
+          top: 14px;
+          left: 18%;
+          transition: all 0.4s;
+        }
+
+        input[type="checkbox"]:checked {
+          background-color: #ffaa00;
+          transition: all 0.4s;
+        }
+
+        input[type="checkbox"]:checked::before {
+          left: 38%;
+          transition: all 0.4s;
+        }
+
+        input[type="checkbox"] ~ label .on, 
+        input[type="checkbox"]:checked ~ label .off {
+                opacity: 0;
+        }
+
+        input[type="checkbox"] ~ label .off, 
+        input[type="checkbox"]:checked ~ label .on {
+                opacity: 1;
+        }
+
+        input:focus {
+          outline: 1px dotted black;
+        }
+
+
+.event {
+  color: crimson;
+}

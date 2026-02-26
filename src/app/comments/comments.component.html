@@ -1,0 +1,21 @@
+
+
+<!-- Comment List --> 
+<div class="comment-list"> 
+    <div *ngFor="let comment of comments" class="comment"> 
+        <strong>{{ comment.user.name }}</strong> 
+        <p>{{ comment.content }}</p> 
+        <span class="date">{{ comment.createdAt | date:'short' }}</span> 
+    </div> 
+</div> 
+
+<!-- comment.component.html -->
+<div class="comment-section" *ngIf="isLogged===true">
+  <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+    <textarea formControlName="content"
+              placeholder="Write a comment..."
+              rows="3"
+              class="comment-input"></textarea>
+    <button type="submit" [disabled]="commentForm.invalid">Post Comment</button>
+  </form>
+</div>

@@ -1,0 +1,8 @@
+<h2>Honda</h2>
+<div *ngIf="xe$ | async as xe">
+  <h3>{{ xe.name }}</h3>
+  <p>Id: {{ xe.id }}</p>
+  <label for="xe-name">Xe name: </label>
+  <input type="text" id="xe-name" [(ngModel)]="xe.name" placeholder="name"/>
+  <button type="button" (click)="gotoListXe(xe)">Back</button>
+</div>

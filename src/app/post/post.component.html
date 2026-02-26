@@ -1,0 +1,30 @@
+
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
+  <fieldset>
+    <legend>Create a Post</legend>
+    
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" type="text" formControlName="title" placeholder="Enter post title" required maxlength="100" />
+    </div>
+
+    <!-- Content -->
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea id="content" formControlName="content" rows="3" required></textarea>
+    </div>
+
+    <!-- Media URL -->
+    <div class="form-group">
+      <label for="mediaUrl">Media URL</label>
+      <input id="mediaUrl" type="text" formControlName="mediaUrl" placeholder="Optional image/video link" />
+    </div>
+
+    <!-- Submit -->
+    <footer class="form-actions">
+      <button type="submit" [disabled]="postForm.invalid">Publish</button>
+    </footer>
+  </fieldset>
+</form>
+
+

@@ -1,0 +1,7 @@
+
+svg{
+    max-width: fit-content;
+    max-height:fit-content;
+    object-fit:cover;
+    object-position: center;
+  }

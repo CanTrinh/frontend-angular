@@ -1,1 +1,162 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+   margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-decoration: none;
+    list-style: none;
+    /* box-sizing: border-box; */
+  }
+
+  * .form{
+    position:absolute;
+    margin-top: 0;
+    margin-left: 35%;
+    max-width: 600px;
+    background-color: #97c1d1;
+    border: 2px solid blanchedalmond;
+  }
+  
+  * .form input{
+    display:flex;
+    background-color:  #97c1d1;
+    font-size: 1.2rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    height: 30px;
+  }
+
+  * .form button{
+    background-color: #f7c94b;
+    margin-left: 50px;
+  }
+
+
+
+
+  :root{
+    --color-primary: #6c63ff;
+    --color-success: #00bf8e;
+    --color-warning: #f7c94b;
+    --color-danger: #f75842;
+    --color-danger-variant: rgba(247, 88, 66, 0.4);
+    --color-white:#fff;
+    --color-light:rgba(255, 255, 255, 0.7);
+    --color--gray: #808080;
+    --color-black:#000;
+    --color-bg:#1f2641;
+    --color-bg1:#2e3267;
+    --color-bg2:#424890;
+  
+    --container-width-lg:80%;
+    --container-width-md:90%;
+    --container-width-sm:94%;
+  
+    --transition: all 400ms ease;
+  
+  }
+  
+  body {
+      /*background-color: #fff;
+      color: #333;*/
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-family: Roboto, "Helvetica Neue", sans-serif; 
+      font: 1.2rem / 1.2 Arial, Helvetica, sans-serif;
+      
+    }
+
+    body.light-theme {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    body.dark-theme {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body.light-theme select {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    body.dark-theme select {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body.light-theme main a {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    body.dark-theme main a {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    /*
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    */
+
+ 
+  
+    h1,h2,h3,h4,h5{
+      line-height: 1.2;
+    }
+
+    
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+  }
+
+  nav {
+    padding: 0;
+  }
+  
+  nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 10px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: var(--color-black);
+    /* padding: .5em 1em; */
+  }
+
+  * .user {
+    background-color: aquamarine;
+    border-radius: 50% 20% / 10% 40%; ;
+  
+  
+  }
+  
+html, body { height: 100%; }
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+.snowflake {
+  position: fixed;
+  top: -10px;
+  z-index: 9999;
+  color: rgb(71, 137, 235);
+  font-size: 1em;
+  user-select: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}

@@ -1,0 +1,49 @@
+
+<!--
+<form action="" [formGroup]="userFormRe" (ngSubmit)="signIn()">
+    <label for="name">username: </label>
+    <input id="name" name="name" type="text" formControlName="name">
+    <label for="pass">password: </label>
+    <input id="pass" name="pass" type="text" formControlName="password">
+    <button type="submit" [disabled]="!userFormRe.valid">login</button>
+    <div class="ticker">
+        <label for="checkbox">
+            Hãy đăng ký nếu bạn chưa có tài khoản!
+        </label>
+        <input #register id="checkbox" type="checkbox" name="reCheckbox" value="">
+    </div>
+
+    <li><a href="" routerLink="/register">Register</a></li>
+
+</form>
+ <p>{{name}}</p>
+-->
+ <!-- login.component.html -->
+<div class="form">
+  <h2 *ngIf="!isRegisterMode">Login</h2>
+  <h2 *ngIf="isRegisterMode">Register</h2>
+
+  <form class="login" *ngIf="!isRegisterMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <input formControlName="name" type="string" placeholder="Username/Email" />
+    <input formControlName="password" type="password" placeholder="Password" />
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>
+
+  <form *ngIf="isRegisterMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <input formControlName="name" type="text" placeholder="Username(min-length 4)" />
+    <input formControlName="email" type="email" placeholder="Email" />
+    <input formControlName="password" type="password" placeholder="Password(8 kt hoa,so,dac biet )" />
+    <button type="submit" [disabled]="!registerForm.valid">Register</button>
+  </form>
+
+  <button (click)="toggleMode()">
+    {{ isRegisterMode ? 'Already have an account? Login' : 'Don’t have an account? Register' }}
+  </button>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+
+  

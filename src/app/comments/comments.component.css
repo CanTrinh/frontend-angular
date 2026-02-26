@@ -1,0 +1,35 @@
+.comment {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+  border: 2px solid #0e1eb5;
+  margin: 5px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* circular avatar */
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.comment-body {
+  flex: 1;
+}
+
+.comment-body strong {
+  color: #333;
+  font-size: 14px;
+}
+
+.comment-body p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.comment-body .date {
+  font-size: 12px;
+  color: #888;
+}

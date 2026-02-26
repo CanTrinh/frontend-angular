@@ -1,0 +1,15 @@
+<div class="yas">
+<h3>YAMAHA</h3>
+<ul class="ya">
+    <li *ngFor="let xeya of xeyas$ | async" [class.selected]="xeya.id === selectedId">
+      <a [routerLink]="[xeya.id]">
+        <!-- <span 
+        class="badge">{{ xeya.id }}
+        </span> -->
+        {{ xeya.name }}
+      </a>
+    </li>
+</ul>
+</div>
+
+<router-outlet></router-outlet>

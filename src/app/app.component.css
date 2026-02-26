@@ -1,0 +1,123 @@
+app-header{
+    display: grid;
+    border-bottom: 5px solid #a66;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    color:var(--color--gray);
+}
+
+nav {  
+    /* background-color: rgba(68, 61, 61, 0.5);   */
+    position: sticky;
+    background-color: rgb(234, 232, 232);
+    border-bottom: 5px solid #a66;
+    top: 0px;
+    left: 0px;
+}
+
+nav > ul{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+
+nav ul > li {
+    position: relative;
+    }
+    
+    .sub {
+    position: absolute;
+    background-color: grey;
+    top: 43.038px;   
+  }
+
+nav a {
+    background-color: rgb(234, 232, 232);
+}
+
+
+.profile {
+  position: relative;
+  display: inline-block;
+}
+
+nav li a.profile-icon {
+  display: inline-block;
+  width: 40px;       /* circle size */
+  text-align: center;
+  border-radius: 50%; /* round */
+  background-color: #cf54a2;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.profile ul.sub {
+  position: absolute;
+  top: 100%;   /* directly below avatar */
+  left: 0;
+  background-color: grey;
+  padding: 10px;
+  margin: 0;
+  list-style: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/*
+.container a:link,
+.container a:visited,
+.container a:focus {
+    background: palegoldenrod;
+    color: black;
+}
+
+.container a:hover {
+    background: orange;
+}
+
+.container a:active {
+    background: darkred;
+    color: white;
+}
+*/
+
+
+footer{
+    /*background: var(--color--gray);*/
+    background-color: rgb(214, 150, 150);
+    border-top: 1px solid #a66;
+    border-bottom: 1px solid #a66;
+    padding-top: 10px;
+    font-size: 0.9rem;
+    color: var(--color--black);
+}
+
+.footer__container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.footer__container > div h4{
+    margin-bottom: 0;
+}
+
+.footer__1 p{
+    margin: 0 0;
+}
+
+footer ul li{
+    margin-bottom: 0;
+}
+
+footer ul li a:hover{
+    text-decoration: underline;
+}
+
+.footer__socials{
+    display: flex;
+    gap: 1rem;
+    font-size: 1.2rem;
+    margin-top: 0;
+}

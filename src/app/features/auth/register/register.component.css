@@ -1,0 +1,61 @@
+form {
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: aliceblue;
+    position: fixed;
+    top: 30px;
+    left:35%;
+}
+
+button, label, input {
+    display: block;
+    font-family: inherit;
+    font-size: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    height: 30px;
+}
+
+  .ticker {
+        display:flex;
+    }
+
+    input[type="checkbox"] {
+        appearance: none;
+    }
+
+    input[type="checkbox"] {
+        position: relative;
+        margin-top: 8px;
+        width: 1em;
+        height: 1em;
+        border: 1px solid gray;
+        /* Adjusts the position of the checkbox on the text baseline */
+        vertical-align: -2px;
+        /* Set here so that widows 'High-contrast mode can override' */
+        color: green;
+        }
+
+    input[type="checkbox"]::before {
+        content:"✔";
+        position: absolute;
+        font-size: 1.2em;
+        right: -1px;
+        top: -0.3em;
+        visibility: hidden;
+        }
+
+    input[type="checkbox"]:checked::before {
+        /* Use visibility instead of display to avoid recalculatin layout */
+        visibility: visible;
+    }
+
+    input[type="checkbox"]:disabled {
+        border-color: black;
+        background: #ddd;
+        color: gray;
+    }

@@ -1,0 +1,38 @@
+<!--<div *ngIf="authService.isLoggedIn()">
+  <h2>Update Profile Picture</h2>-->
+
+  <!-- Camera input -->
+<!--
+  <input 
+    type="file" 
+    accept="image/*" 
+    capture="environment" 
+    (change)="onFileSelected($event)" 
+  />
+-->
+
+  <!-- Preview -->
+  <!--<div *ngIf="profilePicUrl">
+    <img [src]="profilePicUrl" alt="Profile Preview" width="150" />
+  </div>
+
+  <button (click)="uploadProfilePic()">Save Profile Picture</button>
+</div>
+-->
+
+<form [formGroup]="profileForm" (ngSubmit)="updateProfiles()">
+  <!-- Bio -->
+  <textarea formControlName="bio"></textarea>
+
+  <!-- File Upload -->
+  <input type="file" (change)="onFileSelected($event)" />
+
+  <!-- Camera Capture -->
+  <video #video autoplay></video>
+  <button type="button" (click)="capture()">Capture</button>
+  <canvas #canvas hidden></canvas>
+
+  <img *ngIf="profileForm.value.profilePic" [src]="profileForm.value.profilePic" />
+
+  <button type="submit">Update Profile</button>
+</form>

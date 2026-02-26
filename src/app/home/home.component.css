@@ -1,0 +1,49 @@
+.feed {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.feed h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+
+* .post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+* .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+* .post-body {
+  margin-bottom: 1rem;
+
+}
+
+* .post-media {
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.post-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/*
+.comments {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid #eee;
+}
+*/
