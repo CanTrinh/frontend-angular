@@ -19,7 +19,7 @@ export class WeatherApiService {
 
 
 
-  weatherUrl = 'http://api.weatherapi.com/v1/current.json?key=7baf5398ee89483b8d8151105230911';
+  weatherUrl = 'https://api.weatherapi.com/v1/current.json?key=7baf5398ee89483b8d8151105230911';
 
   constructor(
     private http: HttpClient
