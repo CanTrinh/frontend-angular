@@ -4,6 +4,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
 import { UserRegister } from './user';
 import { HttpErrorHandler, HandleError } from '../../../http-error-handler.service';
+import { environment } from 'src/environments/environment.prod';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class RegisterService {
-  usersUrl = 'http://localhost:3000/login/add';  // URL to web api
+  usersUrl = `${environment.apiUrl}/login/add`;  // URL to web api
     private handleError: HandleError;
   
     constructor(

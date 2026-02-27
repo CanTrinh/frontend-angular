@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 
 import { Observable, catchError, map } from 'rxjs';
@@ -17,7 +18,7 @@ const httpOptions = {
 
 @Injectable()
 export class EnglishService {
-  usersUrl = 'http://localhost:3000/users';  // URL to web api
+  usersUrl = `${environment.apiUrl}/users`;  // URL to web api
   private handleError: HandleError;
 
   constructor(

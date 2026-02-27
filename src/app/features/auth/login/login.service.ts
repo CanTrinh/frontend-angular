@@ -7,6 +7,7 @@ import { UserSignIn } from './dto/loginUser';
 //import { HttpErrorHandler, HandleError } from '../../../http-error-handler.service';
 import { RegisterUser } from './dto/registerUser.dto';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment.prod';
 
 export const httpOptions = {
   headers: new HttpHeaders({
@@ -19,7 +20,7 @@ export const httpOptions = {
   providedIn: 'root'
 })
 export class LoginService {
-  loginUrl = 'http://localhost:3000/auth/login';  // URL to web api
+  loginUrl = `${environment.apiUrl}/auth/login`;  // URL to web api
   registerUrl = 'http://localhost:3000/user/register';
   //private handleError: HandleError;
   private userSubject = new BehaviorSubject<any>(null);

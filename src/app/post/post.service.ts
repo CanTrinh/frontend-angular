@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
 import { CreatePostDto} from './dto/createPost.dto';
+import { environment } from 'src/environments/environment.prod';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +26,7 @@ export class PostService {
   */
 
 
-  private apiUrl = 'http://localhost:3000/posts'; // NestJS backend
+  private apiUrl = `${environment.apiUrl}/posts`; // NestJS backend
 
   constructor(private http: HttpClient) {}
 

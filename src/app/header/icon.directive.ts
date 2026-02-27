@@ -11,7 +11,7 @@ export class IconDirective {
   constructor(private img: ElementRef) { }
   
   addIcon (){
-    this.img.nativeElement.setAttribute("src", `http:${this.icon}`)
+    this.img.nativeElement.setAttribute("src", `https:${this.icon}`)
   }
 
 

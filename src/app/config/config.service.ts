@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, retry, throwError } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 export interface Config 
   {
@@ -12,7 +13,7 @@ export interface Config
 
 @Injectable()
 export class ConfigService {
-  configUrl = 'http://localhost:3000/heroes'
+  configUrl = `${environment.apiUrl}/heroes`
   constructor(private http: HttpClient) { }
 
   getConfig() {
