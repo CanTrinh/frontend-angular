@@ -21,7 +21,7 @@ export const httpOptions = {
 })
 export class LoginService {
   loginUrl = `${environment.apiUrl}/auth/login`;  // URL to web api
-  registerUrl = 'http://localhost:3000/user/register';
+  registerUrl = `${environment.apiUrl}/user/register`;
   //private handleError: HandleError;
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
