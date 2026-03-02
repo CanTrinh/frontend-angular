@@ -115,9 +115,9 @@ footer ul li a:hover{
     text-decoration: underline;
 }
 
-.footer__socials{
-    display: flex;
+/*.footer__socials{
+    display: block;
     gap: 1rem;
     font-size: 1.2rem;
     margin-top: 0;
-}
+}*
