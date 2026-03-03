@@ -6,6 +6,12 @@ app-header{
     color:var(--color--gray);
 }
 
+@media screen and (width <= 40em) {
+    app-header{
+        display: block;
+    }
+}
+
 nav {  
     /* background-color: rgba(68, 61, 61, 0.5);   */
     position: sticky;
