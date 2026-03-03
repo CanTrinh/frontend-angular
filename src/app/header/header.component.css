@@ -15,7 +15,6 @@
 .weather{
     display: flex;
     height: 43.04px ;
-    border-right: 1px solid black;
 }
 .weather p{
     padding: 10px 0;
@@ -27,7 +26,6 @@
 
   .date-time{
     padding: 10px 0;
-    border-right: 1px solid black;
     color: #ffaa00;
   }
 
@@ -47,7 +45,6 @@
     display: flex;
     box-sizing: content-box;
     overflow: hidden;
-    border-right: 1px solid black;
   }
 
   .logo .mylogo{
