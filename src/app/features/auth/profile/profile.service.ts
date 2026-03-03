@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateProfileDto } from './models/update-profile.dto';
 import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 

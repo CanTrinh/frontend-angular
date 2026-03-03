@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.profileForm = this.fb.group({
       bio: [''],
-      profilePic: ['']
+      profilePic: [null]
     });
   }
 
