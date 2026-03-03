@@ -1,3 +1,17 @@
+@media screen and (width > 40em) {
+  .weather{
+    border-right: 1px solid black;
+  }
+
+   .date-time{
+    border-right: 1px solid black;
+  }
+
+   .logo {
+    border-right: 1px solid black;
+  }
+}
+
 .weather{
     display: flex;
     height: 43.04px ;
