@@ -10,6 +10,11 @@ app-header{
     app-header{
         display:inline-block;
     }
+
+    app-header div{
+        margin: 0 auto;
+        border:0 0 0 2px solid burlywood ;
+    }
 }
 
 nav {  
