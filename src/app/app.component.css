@@ -6,11 +6,11 @@ app-header{
     color:var(--color--gray);
 }
 
-@media screen and (width <= 40em) {
+/*@media screen and (width <= 40em) {
     app-header{
-        display: block;
+        display:inline-block;
     }
-}
+}*/
 
 nav {  
     /* background-color: rgba(68, 61, 61, 0.5);   */

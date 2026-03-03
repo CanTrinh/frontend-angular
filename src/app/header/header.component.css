@@ -1,3 +1,9 @@
+div {
+  flex: 1 200px;
+}
+
+div:nth-child
+
 .weather{
     display: flex;
     height: 43.04px ;
