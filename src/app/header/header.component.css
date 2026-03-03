@@ -1,10 +1,11 @@
 div {
-  flex: 1 200px;
+  flex: 1 300px;
 }
 
 
 
 .weather{
+    display: flex;
     height: 43.04px ;
     border-right: 1px solid black;
 }
