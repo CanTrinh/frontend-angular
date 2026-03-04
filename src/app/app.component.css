@@ -9,6 +9,7 @@ app-header{
 @media screen and (width <= 40em) {
     app-header{
         display:block;
+        margin: 0 auto;
     }
 }
 
