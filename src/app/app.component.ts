@@ -38,6 +38,7 @@ export class AppComponent implements AfterViewInit{
     this.loginService.user$.subscribe(u => {
       this.user = u;
       this.isLoggedIn= true;
+      console.log(this.user);
     });
     this.loginService.loadUserFromStorage(); // restore after refresh
   }
