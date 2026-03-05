@@ -48,7 +48,7 @@
                 (mouseenter)="showMenu = true"
                 (mouseleave)="showMenu = false">
                 <a routerLink="user/profile" class="profile-icon" *ngIf="!user.profilePic">{{ user.name.slice(0,1) }}</a>
-                <a routerLink="user/profile" class="profile-icon"><img [src]="user.profilePic" crossorigin="anonymous" alt="Profile pic" ></a>
+                <a routerLink="user/profile" class="profile-icon"><img [src]="user.profilePic" crossorigin="anonymous" alt="" ></a>
                 <ul class="sub profile" *ngIf="showMenu">
                     <li><a href=""><i class="uil uil-envelope"></i></a></li>
                     <li><a href=""><i class="uil uil-medal"></i></a></li>
