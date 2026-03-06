@@ -8,7 +8,8 @@
   </div>
 
   <div *ngFor="let post of posts" class="post-header">
-    <p>{{ post.author.name }}</p>
+    <p *ngIf="!post.author.profilePic">{{ post.author.name }}</p>
+    <img [src]="post.author.profilePic" alt="">
     <h3>
       <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
     </h3>
