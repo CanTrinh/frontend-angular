@@ -1,4 +1,4 @@
-app-header{
+/*app-header{
     display: grid;
     border-bottom: 5px solid #a66;
     grid-template-columns: repeat(4, 1fr);
@@ -12,6 +12,17 @@ app-header{
         margin: 0 auto;
     }
 }
+*/
+
+/* Xóa bỏ grid-template-columns ở đây vì đã có trong component con */
+app-header {
+    display: block; /* Để :host bên trong tự quyết định Grid hay Flex */
+    width: 100%;
+    /*position: sticky;*/ /* Nếu bạn muốn header dính trên cùng khi cuộn */
+    top: 0;
+    z-index: 1000;
+}
+
 
 nav {  
     /* background-color: rgba(68, 61, 61, 0.5);   */

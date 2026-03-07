@@ -6,14 +6,27 @@
     <img class="tet" src="../../assets/img/yellow apricot blossom flower.svg" alt="">
 </div>
 
-<div class="date-time"> {{result}} {{today | date: 'dd/MM/yy'}}|| {{tetDay}}</div>
-<div class="weather">
-    <select id="town" name="town" (change)="onChangeValue($event)">
-        <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
-    </select>
-    <img [src]="icon" alt="" appIcon>
-    <p class="temp">{{temp}}</p>
-    <code>&deg;C</code>
+<div class="marquee-group" [class.paused]="isPaused">
+    <div class="date-time"> {{result}} {{today | date: 'dd/MM/yy'}}|| {{tetDay}}</div>
+    <div class="weather">
+        <select id="town" name="town" (change)="onChangeValue($event)">
+            <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
+        </select>
+        <img [src]="icon" alt="" appIcon>
+        <p class="temp">{{temp}}</p>
+        <code>&deg;C</code>
+    </div>
+
+    <!--lan2-->
+    <div class="date-time" aria-hidden="true"> {{result}} {{today | date: 'dd/MM/yy'}}|| {{tetDay}}</div>
+    <div class="weather" aria-hidden="true">
+        <select id="town" name="town" (change)="onChangeValue($event)">
+            <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
+        </select>
+        <img [src]="icon" alt="" appIcon>
+        <p class="temp">{{temp}}</p>
+        <code>&deg;C</code>
+    </div>
 </div>
 <div class="mode">
     <ul>

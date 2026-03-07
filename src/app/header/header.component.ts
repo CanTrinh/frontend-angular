@@ -25,6 +25,7 @@ import { SanitizeUrlService } from '../sanitize-url.service';
 })
 
 export class HeaderComponent implements AfterViewInit{
+  isPaused: boolean = false;
   today: number = Date.now();
   dayName = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
   days = new Date; // tao ra tham so days cua la mot ham tao new Date

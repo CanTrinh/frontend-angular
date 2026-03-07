@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule, DatePipe, NgIf, NgFor, ],
+  imports: [ReactiveFormsModule, ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
