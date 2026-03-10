@@ -41,8 +41,8 @@ export class LoginService {
         .pipe(
           //catchError(this.handleError('signInUser', userSignIn))
           tap(res =>{
-            localStorage.setItem('token', res.access_token);
-            localStorage.setItem('user', JSON.stringify(res.userInfor));
+            sessionStorage.setItem('token', res.access_token);
+            sessionStorage.setItem('user', JSON.stringify(res.userInfor));
             this.userSubject.next(res.userInfor);
 
           })
@@ -51,7 +51,7 @@ export class LoginService {
     }
 
     getToken(): string | null { 
-      return localStorage.getItem('token');
+      return sessionStorage.getItem('token');
    }
 
    isLoggedIn(): boolean { 
@@ -60,18 +60,37 @@ export class LoginService {
     }
 
   loadUserFromStorage() {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      this.userSubject.next(JSON.parse(savedUser));
+  // Đổi từ localStorage sang sessionStorage
+  const savedUser = sessionStorage.getItem('user'); 
+  
+  if (savedUser) {
+    try {
+      const user = JSON.parse(savedUser);
+      // Đẩy dữ liệu vào Subject để các Component (Header, Profile) nhận được ảnh/tên
+      this.userSubject.next(user); 
+    } catch (e) {
+      console.error("Lỗi đọc dữ liệu user từ session", e);
+      this.logout(); // Nếu dữ liệu lỗi, ép logout cho an toàn
     }
   }
+}
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-    this.userSubject.next(null);
-  }
+
+ logout() {
+  // 1. Xóa sạch mọi thứ trong sessionStorage (Token, User Info, v.v.)
+  sessionStorage.clear();
+  // Hoặc dùng sessionStorage.clear() để xóa toàn bộ cho chắc chắn
+  
+  // 2. Cập nhật Subject để các Component (Header/Avatar) ẩn ảnh người dùng ngay lập tức
+  this.userSubject.next(null);
+  
+  // 3. Điều hướng người dùng về trang Login
+  this.router.navigate(['/login']);
+  
+  // (Tùy chọn) Gọi thêm API logout ở Backend nếu bạn cần xóa session ở server
+  // this.http.post(`${API_URL}/auth/logout`, {}).subscribe();
+}
+
 
 
     registerUser(registerUser: RegisterUser):Observable<RegisterUser>
