@@ -1,4 +1,4 @@
-/*@media screen and (width > 40em) {
+@media screen and (width > 40em) {
   .weather{
     border-right: 1px solid black;
   }
@@ -136,75 +136,4 @@
 
 .event {
   color: crimson;
-}*/
-
-/* --- CẤU HÌNH CHUNG --- */
-:host {
-    display: block;
-    border-bottom: 5px solid #a66;
-    color: var(--color--gray);
 }
-
-/* --- TRÊN MÁY TÍNH (DESKTOP) --- */
-@media (min-width: 992px) {
-    :host {
-        display: grid !important;
-        grid-template-columns: 1.5fr 3fr 1fr; /* Logo | Group Thông tin | Mode */
-        align-items: center;
-        gap: 15px;
-        padding: 0 20px;
-    }
-
-    .marquee-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Chia nhỏ dải thông tin thành 2 cột trong Grid lớn */
-        align-items: center;
-        gap: 20px;
-    }
-
-    .logo, .mode { display: flex; align-items: center; }
-}
-
-/* --- TRÊN ĐIỆN THOẠI (MOBILE) --- */
-@media (max-width: 991px) {
-    :host {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        overflow: hidden; /* Quan trọng để ẩn phần chữ chạy ra ngoài */
-        height: 60px;
-    }
-
-    .logo, .mode {
-        flex-shrink: 0;
-        z-index: 10; /* Đảm bảo logo/mode luôn nằm trên dải chữ chạy */
-        background: var(--bg-color, white); /* Che phần chữ chạy bên dưới */
-        padding: 0 10px;
-    }
-
-    .marquee-group {
-        display: flex;
-        flex: 1;
-        white-space: nowrap;
-        animation: marquee 20s linear infinite;
-    }
-
-    /* Hiệu ứng dừng khi Hover hoặc khi đang Focus vào Select */
-    .marquee-group:hover, 
-    .marquee-group.paused {
-        animation-play-state: paused;
-    }
-
-    .date-time, .weather {
-        display: flex;
-        align-items: center;
-        padding: 0 40px; /* Tạo khoảng cách giữa ngày tháng và thời tiết khi chạy */
-    }
-}
-
-/* Định nghĩa chuyển động trượt */
-@keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
