@@ -9,7 +9,7 @@
 
   <div *ngFor="let post of posts" class="post-header">
     <p *ngIf="!post.author.profilePic">{{ post.author.name }}</p>
-    <img [src]="post.author.profilePic" alt="">
+    <img [src]="post.author.profilePic" alt="" class="profile-pic">
     <h3>
       <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
     </h3>
