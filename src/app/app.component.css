@@ -1,13 +1,12 @@
 
 @media screen and (width > 40em) {
-    :host { display: block; }
-    /*app-header{
+    app-header{
         display: grid;
         border-bottom: 5px solid #a66;
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
         color:var(--color--gray);
-    }*/
+    }
 }
 
 @media screen and (width <= 40em) {

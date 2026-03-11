@@ -1,7 +1,7 @@
 @media screen and (width > 40em) {
-
-  
   .weather{
+    display: flex;
+    height: 43.04px ;
     border-right: 1px solid black;
   }
 
@@ -14,11 +14,35 @@
   }
 }
 
+@media screen and (width <= 40em) {
+  .logo{
+    display: flex;
+    margin: 0 auto;
+  }
 
-.weather{
+  .date-time{
+    display: flex;
+    margin: 0 auto;
+  }
+
+  .weather{
     display: flex;
     height: 43.04px ;
+    margin: 0 auto;
+  }
+
+  .mode{
+    display: flex;
+    margin: 0 auto;
+  }
+
 }
+
+/*.weather{
+    display: flex;
+    height: 43.04px ;
+}*/
+
 .weather p{
     padding: 10px 0;
   }
