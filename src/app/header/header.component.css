@@ -1,4 +1,6 @@
 @media screen and (width > 40em) {
+
+  
   .weather{
     border-right: 1px solid black;
   }
@@ -25,9 +27,6 @@
     padding: 10px 0;
   }
 
-  
-
-  
   
   .date-time{
     padding: 10px 0;
