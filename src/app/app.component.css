@@ -24,7 +24,7 @@
       "date weather" /* Tầng 3: Header (phần chạy chữ) */
       "main main"       /* Tầng 4: Nội dung chính */
       "footer footer";  /* Tầng 5: Chân trang */
-    gap: 10px;
+    gap: 5px;
   }
 
   app-header {
