@@ -9,7 +9,9 @@
     grid-template-areas: 
       "logo mode"
       "nav nav"
-      "marquee marquee";
+      "marquee marquee"
+      "main main"       /* Tầng 4: Nội dung chính */
+      "footer footer";  /* Tầng 5: Chân trang */
     gap: 10px;
   }
 
@@ -22,6 +24,14 @@
   nav {
     grid-area: nav;
     border-bottom: 2px solid #eee;
+  }
+
+   main {
+    grid-area: main;
+  }
+
+  footer {
+    grid-area: footer;
   }
   
   nav > ul {
