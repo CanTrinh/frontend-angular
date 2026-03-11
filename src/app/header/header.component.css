@@ -12,69 +12,37 @@
   }
 }
 */
-
-/* Desktop */
-:host {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  border-bottom: 5px solid #a66;
-  color: var(--color--gray);
-}
-
-/* Mobile */
 @media (max-width: 767px) {
-  /* Gán các div vào đúng vị trí Grid đã định nghĩa ở app.component */
-  .logo { grid-area: logo; }
-  .mode { grid-area: mode; justify-self: end; }
+  .logo { 
+    grid-area: logo; 
+  }
+  .mode { 
+    grid-area: mode; 
+    justify-self: end; 
+  }
 
-  /* Gom Date-time và Weather vào vùng marquee */
+  /* Hai phần này sẽ cùng nhảy vào vùng "marquee" nằm dưới Nav */
   .date-time, .weather {
     grid-area: marquee;
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 30px; /* Độ cao vùng chạy chữ */
-    display: flex;
-    align-items: center;
+    height: 35px;
   }
 
-  /* Thiết lập nội dung chạy */
+  /* Animation chạy chữ */
   .date-time > div, .weather > div {
     position: absolute;
     white-space: nowrap;
-    width: 100%;
-    transform: translateX(-100%);
-    animation: scrollSeq 10s linear infinite;
+    animation: scrollSeq 12s linear infinite;
   }
 
-  /* Weather chạy sau Date-time 5 giây */
-  .weather > div {
-    animation-delay: 5s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
+  .weather > div { animation-delay: 6s; }
+}
 
-  /* Giữ Select đứng yên khi Weather chạy (nếu select nằm trong .weather) */
-  .weather select {
-    position: relative;
-    z-index: 20;
-    margin-right: 10px;
-  }
-
-  /* Hiệu ứng chạy chữ từ trái qua phải */
-  @keyframes scrollSeq {
-    0%   { transform: translateX(-100%); opacity: 0; }
-    5%   { opacity: 1; }
-    95%  { opacity: 1; }
-    100% { transform: translateX(100%); opacity: 0; }
-  }
-
-  /* Dừng lại khi người dùng tương tác */
-  .date-time:hover > div, .weather:hover > div {
-    animation-play-state: paused;
-  }
+@keyframes scrollSeq {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 
