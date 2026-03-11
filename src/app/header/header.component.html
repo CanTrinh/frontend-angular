@@ -10,11 +10,10 @@
         <select id="town" name="town" (change)="onChangeValue($event)">
             <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
         </select>
-        <div>
-            <img [src]="icon" alt="" appIcon>
-            <p class="temp">{{temp}}</p>
-            <code>&deg;C</code>
-        </div>
+        <img [src]="icon" alt="" appIcon>
+        <p class="temp">{{temp}}</p>
+        <code>&deg;C</code>
+
     </div>
 
     <!--lan2-->
