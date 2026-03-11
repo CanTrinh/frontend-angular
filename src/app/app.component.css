@@ -1,47 +1,4 @@
-/* Desktop: Không can thiệp để giữ layout mặc định */
-:host { display: block; }
 
-@media (max-width: 767px) {
-  :host {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* Định nghĩa layout 3 tầng */
-    grid-template-areas: 
-      "logo mode"
-      "nav nav"
-      "marquee marquee"
-      "main main"       /* Tầng 4: Nội dung chính */
-      "footer footer";  /* Tầng 5: Chân trang */
-    gap: 10px;
-  }
-
-  /* Làm cho app-header "vô hình" để các div con bên trong nó 
-     có thể sắp xếp theo Grid của app-root */
-  app-header {
-    display: contents; 
-  }
-
-  nav {
-    grid-area: nav;
-    border-bottom: 2px solid #eee;
-  }
-
-   main {
-    grid-area: main;
-  }
-
-  footer {
-    grid-area: footer;
-  }
-  
-  nav > ul {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    margin: 0;
-    list-style: none;
-  }
-}
 
 
 
@@ -54,12 +11,12 @@ app-header{
     color:var(--color--gray);
 }
 
-/*@media screen and (width <= 40em) {
+@media screen and (width <= 40em) {
     app-header{
         display:block;
         margin: 0 auto;
     }
-}*/
+}
 
 nav {  
     /* background-color: rgba(68, 61, 61, 0.5);   */

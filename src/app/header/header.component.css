@@ -1,4 +1,4 @@
-/*@media screen and (width > 40em) {
+@media screen and (width > 40em) {
   .weather{
     border-right: 1px solid black;
   }
@@ -10,39 +10,6 @@
    .logo {
     border-right: 1px solid black;
   }
-}
-*/
-@media (max-width: 767px) {
-  .logo { 
-    grid-area: logo; 
-  }
-  .mode { 
-    grid-area: mode; 
-    justify-self: end; 
-  }
-
-  /* Hai phần này sẽ cùng nhảy vào vùng "marquee" nằm dưới Nav */
-  .date-time, .weather {
-    grid-area: marquee;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    height: 35px;
-  }
-
-  /* Animation chạy chữ */
-  .date-time > div, .weather > div {
-    position: absolute;
-    white-space: nowrap;
-    animation: scrollSeq 12s linear infinite;
-  }
-
-  .weather > div { animation-delay: 6s; }
-}
-
-@keyframes scrollSeq {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
 }
 
 
