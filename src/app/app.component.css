@@ -10,10 +10,38 @@
 }
 
 @media screen and (width <= 40em) {
-    app-header{
+    /*app-header{
         display:block;
         margin: 0;
-    }
+    }*/
+    :host {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Định nghĩa 5 tầng cho toàn bộ ứng dụng */
+    grid-template-areas: 
+      "logo mode"       /* Tầng 1: Header (phần trên) */
+      "nav nav"         /* Tầng 2: Navigation */
+      "date weather" /* Tầng 3: Header (phần chạy chữ) */
+      "main main"       /* Tầng 4: Nội dung chính */
+      "footer footer";  /* Tầng 5: Chân trang */
+    gap: 10px;
+  }
+
+  app-header {
+    display: contents; 
+  }
+
+  nav {
+    grid-area: nav;
+  }
+
+  main {
+    grid-area: main;
+  }
+
+  footer {
+    grid-area: footer;
+  }
 }
 
 nav {  

@@ -23,6 +23,7 @@
 
 @media screen and (width <= 40em) {
   .logo{
+    grid-area: logo; 
     display: flex;
     margin: 0 auto;
     align-items: center;
@@ -30,17 +31,20 @@
   }
 
   .date-time{
+    grid-area: date; 
     display: flex;
     margin: 0 auto;
   }
 
   .weather{
+    grid-area: weather; 
     display: flex;
     height: 43.04px ;
     margin: 0 auto;
   }
 
   .mode{
+    grid-area: mode; 
     display: flex;
     margin: 0 auto;
   }
