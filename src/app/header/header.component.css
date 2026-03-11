@@ -45,6 +45,7 @@
 
   .mode{
     grid-area: mode; 
+    justify-self: end;
     display: flex;
     margin: 0 auto;
   }
