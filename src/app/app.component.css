@@ -97,6 +97,10 @@ nav li a.profile-avatar img {
   object-fit: cover;
 }
 
+nav ul li.parent-login{
+    padding:0 10px;
+  }
+
 .profile ul.sub {
   position: absolute;
   top: 100%;   /* directly below avatar */
