@@ -132,7 +132,7 @@
   }
 
   app-root nav ul .parent-login{
-    padding:0 10px;
+    padding:0 10px !important;
   }
   
   a {
