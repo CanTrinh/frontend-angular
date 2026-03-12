@@ -83,6 +83,7 @@ nav a {
 nav li a.profile-icon {
   display: inline-block;
   width: 40px;       /* circle size */
+  height: 20px;
   text-align: center;
   border-radius: 50%; /* round */
   background-color: #cf54a2;
