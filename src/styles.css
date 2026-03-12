@@ -126,9 +126,14 @@
     list-style: none;
   }
 
+  * nav ul li.parent-login{
+    padding:0 10px;
+  }
+
   li {
     padding: 10px;
   }
+
   
   a {
     text-decoration: none;
