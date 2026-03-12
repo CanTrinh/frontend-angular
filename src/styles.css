@@ -131,7 +131,7 @@
     padding: 10px;
   }
 
-  app-root nav ul .parent-login{
+  app-root nav ul li.parent-login{
     padding:0 10px !important;
   }
   
