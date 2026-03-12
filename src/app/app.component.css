@@ -91,9 +91,13 @@ nav li a.profile-icon {
   cursor: pointer;
 }
 
+nav li.parent-login{
+    padding:0 10px;
+}
+
 nav li a.profile-avatar img {
   width: 40px;
-  height: 20px;
+  height: 40px;
   object-fit: cover;
 }
 
