@@ -91,7 +91,7 @@ nav li a.profile-icon {
   cursor: pointer;
 }
 
-nav li.parent-login{
+ * nav ul li.parent-login{
     padding:0 10px;
 }
 
