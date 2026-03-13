@@ -115,6 +115,7 @@ button:hover:not(:disabled) {
 
 */
 
+/*
 * .post-form, .post-card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -165,3 +166,194 @@ button:hover:not(:disabled) {
   padding-left: 1rem;
   border-left: 2px solid #eee;
 }
+*/
+
+/* Container chính của Form */
+.post-form {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 0 10px;
+}
+
+/* Các nhóm nhập liệu */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Input và Textarea */
+input[type="text"], 
+textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* PHẦN LINK PREVIEW (Quan trọng) */
+.link-preview-container {
+  margin: 15px 0;
+  border: 1px solid #e1e4e8;
+  border-radius: 10px;
+  background: #f8f9fa;
+  position: relative;
+  overflow: hidden; /* Để ảnh thumbnail bo góc theo card */
+  padding: 0 !important; /* Đè hoàn toàn padding của các thẻ cha */
+}
+
+.preview-card-wrapper {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.remove-preview {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.remove-preview:hover {
+  background: #ff4d4f;
+  color: white;
+}
+
+/* Layout ngang cho Card Preview */
+.horizontal-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.horizontal-card .thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0; /* Không cho ảnh bị co lại */
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta strong {
+  font-size: 1rem;
+  color: #1d1f23;
+  
+  /* Giới hạn 2 dòng - Chuẩn hiện đại */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Hỗ trợ Chrome, Safari, Edge */
+  line-clamp: 2;         /* Tiêu chuẩn W3C cho tương lai */
+  overflow: hidden;
+}
+
+.meta p {
+  font-size: 0.85rem;
+  color: #65676b;
+  margin: 0;
+  
+  /* Giới hạn 2 dòng */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+
+/* YouTube Video Preview */
+.video-preview {
+  background: #ff000010;
+  padding: 8px;
+  border-radius: 6px;
+  border-left: 4px solid #ff0000;
+}
+
+.video-preview p {
+  margin: 0;
+  color: #c4302b;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Trạng thái Loading */
+.loading-text {
+  font-size: 0.85rem;
+  color: #007bff;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+/* Nút Submit */
+.form-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
