@@ -61,10 +61,15 @@ export class PostComponent {
   // Submit handler
   onSubmit(): void {
     if (this.postForm.valid) {
-      this.postService.createPost(this.postForm.value).subscribe({
+      const postPayload = {
+        ...this.postForm.value,
+        metadata: this.linkPreview // Ép metadata vào đây để gửi lên NestJS
+      };
+      this.postService.createPost(postPayload).subscribe({
         next: (res) => {
           console.log('Post created successfully:', res);
           this.postForm.reset(); // clear form after success
+          this.linkPreview = null;
           this.router.navigate(['/posts', res.id]);
         },
         error: (err) => {
