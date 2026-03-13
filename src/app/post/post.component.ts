@@ -68,9 +68,9 @@ export class PostComponent {
       this.postService.createPost(postPayload).subscribe({
         next: (res) => {
           console.log('Post created successfully:', res);
-          this.postForm.reset(); // clear form after success
-          this.linkPreview = null;
-          this.router.navigate(['/posts', res.id]);
+         // this.postForm.reset(); // clear form after success
+          //this.linkPreview = null;
+          //this.router.navigate(['/posts', res.id]);
         },
         error: (err) => {
           console.error('Error creating post:', err);
