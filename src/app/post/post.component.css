@@ -229,7 +229,22 @@ input:focus, textarea:focus {
   position: relative;
   overflow: hidden; /* Để ảnh thumbnail bo góc theo card */
   padding: 0 !important; /* Đè hoàn toàn padding của các thẻ cha */
+  animation: slideInUp 0.4s ease-out forwards; /* Chạy khi *ngIf = true */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
+
+/* Hiệu ứng khi di chuột vào Card */
+.link-preview-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  border-color: #007bff50;
+}
+
+.link-preview-container:hover .thumb {
+  transform: scale(1.05); /* Ảnh phóng to nhẹ khi hover */
+}
+
 
 .preview-card-wrapper {
   padding: 12px;
@@ -274,6 +289,7 @@ input:focus, textarea:focus {
   object-fit: cover;
   border-radius: 6px;
   flex-shrink: 0; /* Không cho ảnh bị co lại */
+  transition: transform 0.3s ease;
 }
 
 .meta {
@@ -307,6 +323,18 @@ input:focus, textarea:focus {
   overflow: hidden;
 }
 
+.meta strong, .meta p {
+  transition: color 0.2s ease;
+}
+
+.link-preview-container:hover .meta strong {
+  color: #007bff; /* Tiêu đề đổi màu xanh khi di chuột vào card */
+}
+
+.link-preview-container:hover .meta p {
+  color: #333; /* Nội dung đậm hơn một chút khi hover */
+}
+
 
 /* YouTube Video Preview */
 .video-preview {
@@ -314,6 +342,7 @@ input:focus, textarea:focus {
   padding: 8px;
   border-radius: 6px;
   border-left: 4px solid #ff0000;
+  animation: pulse 2s infinite ease-in-out;
 }
 
 .video-preview p {
