@@ -1,0 +1,28 @@
+<div class="admin-panel">
+  <h2>Quản lý người dùng</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tên</th>
+        <th>Email</th>
+        <th>Quyền hiện tại</th>
+        <th>Thay đổi quyền</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td><strong>{{ user.role.role_name }}</strong></td>
+        <td>
+          <!-- Select box để chọn Role mới -->
+          <select (change)="onRoleChange(user.id, +$any($event.target).value)">
+            <option *ngFor="let r of roles" [value]="r.id" [selected]="r.id === user.roleId">
+              {{ r.name }}
+            </option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

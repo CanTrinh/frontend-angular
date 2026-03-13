@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { PostService } from './post.service';
 import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 
 
@@ -11,27 +12,52 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule, ],
+  imports: [ReactiveFormsModule,NgIf ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
 
   postForm!: FormGroup;
+  linkPreview: any = null; // Chứa data từ NestJS
+  isScanning = false;
 
   constructor(private fb: FormBuilder, 
     private postService: PostService,
-    private router: Router) {}
+    private router: Router) {
+       // Initialize Reactive Form
+      this.postForm = this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(100)]],
+        content: ['', [Validators.required, Validators.maxLength(500)]],
+        mediaUrl: ['']
+      });
+
+    }
 
   ngOnInit(): void {
-    // Initialize Reactive Form
-    this.postForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(100)]],
-      content: ['', [Validators.required, Validators.maxLength(500)]],
-      mediaUrl: ['']
+     // Theo dõi Content để tự động bắt link
+    this.postForm.get('content')?.valueChanges.pipe(
+      debounceTime(800),
+      distinctUntilChanged()
+    ).subscribe(text => {
+      const url = this.postService.extractUrl(text);
+      if (url && (!this.linkPreview || url !== this.linkPreview.url)) {
+        this.fetchMetadata(url);
+      }
     });
   }
 
+  fetchMetadata(url: string) {
+    this.isScanning = true;
+    this.postService.getLinkMetadata(url).subscribe(res => {
+      this.linkPreview = res;
+      this.isScanning = false;
+      // Nếu có link, tự điền vào ô Media URL cho user thấy
+      if (res && !this.postForm.get('mediaUrl')?.value) {
+        this.postForm.patchValue({ mediaUrl: url }, { emitEvent: false });
+      }
+    });
+  }
   // Submit handler
   onSubmit(): void {
     if (this.postForm.valid) {

@@ -1,5 +1,5 @@
 // error.interceptor.ts
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { LoginService } from '../features/auth/login/login.service';
 import { MessageService } from '../message.service';
@@ -10,7 +10,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginService);
   const messageService = inject(MessageService);
 
-  return next(req).pipe(
+  /*return next(req).pipe(
     catchError(error => {
       const status = error.status;
 
@@ -24,5 +24,29 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
       return throwError(() => error);
     })
+  );*/
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      let errorMessage = 'Đã có lỗi xảy ra';
+
+      if (error.error instanceof ErrorEvent) {
+        // Lỗi phía Client (mạng, code...)
+        errorMessage = `Lỗi: ${error.error.message}`;
+      } else {
+        // Lỗi phía Server (AWS trả về)
+        errorMessage = `Mã lỗi: ${error.status} - ${error.message}`;
+        
+        // Tự động logout nếu hết hạn (401/403)
+        if (error.status === 401 || error.status === 403) {
+          authService.logout();
+        }
+      }
+
+      // Đẩy vào MessageService để hiển thị lên UI
+      messageService.add(errorMessage);
+      
+      return throwError(() => error);
+    })
   );
 };
+

@@ -11,13 +11,20 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './app/authentication/auth.interceptor';
 import { errorInterceptor } from './app/authentication/error.interceptor';
+import { MessageService } from './app/message.service';
+import { LoginService } from './app/features/auth/login/login.service';
 // import { importProvidersFrom } from '@angular/core';
 //import { HttpClientModule } from '@angular/common/http';
 
 bootstrapApplication(AppComponent,{
- providers: [provideRouter(appRoutes, withComponentInputBinding()),
-    importProvidersFrom(HttpClientModule), HttpErrorHandler, provideAnimations(),
-   provideHttpClient(withInterceptors([authInterceptor,errorInterceptor])),] 
+ providers: [
+  provideRouter(appRoutes, withComponentInputBinding()),
+  //importProvidersFrom(HttpClientModule), HttpErrorHandler,MessageService,LoginService, 
+  provideAnimations(),
+  provideHttpClient(withInterceptors([authInterceptor,errorInterceptor])),
+  MessageService,
+  LoginService
+] 
    //withInterceptors([...]) expects functions (HttpInterceptorFn) thay vi mot class(vi dang dung standalone)
  }).catch(err => console.error(err));
 

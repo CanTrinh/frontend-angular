@@ -1,43 +1,54 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { CreatePostDto} from './dto/createPost.dto';
 import { environment } from 'src/environments/environment.prod';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
-  /*
-  private apiUrl = 'http://localhost:3000/posts';
-  private handleError: HandleError;
-
- constructor(
-      private http: HttpClient,
-      httpErrorHandler: HttpErrorHandler) {
-      this.handleError = httpErrorHandler.createHandleError('HomeService');
-  }
-
-  createPost(postData: PostDto): Observable<PostDto> {
-    return this.http.post<PostDto>(this.apiUrl, postData)
-     .pipe(
-          catchError(this.handleError('postData', postData))
-    );
-  }
-  */
-
-
-  private apiUrl = `${environment.apiUrl}/posts`; // NestJS backend
-
-  constructor(private http: HttpClient) {}
-
-  createPost(postData: CreatePostDto): Observable<any> {
-    return this.http.post(this.apiUrl, postData);
-  }
-
-
   // Example: store current user info (could come from AuthService)
   currentUserId = 1;
   userRole = 'USER';
+
+  private apiUrl = `${environment.apiUrl}/posts`; // NestJS backend
+  
+  //vi standalone nen ta inject thay vi dua vao constructor
+  private http = inject(HttpClient);
+  //private errorHandler = inject(HttpErrorHandler);
+  //private handleError: HandleError;
+
+  /*constructor() {
+    // Khởi tạo handler riêng cho PostService
+    this.handleError = this.errorHandler.createHandleError('PostService');
+  }*/
+
+  // 1. Lấy Metadata từ URL (Giai đoạn 1)
+  getLinkMetadata(url: string): Observable<any> {
+    // Chỉ cần gọi trực tiếp, nếu lỗi Interceptor sẽ tự hiện Message
+    return this.http.post(`${this.apiUrl}/link-preview`, { url });
+    /*
+    return this.http.post(`${this.apiUrl}/link-preview`, { url })
+    .pipe(
+      // Nếu lỗi, trả về null và thông báo qua MessageService (đã code trong handler)
+      catchError(this.handleError('getLinkMetadata', null))
+    );*/
+  }
+
+  // Helper: Trích xuất URL từ chuỗi văn bản
+  extractUrl(text: string): string | null {
+    const urlRegEx = /(https?:\/\/[^\s]+)/g;
+    const match = text.match(urlRegEx);
+    return match ? match[0] : null;
+  }
+
+  createPost(postData: CreatePostDto): Observable<any> {
+    return this.http.post(this.apiUrl, postData);
+    /*.pipe(
+      // Nếu lỗi, trả về object rỗng hoặc error tùy ý
+      catchError(this.handleError('createPost', null))
+    );*/
+  }
 
   // Get all posts
   getPosts(): Observable<any[]> {
@@ -69,6 +80,7 @@ export class PostService {
   isAdmin(): boolean {
     return this.userRole === 'ADMIN';
   }
+
 
 
 
