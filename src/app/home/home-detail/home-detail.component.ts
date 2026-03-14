@@ -70,6 +70,7 @@ export class HomeDetailComponent implements OnInit {
 
   post: any;
   safeYoutubeUrl: SafeResourceUrl | null = null;
+  isShorts = false;
 
   constructor(
     private postService: PostService,
@@ -85,8 +86,16 @@ export class HomeDetailComponent implements OnInit {
         
         // 📺 Nếu là YouTube, xử lý link để nhúng
         if (this.post.type === 'YOUTUBE' && this.post.mediaUrl) {
-          const embedUrl = this.convertToEmbedUrl(this.post.mediaUrl);
-          this.safeYoutubeUrl = this.sanitizeService.sanitizeResourceUrl(embedUrl);
+           // 1. Kiểm tra xem có phải link Shorts không
+          this.isShorts = this.post.mediaUrl.includes('/shorts/');
+          // 2. Trích xuất ID và sanitize như cũ
+          const videoId = this.extractYouTubeId(this.post.mediaUrl);
+           if (videoId) {
+          // Nhúng vào Iframe chuẩn (YouTube tự động nhận diện nếu là Shorts)
+          this.safeYoutubeUrl = this.sanitizeService.sanitizeResourceUrl(
+            `https://www.youtube.com/embed/${videoId}`
+          );
+        }
         }
       });
     }
@@ -96,6 +105,15 @@ export class HomeDetailComponent implements OnInit {
   private convertToEmbedUrl(url: string): string {
     const id = url.split('v=')[1] || url.split('/').pop();
     return `https://www.youtube.com{id}`;
+  }
+
+  private extractYouTubeId(url: string): string {
+      // Regex này bắt được cả: watch?v=ID, youtu.be/ID, và shorts/ID
+      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?v=)|(shorts\/))([^#\&\?]{11}).*/;
+      const match = url.match(regExp);
+      
+      // ID YouTube luôn có độ dài 11 ký tự
+      return (match && match[8].length === 11) ? match[8] : '';
   }
 
 }

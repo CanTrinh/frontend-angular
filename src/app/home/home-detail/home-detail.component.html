@@ -54,7 +54,7 @@
 
   <div class="media-content">
     <!-- 1. Nếu là YouTube: Hiện Iframe -->
-    <div *ngIf="post.type === 'YOUTUBE' && safeYoutubeUrl" class="video-box">
+    <div *ngIf="post.type === 'YOUTUBE' && safeYoutubeUrl" class="video-box" [class.is-shorts]="isShorts">
       <iframe [src]="safeYoutubeUrl" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
     </div>
 
