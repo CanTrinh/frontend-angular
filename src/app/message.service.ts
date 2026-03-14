@@ -11,6 +11,16 @@ export class MessageService {
 
   add(message: string) {
     this.messages.push(message);// ['message.value', '']
+    setTimeout(() => {
+      this.removeFirst();
+    }, 5000);
+  }
+
+   // Xóa tin nhắn cũ nhất (phần tử đầu tiên)
+  removeFirst() {
+    if (this.messages.length > 0) {
+      this.messages.shift();
+    }
   }
 
   clear() {

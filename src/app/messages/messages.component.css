@@ -1,0 +1,80 @@
+.message-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  max-height: 400px;
+  background: #2d3436; /* Màu tối cho chuyên nghiệp */
+  color: #dfe6e9;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 10000; /* Luôn trên cùng */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace; /* Kiểu font console */
+}
+
+.message-header {
+  padding: 10px 15px;
+  background: #0984e3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.btn-clear {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+.btn-clear:hover { background: #ff7675; }
+
+.message-list {
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.message-item {
+  /*padding: 8px 5px;
+  border-bottom: 1px solid #444;
+  font-size: 0.8rem;*/
+  line-height: 1.4;
+  word-break: break-all; /* Để không bị tràn link dài */
+}
+
+.dot { color: #55efc4; margin-right: 5px; }
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.message-item {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  font-size: 0.85rem;
+  animation: fadeInRight 0.3s ease-out; /* Chạy khi tin nhắn được add */
+  transition: all 0.5s ease; /* Mượt mà khi phần tử bị xóa */
+}
+
+/* Thêm hiệu ứng hover để người dùng tạm dừng đọc nếu muốn */
+.message-panel:hover {
+  opacity: 1;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+

@@ -13,6 +13,7 @@ import { HondaDetailComponent } from './honda/honda-detail/honda-detail.componen
 import { slideInAnimation } from './animations';
 import { EnglishComponent } from './english/english.component';
 import { LoginService } from './features/auth/login/login.service';
+import { MessagesComponent } from './messages/messages.component';
 
 
 
@@ -22,7 +23,7 @@ import { LoginService } from './features/auth/login/login.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     imports: [HeaderComponent,
-      RouterLink, RouterLinkActive, RouterOutlet,CommonModule],
+      RouterLink, RouterLinkActive, RouterOutlet,CommonModule, MessagesComponent],
     
 })
 export class AppComponent implements AfterViewInit{

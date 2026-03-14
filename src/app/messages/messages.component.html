@@ -1,0 +1,15 @@
+<!-- Chỉ hiển thị nếu có tin nhắn -->
+<div *ngIf="messageService.messages.length" class="message-panel">
+  
+  <div class="message-header">
+    <span>📢 Thông báo hệ thống ({{messageService.messages.length}})</span>
+    <button (click)="messageService.clear()" class="btn-clear">Xóa hết</button>
+  </div>
+
+  <div class="message-list">
+    <div *ngFor="let msg of messageService.messages" class="message-item">
+      <span class="dot">•</span> {{ msg }}
+    </div>
+  </div>
+
+</div>
