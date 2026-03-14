@@ -106,37 +106,40 @@
   overflow: hidden;
 }
 
-/* Container dùng chung */
+/* Container dùng chung cho cả Video thường và Shorts */
 .video-box {
   position: relative;
-  display: block; /* Ép kiểu khối để chiếm chiều rộng */
-  width: 100%;    /* Mặc định chiếm hết chiều rộng thẻ cha (thường là 750px) */
+  width: 100%;
   margin: 20px auto;
   background: #000;
   border-radius: 12px;
   overflow: hidden;
+  display: block; /* Đảm bảo là khối */
 }
 
-/* Tỷ lệ 16:9 cho Video ngang thường */
+/* 1. TỶ LỆ 16:9 CHO VIDEO THƯỜNG */
 .video-box:not(.is-shorts) {
-  aspect-ratio: 16 / 9;
+  padding-top: 56.25%; /* Ép chiều cao theo tỷ lệ 16:9 của chiều rộng */
 }
 
-/* Tỷ lệ 9:16 cho Shorts - Fix lỗi width = 0 */
+/* 2. TỶ LỆ 9:16 CHO SHORTS - Fix lỗi quá cao và trắng trang */
 .video-box.is-shorts {
-  width: 320px;       /* 🔑 CỐ ĐỊNH CHIỀU RỘNG: Tránh bị co về 0 */
-  max-width: 90%;     /* Đảm bảo không tràn màn hình điện thoại */
-  aspect-ratio: 9 / 16;
-  max-height: 75vh;   /* Giới hạn chiều cao vừa tầm mắt */
+  width: 320px;       /* 🔑 CHIỀU RỘNG CỐ ĐỊNH: Tránh bị co về 0 */
+  max-width: 90%;     /* Đảm bảo không tràn Mobile */
+  padding-top: 568px; /* 🔑 CHIỀU CAO CỐ ĐỊNH: Khoảng 9:16 của 320px */
+  max-height: 70vh;   /* Giới hạn để không chiếm hết màn hình */
 }
 
-/* Ép Iframe phải "nở" ra theo thẻ cha */
+/* 3. ÉP IFRAME "NỞ" RA TRONG KHUNG PADDING */
 .video-box iframe {
-  display: block;
+  position: absolute; /* Bắt buộc để khớp với padding-top của cha */
+  top: 0;
+  left: 0;
   width: 100% !important;
   height: 100% !important;
   border: none;
 }
+
 
 
 
