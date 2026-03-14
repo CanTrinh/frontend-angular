@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { PostService } from '../post/post.service';
 import { CdkDrag} from '@angular/cdk/drag-drop'
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HomeService } from './home.service';
-import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
+import { DatePipe, NgFor, NgIf, NgForOf,SlicePipe } from '@angular/common';
 import { PostComponent } from '../post/post.component';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 // category.dto.ts
 export interface CategoryDto {
@@ -17,7 +17,7 @@ export interface CategoryDto {
 @Component({
   selector: 'app-home',
   standalone:true,
-  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive],
+  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe,SlicePipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
 
   posts: any[] = [];
   loading = false;
+  private router = inject(Router);
 
   constructor(private postService: PostService) {}
 
@@ -45,6 +46,10 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  viewDetail(id: number) {
+    this.router.navigate(['/posts', id]);
   }
 }
 

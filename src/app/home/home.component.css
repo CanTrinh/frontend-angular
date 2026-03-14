@@ -1,3 +1,4 @@
+/*
 .feed {
   max-width: 600px;
   margin: 0 auto;
@@ -39,7 +40,7 @@
   gap: 1rem;
   margin-top: 0.5rem;
 }
-
+*/
 /*
 .comments {
   margin-top: 1rem;
@@ -47,3 +48,81 @@
   border-left: 2px solid #eee;
 }
 */
+
+.newsfeed-container {
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.post-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mini-link-card {
+  display: flex;
+  background: #f0f2f5;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+  height: 80px;
+}
+
+.mini-link-card img {
+  width: 80px; height: 80px;
+  object-fit: cover;
+}
+
+.mini-info {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.line-clamp {
+  /* Hiển thị kiểu hộp linh hoạt cho các trình duyệt cũ/Webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  
+  /* Giới hạn số dòng cho Chrome, Safari, Edge */
+  -webkit-line-clamp: 1; 
+
+  /* 🔑 Thuộc tính CHUẨN cho tương lai và các trình duyệt khác */
+  line-clamp: 1; 
+  
+  overflow: hidden;
+  word-break: break-word; /* Đảm bảo không bị vỡ layout với từ quá dài */
+}
+
+/* Nếu muốn phần Description hiện 2 dòng cho "sống động" */
+.mini-info p.line-clamp {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+
