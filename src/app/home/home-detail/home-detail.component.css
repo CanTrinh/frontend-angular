@@ -109,33 +109,35 @@
 /* Container dùng chung */
 .video-box {
   position: relative;
-  width: 100%;
+  display: block; /* Ép kiểu khối để chiếm chiều rộng */
+  width: 100%;    /* Mặc định chiếm hết chiều rộng thẻ cha (thường là 750px) */
   margin: 20px auto;
   background: #000;
   border-radius: 12px;
   overflow: hidden;
-  display: block;
 }
 
-/* Tỷ lệ 16:9 cho YouTube thường */
+/* Tỷ lệ 16:9 cho Video ngang thường */
 .video-box:not(.is-shorts) {
   aspect-ratio: 16 / 9;
 }
 
-/* Tỷ lệ 9:16 cho Shorts - Giới hạn chiều cao để không bị tràn viewport */
+/* Tỷ lệ 9:16 cho Shorts - Fix lỗi width = 0 */
 .video-box.is-shorts {
-  width: auto;             /* Để width tự co theo height */
-  max-width: 320px;        /* Độ rộng tối đa cho Shorts */
+  width: 320px;       /* 🔑 CỐ ĐỊNH CHIỀU RỘNG: Tránh bị co về 0 */
+  max-width: 90%;     /* Đảm bảo không tràn màn hình điện thoại */
   aspect-ratio: 9 / 16;
-  max-height: 70vh;        /* 🔑 KHÓA CHIỀU CAO: Chỉ chiếm tối đa 70% màn hình */
+  max-height: 75vh;   /* Giới hạn chiều cao vừa tầm mắt */
 }
 
-/* Quan trọng: Ép iframe chiếm trọn không gian thẻ cha */
+/* Ép Iframe phải "nở" ra theo thẻ cha */
 .video-box iframe {
+  display: block;
   width: 100% !important;
   height: 100% !important;
   border: none;
 }
+
 
 
 
