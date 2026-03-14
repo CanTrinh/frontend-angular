@@ -68,7 +68,7 @@
   <article *ngFor="let post of posts" class="post-card" (click)="viewDetail(post.id)">
     
     <header class="post-header">
-      <img [src]="post.author.avatar || 'assets/default-avatar.png'" class="author-avatar">
+      <img [src]="post.author.profilePic || 'assets/default-avatar.png'" class="author-avatar">
       <div class="meta">
         <strong>{{ post.author.name }}</strong>
         <small>{{ post.createdAt | date:'short' }} • {{ post.category?.name }}</small>
