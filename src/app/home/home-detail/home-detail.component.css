@@ -119,13 +119,16 @@
 /* 📱 Class đặc biệt khi là SHORTS (khung dọc 9:16) */
 .video-box.is-shorts {
   max-width: 350px; /* Shorts không nên quá rộng */
-  padding-bottom: 177.77%; /* Tỷ lệ 9:16 chuẩn (16/9 * 100) */
+  aspect-ratio: 9 / 16;  /* Tỷ lệ dọc chuẩn */
+  max-height: 80vh; 
+  margin: 20px auto;
 }
 
 .video-box iframe {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
+  border: none;
 }
 
 
