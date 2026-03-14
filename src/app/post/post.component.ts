@@ -5,6 +5,7 @@ import { PostService } from './post.service';
 import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { MessageService } from '../message.service';
 
 
 
@@ -24,6 +25,7 @@ export class PostComponent {
 
   constructor(private fb: FormBuilder, 
     private postService: PostService,
+    private messageService: MessageService,
     private router: Router) {
        // Initialize Reactive Form
       this.postForm = this.fb.group({
@@ -48,16 +50,33 @@ export class PostComponent {
   }
 
   fetchMetadata(url: string) {
-    this.isScanning = true;
-    this.postService.getLinkMetadata(url).subscribe(res => {
-      this.linkPreview = res;
-      this.isScanning = false;
-      // Nếu có link, tự điền vào ô Media URL cho user thấy
-      if (res && !this.postForm.get('mediaUrl')?.value) {
-        this.postForm.patchValue({ mediaUrl: url }, { emitEvent: false });
+  this.isScanning = true;
+  
+  this.postService.getLinkMetadata(url).subscribe({
+    next: (res) => {
+      // 1. Kiểm tra nếu có dữ liệu metadata thực sự (ít nhất phải có title)
+      if (res && res.title) {
+        this.linkPreview = res;
+        
+        // Tự điền vào ô Media URL nếu ô đó đang trống
+        if (!this.postForm.get('mediaUrl')?.value) {
+          this.postForm.patchValue({ mediaUrl: url }, { emitEvent: false });
+        }
+      } else {
+        // 2. Trường hợp trả về 200 OK nhưng data rỗng (link rác/không có meta)
+        this.linkPreview = null;
+        this.messageService.add('⚠️ Link này không hỗ trợ bản xem trước.');
       }
-    });
-  }
+      this.isScanning = false;
+    },
+    error: (err) => {
+      // 3. Trường hợp lỗi 404/500: errorInterceptor trong main.ts sẽ tự hiện thông báo
+      this.linkPreview = null;
+      this.isScanning = false;
+    }
+  });
+}
+
   // Submit handler
   onSubmit(): void {
     if (this.postForm.valid) {
