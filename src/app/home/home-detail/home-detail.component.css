@@ -106,30 +106,37 @@
   overflow: hidden;
 }
 
-/* Mặc định cho video ngang 16:9 */
+/* Container dùng chung */
 .video-box {
   position: relative;
-  padding-bottom: 56.25%; 
-  height: 0;
+  width: 100%;
+  margin: 20px auto;
   background: #000;
   border-radius: 12px;
-  margin: 0 auto; /* Căn giữa */
+  overflow: hidden;
+  display: block;
 }
 
-/* 📱 Class đặc biệt khi là SHORTS (khung dọc 9:16) */
+/* Tỷ lệ 16:9 cho YouTube thường */
+.video-box:not(.is-shorts) {
+  aspect-ratio: 16 / 9;
+}
+
+/* Tỷ lệ 9:16 cho Shorts - Giới hạn chiều cao để không bị tràn viewport */
 .video-box.is-shorts {
-  max-width: 350px; /* Shorts không nên quá rộng */
-  aspect-ratio: 9 / 16;  /* Tỷ lệ dọc chuẩn */
-  max-height: 80vh; 
-  margin: 20px auto;
+  width: auto;             /* Để width tự co theo height */
+  max-width: 320px;        /* Độ rộng tối đa cho Shorts */
+  aspect-ratio: 9 / 16;
+  max-height: 70vh;        /* 🔑 KHÓA CHIỀU CAO: Chỉ chiếm tối đa 70% màn hình */
 }
 
+/* Quan trọng: Ép iframe chiếm trọn không gian thẻ cha */
 .video-box iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   border: none;
 }
+
 
 
 /* 2. CSS CHO LINK BÁO (CARD METADATA) */
