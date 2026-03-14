@@ -4,6 +4,7 @@ import { PostService } from 'src/app/post/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { SanitizeUrlService } from 'src/app/sanitize-url.service';
 import { CommentsComponent } from 'src/app/comments/comments.component';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 
 
@@ -16,7 +17,7 @@ import { CommentsComponent } from 'src/app/comments/comments.component';
 })
 export class HomeDetailComponent implements OnInit {
 
-  post: any;
+  /*post: any;
 
   constructor(
     private postService: PostService,
@@ -65,8 +66,40 @@ export class HomeDetailComponent implements OnInit {
 
   safeUrl( url: string) {
     return this.sanitizeUrlService.sanitizeUrl(url);
+  }*/
+
+  post: any;
+  safeYoutubeUrl: SafeResourceUrl | null = null;
+
+  constructor(
+    private postService: PostService,
+    private sanitizeService: SanitizeUrlService, // Inject service của bạn
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) {
+      this.postService.getPost(id).subscribe(data => {
+        this.post = data;
+        
+        // 📺 Nếu là YouTube, xử lý link để nhúng
+        if (this.post.type === 'YOUTUBE' && this.post.mediaUrl) {
+          const embedUrl = this.convertToEmbedUrl(this.post.mediaUrl);
+          this.safeYoutubeUrl = this.sanitizeService.sanitizeResourceUrl(embedUrl);
+        }
+      });
+    }
   }
 
-
+    // Hàm hỗ trợ chuyển link thường sang link embed
+  private convertToEmbedUrl(url: string): string {
+    const id = url.split('v=')[1] || url.split('/').pop();
+    return `https://www.youtube.com{id}`;
+  }
 
 }
+
+
+
+

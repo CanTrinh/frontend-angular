@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SanitizeUrlService {
+  constructor(private sanitizer: DomSanitizer) {}
 
-  constructor(private sanitizer: DomSanitizer,) { 
-
+  // Dùng cho ảnh hoặc link thông thường
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  sanitizeUrl(embedUrl: string): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(embedUrl);
+  // 🔑 Dùng riêng cho IFRAME (YouTube/Vimeo)
+  sanitizeResourceUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  
 }

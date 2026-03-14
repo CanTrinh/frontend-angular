@@ -87,9 +87,20 @@ export class PostComponent {
       this.postService.createPost(postPayload).subscribe({
         next: (res) => {
           console.log('Post created successfully:', res);
-         // this.postForm.reset(); // clear form after success
-          //this.linkPreview = null;
-          //this.router.navigate(['/posts', res.id]);
+
+          // 1. Reset Form để tránh user bấm nút gửi 2 lần
+        this.postForm.reset(); 
+        
+        // 2. Xóa biến tạm preview để các bài đăng sau không bị dính ảnh cũ
+        this.linkPreview = null; 
+        
+        // 3. Hiện thông báo thành công "sống động" qua MessageService
+        this.messageService.add('🎉 Bài viết của bạn đã được xuất bản!');
+
+        // 4. Điều hướng sang trang chi tiết để xem bài vừa đăng
+        // Dùng tham số 'res.id' nhận về từ NestJS/Prisma
+        this.router.navigate(['/posts', res.id]);
+          
         },
         error: (err) => {
           console.error('Error creating post:', err);

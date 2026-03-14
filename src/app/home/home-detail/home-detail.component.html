@@ -6,7 +6,7 @@
     <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" alt="Post media" class="post-media" />
 </section>
 -->
- <div class="container">
+ <!--<div class="container">
         <header>{{post?.title}}</header>
         <article>
             <h1>My article</h1>
@@ -16,21 +16,21 @@
                 <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" alt="Post media" class="post-media" />
             </p>
 
-            <div *ngIf="post.mediaUrl">
+            <div *ngIf="post.mediaUrl">-->
                 <!-- YouTube -->
-                <iframe *ngIf="isYoutube(post.mediaUrl)"
+                <!--<iframe *ngIf="isYoutube(post.mediaUrl)"
                         [src]="safeUrl(post.mediaUrl)"
                         width="560" height="315" frameborder="0"
-                        allowfullscreen></iframe>
+                        allowfullscreen></iframe>-->
 
                 <!-- Image -->
-                <img *ngIf="isImage(post.mediaUrl)" [src]="'../../../assets/img/'+ extractImg(post.mediaUrl)" alt="Embedded image" />
-                <p>{{post.mediaUrl}}</p>
+                <!--<img *ngIf="isImage(post.mediaUrl)" [src]="'../../../assets/img/'+ extractImg(post.mediaUrl)" alt="Embedded image" />
+                <p>{{post.mediaUrl}}</p>-->
                 <!-- PDF -->
-                <embed *ngIf="isPdf(post.mediaUrl)" [src]="post.mediaUrl" type="application/pdf" width="100%" height="600px" />
-
+                <!--<embed *ngIf="isPdf(post.mediaUrl)" [src]="post.mediaUrl" type="application/pdf" width="100%" height="600px" />
+            -->
                 <!-- Word -->
-                <a *ngIf="isWord(post.mediaUrl)" [href]="post.mediaUrl" target="_blank">Open Word Document</a>
+                <!--<a *ngIf="isWord(post.mediaUrl)" [href]="post.mediaUrl" target="_blank">Open Word Document</a>
             </div>
 
         </article>
@@ -43,4 +43,33 @@
         <footer>emotion and create at {{post.createdAt | date: 'short'}}</footer>
 </div>
 
-<app-comments  [postId]="post.id" ></app-comments>
+<app-comments  [postId]="post.id" ></app-comments>-->
+
+
+<!-- post-detail.component.html -->
+<div class="post-detail" *ngIf="post">
+  
+  <!-- Hiển thị Nội dung chữ -->
+  <p class="content">{{ post.content }}</p>
+
+  <div class="media-content">
+    <!-- 1. Nếu là YouTube: Hiện Iframe -->
+    <div *ngIf="post.type === 'YOUTUBE' && safeYoutubeUrl" class="video-box">
+      <iframe [src]="safeYoutubeUrl" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- 2. Nếu là Link báo: Hiện Card Metadata JSON -->
+    <div *ngIf="post.type === 'LINK' && post.metadata" class="link-card">
+      <img [src]="post.metadata.image" class="thumb">
+      <div class="info">
+        <h3>{{ post.metadata.title }}</h3>
+        <p>{{ post.metadata.description }}</p>
+      </div>
+    </div>
+
+    <!-- 3. Nếu là Ảnh (S3): Hiện ảnh lớn -->
+    <img *ngIf="post.type === 'IMAGE'" [src]="post.mediaUrl" class="full-img">
+  </div>
+
+</div>
+
