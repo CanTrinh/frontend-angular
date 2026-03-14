@@ -63,6 +63,12 @@
 </section>
 -->
 
+<div *ngIf="loading">Loading posts...</div>
+
+<div *ngIf="!loading && posts.length === 0">
+    No posts yet. Let login to Post !
+</div>
+
 <div class="newsfeed-container">
   <!-- Lặp qua danh sách bài viết -->
   <article *ngFor="let post of posts" class="post-card" (click)="viewDetail(post.id)">
@@ -84,9 +90,12 @@
         <div class="mini-link-card">
           <img [src]="post.metadata.image" *ngIf="post.metadata.image">
           <div class="mini-info">
+            <!-- Tiêu đề link cắt 1 dòng -->
             <h4 class="line-clamp">{{ post.metadata.title }}</h4>
+            <!-- Mô tả link cắt 2 dòng -->
             <p class="line-clamp">{{ post.metadata.description }}</p>
           </div>
+
         </div>
       </div>
     </div>
@@ -97,3 +106,4 @@
     </footer>
   </article>
 </div>
+<a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>
