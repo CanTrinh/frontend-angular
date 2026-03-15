@@ -70,7 +70,7 @@
     <!-- 3. Nếu là Ảnh (S3): Hiện ảnh lớn -->
     <img *ngIf="post.type === 'IMAGE'" [src]="post.mediaUrl" class="full-img">
   </div>
-
+  <app-comments  [postId]="post.id" ></app-comments>
 </div>
-<app-comments  [postId]="post.id" ></app-comments>
+
 
