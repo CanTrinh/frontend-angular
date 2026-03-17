@@ -30,7 +30,7 @@ export class PostComponent {
        // Initialize Reactive Form
       this.postForm = this.fb.group({
         title: ['', [Validators.required, Validators.maxLength(100)]],
-        content: ['', [Validators.required, Validators.maxLength(500)]],
+        content: ['', [Validators.required, Validators.maxLength(5000)]],
         mediaUrl: ['']
       });
 
