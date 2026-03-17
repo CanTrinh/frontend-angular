@@ -20,7 +20,7 @@ export const httpOptions = {
   providedIn: 'root'
 })
 export class LoginService {
-  loginUrl = `${environment.apiUrl}/auth/login`;  // URL to web api
+  loginUrl = `${environment.apiUrl}/auth/login`; 
   registerUrl = `${environment.apiUrl}/user/register`;
   //private handleError: HandleError;
   private userSubject = new BehaviorSubject<any>(null);
