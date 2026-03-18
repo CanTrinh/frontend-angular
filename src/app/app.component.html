@@ -47,8 +47,21 @@
             <div class="profile" *ngIf="user"
                 (mouseenter)="showMenu = true"
                 (mouseleave)="showMenu = false">
-                <a routerLink="user/profile" class="profile-icon" *ngIf="!user.profilePic">{{ user.name.slice(0,1) }}</a>
-                <a routerLink="user/profile" class="profile-avatar" *ngIf="user.profilePic"><img [src]="user.profilePic" crossorigin="anonymous" alt="" ></a>
+                <!-- Thẻ ng-container này "vô hình", không ảnh hưởng đến CSS -->
+            <ng-container *ngIf="loginService.user$ | async as user">
+    
+            <!-- Giữ nguyên class profile-icon -->
+            <a routerLink="user/profile" class="profile-icon" *ngIf="!user.profilePic">
+                {{ user.name?.slice(0,1) | uppercase }}
+            </a>
+
+            <!-- Giữ nguyên class profile-avatar -->
+            <a routerLink="user/profile" class="profile-avatar" *ngIf="user.profilePic">
+                <img [src]="user.profilePic" crossorigin="anonymous" alt="Avatar">
+            </a>
+
+            </ng-container>
+
                 <ul class="sub profile" *ngIf="showMenu">
                     <li><a href=""><i class="uil uil-envelope"></i></a></li>
                     <li><a href=""><i class="uil uil-medal"></i></a></li>

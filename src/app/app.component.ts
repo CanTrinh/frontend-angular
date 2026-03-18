@@ -33,15 +33,18 @@ export class AppComponent implements AfterViewInit{
   user: any;
   isLoggedIn = false;
 
-  constructor(private loginService: LoginService) {}
+  constructor(public loginService: LoginService) {}
 
   ngOnInit() {
     this.loginService.user$.subscribe(u => {
-      this.user = u;
-      this.isLoggedIn= true;
-      console.log(this.user);
+      // 1. Cập nhật user mới nhất (bao gồm cả profilePic mới)
+      this.user = u; 
+
+      this.isLoggedIn = !!u; 
+    
+      console.log('Dữ liệu User hiện tại:', this.user);
     });
-    this.loginService.loadUserFromStorage(); // restore after refresh
+  
   }
 
   logout() {
