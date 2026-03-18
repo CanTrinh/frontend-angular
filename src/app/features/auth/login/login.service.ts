@@ -50,6 +50,23 @@ export class LoginService {
         );
     }
 
+    // auth.service.ts
+  updateUserLocal(newUserInfo: any) {
+    // 1. Lấy thông tin user hiện tại đang có trong Subject
+    const currentUser = this.userSubject.value;
+
+    // 2. Gộp thông tin cũ với thông tin mới (ví dụ: đè avatarUrl mới lên)
+    const updatedUser = { ...currentUser, ...newUserInfo };
+
+    // 3. Phát dữ liệu mới cho toàn bộ ứng dụng (Header, Sidebar... sẽ nhận được ngay)
+    this.userSubject.next(updatedUser);
+
+    // 4. (Quan trọng) Cập nhật lại vào sessionStorage/localStorage 
+    // để khi người dùng F5 trang, thông tin mới vẫn còn đó.
+    sessionStorage.setItem('user', JSON.stringify(updatedUser));
+  }
+
+
     getToken(): string | null { 
       return sessionStorage.getItem('token');
    }

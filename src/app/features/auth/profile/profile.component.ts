@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { ProfileService } from './profile.service';
+import { LoginService } from '../login/login.service';
 
 @Component({
 
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   constructor(private fb: FormBuilder, 
+    private loginService: LoginService,
     private http: HttpClient,
     private profileService: ProfileService) {}
 
@@ -81,8 +83,11 @@ export class ProfileComponent implements OnInit {
     }
 
     this.profileService.updateProfile(formData).subscribe({
-    next: (res) =>{
+    next: (res: any) =>{
       console.log('Update profile successfully:', res);
+      this.loginService.updateUserLocal(res.userInfor);
+      // Đừng quên cập nhật cả token mới để F5 không bị mất ảnh
+      sessionStorage.setItem('token', res.access_token);
       this.profileForm.reset(); // clear form after success
         
     },
