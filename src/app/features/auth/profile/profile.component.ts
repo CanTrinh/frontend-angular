@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   previewUrl: string='';
   selectedFile: File | null = null;
 
+  @ViewChild('fileInput') fileInputVar!: ElementRef; // Khai báo ViewChild
   @ViewChild('video') video!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
 
@@ -88,7 +89,11 @@ export class ProfileComponent implements OnInit {
       this.loginService.updateUserLocal(res.userInfor);
       // Đừng quên cập nhật cả token mới để F5 không bị mất ảnh
       sessionStorage.setItem('token', res.access_token);
+      
       this.profileForm.reset(); // clear form after success
+       if (this.fileInputVar) {
+        this.fileInputVar.nativeElement.value = ""; 
+      }
         
     },
     error: (err) => {console.error('Error update profile:', err);

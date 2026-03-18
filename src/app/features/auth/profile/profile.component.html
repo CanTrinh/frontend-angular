@@ -25,7 +25,7 @@
   <textarea formControlName="bio"></textarea>
 
   <!-- File Upload -->
-  <input type="file" (change)="onFileSelected($event)" />
+  <input type="file" (change)="onFileSelected($event)" #fileInput />
 
   <!-- Camera Capture -->
   <video #video autoplay></video>
