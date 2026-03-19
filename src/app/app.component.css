@@ -20,10 +20,11 @@
     /* Định nghĩa 5 tầng cho toàn bộ ứng dụng */
     grid-template-areas: 
       "logo mode"       /* Tầng 1: Header (phần trên) */
-      "nav nav"         /* Tầng 2: Navigation */
-      "date weather" /* Tầng 3: Header (phần chạy chữ) */
-      "main main"       /* Tầng 4: Nội dung chính */
-      "footer footer";  /* Tầng 5: Chân trang */
+      "date date"       /* Tầng 2: Date */
+      "nav nav"         /* Tầng 3: Navigation */
+      "weather weather" /* Tầng 4: Header (phần chạy chữ) */
+      "main main"       /* Tầng 5: Nội dung chính */
+      "footer footer";  /* Tầng 6: Chân trang */
     gap: 5px;
   }
 
