@@ -50,8 +50,10 @@
 */
 
 .createPost {
-    width:500px;
+    max-width: 600px;
+    margin: 20px auto;
     display: flex;
+    border-radius: 12px;
 }
 
 .createPost a {
