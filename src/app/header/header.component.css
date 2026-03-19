@@ -47,7 +47,7 @@
     display: inline-flex;  /* Thay 'flex' bằng 'inline-flex' để div chỉ rộng vừa đủ chứa nội dung */
     align-items: center;
     padding: 2px 8px;      /* Padding cực nhỏ (2px trên dưới) để sát viền */
-    background: #f0f0f0;
+    /*background: #f0f0f0;*/
     border-radius: 4px;
     line-height: 1;        /* Ép dòng sát lại */
 }
