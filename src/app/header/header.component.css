@@ -40,7 +40,7 @@
     grid-area: weather; 
     display: flex;
     height: 43.04px ;
-    margin: 0 auto;
+    justify-content: space-between;
   }
 
   .mode{

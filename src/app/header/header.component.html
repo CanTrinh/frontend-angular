@@ -7,12 +7,16 @@
 <!--<div class="marquee-group" [class.paused]="isPaused">-->
     <div class="date-time">{{result}} {{today | date: 'dd/MM/yy'}}|| {{tetDay}}</div>
     <div class="weather">
-        <select id="town" name="town" (change)="onChangeValue($event)">
-            <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
-        </select>
-        <img [src]="icon" alt="" appIcon>
-        <p class="temp">{{temp}}</p>
-        <code>&deg;C</code>
+        <div>
+            <select id="town" name="town" (change)="onChangeValue($event)">
+                <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
+            </select>
+        </div>
+        <div>
+            <img [src]="icon" alt="" appIcon>
+            <p class="temp">{{temp}}</p>
+            <code>&deg;C</code>
+        </div>
 
     </div>
 
