@@ -62,7 +62,9 @@
   <h2>The thao</h2>
 </section>
 -->
-
+<button class="createPost">
+  <a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>
+</button>
 <div *ngIf="loading">Loading posts...</div>
 
 <div *ngIf="!loading && posts.length === 0">
@@ -106,4 +108,3 @@
     </footer>
   </article>
 </div>
-<a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>

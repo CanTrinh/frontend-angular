@@ -49,6 +49,36 @@
 }
 */
 
+.createPost {
+    width:500px;
+    display: flex;
+}
+
+.createPost a {
+    flex: 1;
+    text-decoration: none;
+    outline: none;
+    text-align: center;
+    line-height: 3;
+    color: black;
+}
+
+.createPost a:link,
+.createPost a:visited,
+.createPost a:focus {
+    background: palegoldenrod;
+    color: black;
+}
+
+.createPost a:hover {
+    background: orange;
+}
+
+.createPost a:active {
+    background: darkred;
+    color: white;
+}
+
 .newsfeed-container {
   max-width: 600px;
   margin: 20px auto;
