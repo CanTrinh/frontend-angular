@@ -43,29 +43,48 @@
   }*/
 
   .weather {
-        grid-area: weather; 
-        padding: 8px 10px; /* Thu nhỏ padding */
-        gap: 5px;          /* Thu hẹp khoảng cách giữa các phần tử */
-    }
+    grid-area: weather; 
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;       /* Thu hẹp khoảng cách trong ngoài */
+    background: #f0f0f0;
+    border-radius: 6px;     /* Bo góc nhỏ hơn cho cân đối */
+    max-width: 100%;        /* Đảm bảo không bị tràn màn hình */
+  }
 
-    .weather select {
-        font-size: 0.85rem; /* Giảm cỡ chữ select */
-        max-width: 100px;   /* Cho select nhỏ lại để dành chỗ cho cụm bên phải */
-        padding: 4px;
-    }
+  /* Phần chọn tỉnh thành */
+  .weather select {
+      margin-right: auto;
+      padding: 2px 4px;
+      font-size: 0.85rem;     /* Chữ nhỏ lại */
+      max-width: 110px;       /* Giới hạn độ rộng để nhường chỗ cho icon */
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
 
-    .weather img {
-        width: 30px;        /* Thu nhỏ icon */
-        margin-right: 4px;
-    }
+  /* Icon thời tiết */
+  .weather img {
+      margin-right: 4px;      /* Khoảng cách nhỏ hơn */
+      width: 28px;            /* Thu nhỏ icon xuống mức vừa phải */
+      height: auto;
+  }
 
-    .weather .temp {
-        font-size: 1rem;    /* Giảm cỡ chữ nhiệt độ */
-    }
+  /* Số nhiệt độ */
+  .weather .temp {
+      margin: 0;
+      font-weight: bold;
+      font-size: 0.95rem;     /* Chữ nhỏ lại */
+      line-height: 1;
+  }
 
-    .weather code {
-        font-size: 0.8rem;  /* Giảm cỡ chữ độ C */
-    }
+  /* Ký hiệu °C */
+  .weather code {
+      font-size: 0.8rem;
+      margin-left: 1px;
+      background: none;       /* Xóa nền xám mặc định của thẻ code nếu có */
+      padding: 0;
+  }
+
 
 
 
