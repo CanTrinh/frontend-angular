@@ -53,11 +53,12 @@
     width: 600px;
     margin: 0 auto;
     display: flex;
-    border-radius: 12px;
+    
 }
 
 .createPost a {
     flex: 1;
+    border-radius: 12px;
     text-decoration: none;
     outline: none;
     text-align: center;
