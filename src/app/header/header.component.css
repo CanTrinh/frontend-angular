@@ -44,46 +44,44 @@
 
   .weather {
     grid-area: weather; 
-    display: flex;
+    display: inline-flex;  /* Thay 'flex' bằng 'inline-flex' để div chỉ rộng vừa đủ chứa nội dung */
     align-items: center;
-    padding: 4px 8px;       /* Thu hẹp khoảng cách trong ngoài */
+    padding: 2px 8px;      /* Padding cực nhỏ (2px trên dưới) để sát viền */
     background: #f0f0f0;
-    border-radius: 6px;     /* Bo góc nhỏ hơn cho cân đối */
-    max-width: 100%;        /* Đảm bảo không bị tràn màn hình */
-  }
+    border-radius: 4px;
+    line-height: 1;        /* Ép dòng sát lại */
+}
 
-  /* Phần chọn tỉnh thành */
-  .weather select {
-      margin-right: auto;
-      padding: 2px 4px;
-      font-size: 0.85rem;     /* Chữ nhỏ lại */
-      max-width: 110px;       /* Giới hạn độ rộng để nhường chỗ cho icon */
-      border: 1px solid #ccc;
-      border-radius: 4px;
-  }
+.weather select {
+    margin-right: 10px;    /* Khoảng cách với cụm bên phải */
+    padding: 1px 2px;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    height: 24px;          /* Cố định chiều cao nhỏ cho select */
+}
 
-  /* Icon thời tiết */
-  .weather img {
-      margin-right: 4px;      /* Khoảng cách nhỏ hơn */
-      width: 28px;            /* Thu nhỏ icon xuống mức vừa phải */
-      height: auto;
-  }
+.weather img {
+    width: 24px;           /* Thu nhỏ icon để giảm chiều cao tổng thể */
+    height: 24px;
+    display: block;        /* Xóa khoảng hở dưới chân ảnh */
+}
 
-  /* Số nhiệt độ */
-  .weather .temp {
-      margin: 0;
-      font-weight: bold;
-      font-size: 0.95rem;     /* Chữ nhỏ lại */
-      line-height: 1;
-  }
+.weather .temp {
+    margin: 0;             /* QUAN TRỌNG: Xóa margin mặc định của thẻ p */
+    padding: 0;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
 
-  /* Ký hiệu °C */
-  .weather code {
-      font-size: 0.8rem;
-      margin-left: 1px;
-      background: none;       /* Xóa nền xám mặc định của thẻ code nếu có */
-      padding: 0;
-  }
+.weather code {
+    margin: 0 0 0 2px;     /* Xóa margin mặc định */
+    padding: 0;
+    font-size: 0.8rem;
+    background: none;      /* Bỏ nền xám của thẻ code */
+}
+
+
+
 
 
 
