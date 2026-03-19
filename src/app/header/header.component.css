@@ -36,16 +36,44 @@
     margin: 0 auto;
   }
 
-  .weather{
+  /*.weather{
     grid-area: weather; 
     display: flex;
     height: 43.04px ;
-    justify-content: space-between;
-  }
+  }*/
 
-  .weather div:nth-of-type(2){
+  .weather {
+    grid-area: weather; 
     display: flex;
-  }
+    align-items: center;
+    padding: 10px;        /* Tạo khoảng trống bên trong div */
+    background: #f0f0f0;  /* Màu nền nhẹ để dễ quan sát (tùy chọn) */
+    border-radius: 8px;   /* Bo góc nhẹ */
+}
+
+/* Đẩy các phần tử còn lại về bên phải */
+.weather select {
+    margin-right: auto;
+    padding: 5px;
+}
+
+/* Tùy chỉnh khoảng cách giữa icon, số và độ C */
+.weather img {
+    margin-right: 8px;    /* Khoảng cách giữa Icon và Nhiệt độ */
+    width: 40px;          /* Cố định kích thước icon cho cân đối */
+}
+
+.weather .temp {
+    margin: 0;            /* Xóa margin mặc định của thẻ p */
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.weather code {
+    margin-left: 2px;     /* Khoảng cách nhỏ giữa số và ký hiệu °C */
+}
+
+
 
   .mode{
     grid-area: mode; 
