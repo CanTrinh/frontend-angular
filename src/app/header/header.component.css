@@ -43,35 +43,29 @@
   }*/
 
   .weather {
-    grid-area: weather; 
-    display: flex;
-    align-items: center;
-    padding: 10px;        /* Tạo khoảng trống bên trong div */
-    background: #f0f0f0;  /* Màu nền nhẹ để dễ quan sát (tùy chọn) */
-    border-radius: 8px;   /* Bo góc nhẹ */
-}
+        grid-area: weather; 
+        padding: 8px 10px; /* Thu nhỏ padding */
+        gap: 5px;          /* Thu hẹp khoảng cách giữa các phần tử */
+    }
 
-/* Đẩy các phần tử còn lại về bên phải */
-.weather select {
-    margin-right: auto;
-    padding: 5px;
-}
+    .weather select {
+        font-size: 0.85rem; /* Giảm cỡ chữ select */
+        max-width: 100px;   /* Cho select nhỏ lại để dành chỗ cho cụm bên phải */
+        padding: 4px;
+    }
 
-/* Tùy chỉnh khoảng cách giữa icon, số và độ C */
-.weather img {
-    margin-right: 8px;    /* Khoảng cách giữa Icon và Nhiệt độ */
-    width: 40px;          /* Cố định kích thước icon cho cân đối */
-}
+    .weather img {
+        width: 30px;        /* Thu nhỏ icon */
+        margin-right: 4px;
+    }
 
-.weather .temp {
-    margin: 0;            /* Xóa margin mặc định của thẻ p */
-    font-weight: bold;
-    font-size: 1.2rem;
-}
+    .weather .temp {
+        font-size: 1rem;    /* Giảm cỡ chữ nhiệt độ */
+    }
 
-.weather code {
-    margin-left: 2px;     /* Khoảng cách nhỏ giữa số và ký hiệu °C */
-}
+    .weather code {
+        font-size: 0.8rem;  /* Giảm cỡ chữ độ C */
+    }
 
 
 
