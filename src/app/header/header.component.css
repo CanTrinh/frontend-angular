@@ -43,6 +43,10 @@
     justify-content: space-between;
   }
 
+  .weather div:nth-of-type(2){
+    display: flex;
+  }
+
   .mode{
     grid-area: mode; 
     justify-self: end;
