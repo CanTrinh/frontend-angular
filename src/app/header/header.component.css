@@ -7,6 +7,8 @@
 
    .date-time{
     border-right: 1px solid black;
+    padding: 10px 0;
+
   }
 
    .logo {
@@ -33,7 +35,7 @@
   .date-time{
     grid-area: date; 
     display: flex;
-    padding: none;
+    padding: 0;
     margin: 0 auto;
     line-height: 1; 
     font-size: 0.85rem;
@@ -99,7 +101,6 @@
 
   
   .date-time{
-    padding: 10px 0;
     color: #ffaa00;
   }
 
