@@ -42,8 +42,8 @@ export class PostService {
     return match ? match[0] : null;
   }
 
-  createPost(postData: CreatePostDto): Observable<any> {
-    return this.http.post(this.apiUrl, postData);
+  createPost(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
     /*.pipe(
       // Nếu lỗi, trả về object rỗng hoặc error tùy ý
       catchError(this.handleError('createPost', null))

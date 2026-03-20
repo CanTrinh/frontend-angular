@@ -1,32 +1,3 @@
-<!--
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
-  <fieldset>
-    <legend>Create a Post</legend>
-    
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input id="title" type="text" formControlName="title" placeholder="Enter post title" required maxlength="100" />
-    </div>
-
-    
-    <div class="form-group">
-      <label for="content">Content</label>
-      <textarea id="content" formControlName="content" rows="3" required></textarea>
-    </div>
-
-    
-    <div class="form-group">
-      <label for="mediaUrl">Media URL</label>
-      <input id="mediaUrl" type="text" formControlName="mediaUrl" placeholder="Optional image/video link" />
-    </div>
-
-    
-    <footer class="form-actions">
-      <button type="submit" [disabled]="postForm.invalid">Publish</button>
-    </footer>
-  </fieldset>
-</form>
--->
 
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
   <fieldset>
@@ -48,6 +19,38 @@
     <div class="form-group">
       <label for="mediaUrl">Media URL</label>
       <input id="mediaUrl" type="text" formControlName="mediaUrl" placeholder="Link image/video/youtube" />
+    </div>
+    
+       <!-- 1. PHẦN UPLOAD FILE CẬP NHẬT -->
+    <div class="form-group">
+      <label for="fileUpload" class="upload-btn">
+        <span>📷 Upload Images or Short Video (20s)</span>
+      </label>
+      <!-- Chấp nhận ảnh và video, cho phép chọn nhiều file cùng lúc -->
+      <input 
+        id="fileUpload" 
+        type="file" 
+        (change)="onFileChange($event)" 
+        multiple 
+        accept="image/*,video/*" 
+      />
+    </div>
+
+    <!-- 2. PHẦN HIỂN THỊ PREVIEW FILE ĐÃ CHỌN -->
+    <div class="selected-media-preview" *ngIf="selectedMedia.length > 0">
+      <div *ngFor="let item of selectedMedia; let i = index" class="preview-item">
+        <!-- Nút xóa file khỏi danh sách chọn -->
+        <button type="button" class="btn-remove" (click)="removeSelectedFile(i)">×</button>
+        
+        <!-- Hiển thị Ảnh -->
+        <img *ngIf="item.type === 'image'" [src]="item.previewUrl" class="media-thumb">
+        
+        <!-- Hiển thị Video -->
+        <div *ngIf="item.type === 'video'" class="video-thumb">
+          <video [src]="item.previewUrl" muted></video>
+          <span class="video-badge">VIDEO</span>
+        </div>
+      </div>
     </div>
 
     <!-- PHẦN THÊM MỚI: LINK PREVIEW CARD -->
@@ -75,7 +78,9 @@
 
     <!-- Submit -->
     <footer class="form-actions">
-      <button type="submit" [disabled]="postForm.invalid">Publish</button>
+      <button type="submit" [disabled]="postForm.invalid || isUploading">
+        {{ isUploading ? 'Uploading...' : 'Publish' }}
+      </button>
     </footer>
   </fieldset>
 </form>

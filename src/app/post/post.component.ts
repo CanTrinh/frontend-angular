@@ -13,7 +13,7 @@ import { MessageService } from '../message.service';
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule,NgIf ],
+  imports: [ReactiveFormsModule,NgIf, NgFor ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -23,6 +23,9 @@ export class PostComponent {
   linkPreview: any = null; // Chứa data từ NestJS
   isScanning = false;
 
+  selectedMedia: { file: File, previewUrl: any, type: string }[] = [];
+  isUploading = false;
+
   constructor(private fb: FormBuilder, 
     private postService: PostService,
     private messageService: MessageService,
@@ -31,7 +34,10 @@ export class PostComponent {
       this.postForm = this.fb.group({
         title: ['', [Validators.required, Validators.maxLength(100)]],
         content: ['', [Validators.required, Validators.maxLength(5000)]],
-        mediaUrl: ['']
+        mediaUrl: [''],
+
+        type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
+        metadata: [null] 
       });
 
     }
@@ -48,6 +54,40 @@ export class PostComponent {
       }
     });
   }
+
+  onFileChange(event: any) {
+  const files = event.target.files;
+    if (files) {
+      for (let file of files) {
+        // Kiểm tra dung lượng (ví dụ < 20MB)
+        if (file.size > 20 * 1024 * 1024) {
+          alert(`File ${file.name} quá lớn!`);
+          continue;
+        }
+
+        const reader = new FileReader();
+        const isVideo = file.type.startsWith('video');
+
+        // Tạo URL xem trước
+        const previewUrl = URL.createObjectURL(file);
+        
+        this.selectedMedia.push({
+          file: file,
+          previewUrl: previewUrl,
+          type: isVideo ? 'video' : 'image'
+        });
+      }
+    }
+      // Reset input để có thể chọn lại cùng 1 file nếu vừa xóa
+      event.target.value = ''; 
+  }
+
+  removeSelectedFile(index: number) {
+    // Thu hồi bộ nhớ của URL tạm thời để tránh tràn bộ nhớ trình duyệt
+    URL.revokeObjectURL(this.selectedMedia[index].previewUrl);
+    this.selectedMedia.splice(index, 1);
+  }
+
 
   fetchMetadata(url: string) {
   this.isScanning = true;
@@ -78,21 +118,35 @@ export class PostComponent {
 }
 
   // Submit handler
-  onSubmit(): void {
-    if (this.postForm.valid) {
-      const postPayload = {
-        ...this.postForm.value,
-        metadata: this.linkPreview // Ép metadata vào đây để gửi lên NestJS
-      };
-      this.postService.createPost(postPayload).subscribe({
+  async onSubmit() {
+    
+    this.isUploading = true;
+
+    // 1. Khởi tạo FormData thay vì Plain Object
+    const formData = new FormData();
+
+    // 2. Thêm các trường text cơ bản
+    formData.append('title', this.postForm.value.title);
+    formData.append('content', this.postForm.value.content);
+    formData.append('mediaUrl', this.postForm.value.mediaUrl || '');
+    formData.append('type', this.postForm.get('type')?.value || 'TEXT');
+
+    // 3. Thêm Metadata (Link Preview) dưới dạng chuỗi JSON
+    if (this.linkPreview) {
+      formData.append('metadata', JSON.stringify(this.linkPreview));
+    }
+
+    // 4. Thêm các file thực tế (Ảnh/Video) đã chọn từ mảng selectedMedia
+    this.selectedMedia.forEach((item) => {
+      formData.append('files', item.file); // 'files' phải khớp với tên trong NestJS FilesInterceptor
+    });
+      
+      this.postService.createPost(formData).subscribe({
         next: (res) => {
           console.log('Post created successfully:', res);
 
-          // 1. Reset Form để tránh user bấm nút gửi 2 lần
-        this.postForm.reset(); 
-        
-        // 2. Xóa biến tạm preview để các bài đăng sau không bị dính ảnh cũ
-        this.linkPreview = null; 
+          this.resetForm();
+          this.isUploading = false;
         
         // 3. Hiện thông báo thành công "sống động" qua MessageService
         this.messageService.add('🎉 Bài viết của bạn đã được xuất bản!');
@@ -106,7 +160,15 @@ export class PostComponent {
           console.error('Error creating post:', err);
         }
       });
-    }
+    
+  }
+
+  // Đừng quên dọn dẹp sau khi đăng hoặc xóa
+  resetForm() {
+    this.postForm.reset();
+    this.selectedMedia.forEach(m => URL.revokeObjectURL(m.previewUrl)); // Giải phóng bộ nhớ
+    this.selectedMedia = [];
+    this.linkPreview = null;
   }
 
 
