@@ -33,14 +33,11 @@
   .date-time{
     grid-area: date; 
     display: flex;
+    padding: 0;
     margin: 0 auto;
+    line-height: 1; 
+    font-size: 0.85rem;
   }
-
-  /*.weather{
-    grid-area: weather; 
-    display: flex;
-    height: 43.04px ;
-  }*/
 
   .weather {
     grid-area: weather; 
@@ -50,41 +47,36 @@
     /*background: #f0f0f0;*/
     border-radius: 4px;
     line-height: 1;        /* Ép dòng sát lại */
-}
+  }
 
-.weather select {
-    margin-right: auto;    /* Khoảng cách với cụm bên phải */
-    padding: 1px 2px;
-    font-size: 0.85rem;
-    background: none;
-    /*border: 1px solid #ccc;*/
-    height: 24px;          /* Cố định chiều cao nhỏ cho select */
-}
+  .weather select {
+      margin-right: auto;    /* Khoảng cách với cụm bên phải */
+      padding: 1px 2px;
+      font-size: 0.85rem;
+      background: none;
+      /*border: 1px solid #ccc;*/
+      height: 24px;          /* Cố định chiều cao nhỏ cho select */
+  }
 
-.weather img {
-    width: 24px;           /* Thu nhỏ icon để giảm chiều cao tổng thể */
-    height: 24px;
-    display: block;        /* Xóa khoảng hở dưới chân ảnh */
-}
+  .weather img {
+      width: 24px;           /* Thu nhỏ icon để giảm chiều cao tổng thể */
+      height: 24px;
+      display: block;        /* Xóa khoảng hở dưới chân ảnh */
+  }
 
-.weather .temp {
-    margin: 0;             /* QUAN TRỌNG: Xóa margin mặc định của thẻ p */
-    padding: 0;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
+  .weather .temp {
+      margin: 0;             /* QUAN TRỌNG: Xóa margin mặc định của thẻ p */
+      padding: 0;
+      font-weight: bold;
+      font-size: 0.9rem;
+  }
 
-.weather code {
-    margin: 0 0 0 2px;     /* Xóa margin mặc định */
-    padding: 0;
-    font-size: 0.8rem;
-    background: none;      /* Bỏ nền xám của thẻ code */
-}
-
-
-
-
-
+  .weather code {
+      margin: 0 0 0 2px;     /* Xóa margin mặc định */
+      padding: 0;
+      font-size: 0.8rem;
+      background: none;      /* Bỏ nền xám của thẻ code */
+  }
 
 
   .mode{
@@ -96,10 +88,6 @@
 
 }
 
-/*.weather{
-    display: flex;
-    height: 43.04px ;
-}*/
 
 .weather p{
     padding: 10px 0;
