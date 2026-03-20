@@ -33,7 +33,7 @@
   .date-time{
     grid-area: date; 
     display: flex;
-    padding: 0;
+    padding: none;
     margin: 0 auto;
     line-height: 1; 
     font-size: 0.85rem;
