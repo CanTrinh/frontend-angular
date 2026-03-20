@@ -27,7 +27,6 @@
   .logo{
     grid-area: logo; 
     display: flex;
-    margin: 0 auto;
     align-items: center;
     justify-content: space-around;
   }
@@ -85,7 +84,6 @@
     grid-area: mode; 
     justify-self: end;
     display: flex;
-    margin: 0 auto;
   }
 
 }
