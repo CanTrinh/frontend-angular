@@ -129,7 +129,7 @@ export class PostComponent {
     formData.append('title', this.postForm.value.title);
     formData.append('content', this.postForm.value.content);
     formData.append('mediaUrl', this.postForm.value.mediaUrl || '');
-    formData.append('type', this.postForm.get('type')?.value || 'TEXT');
+    //formData.append('type', this.postForm.get('type')?.value || 'TEXT');
 
     // 3. Thêm Metadata (Link Preview) dưới dạng chuỗi JSON
     if (this.linkPreview) {
@@ -149,11 +149,11 @@ export class PostComponent {
           this.isUploading = false;
         
         // 3. Hiện thông báo thành công "sống động" qua MessageService
-        this.messageService.add('🎉 Bài viết của bạn đã được xuất bản!');
+          this.messageService.add('🎉 Bài viết của bạn đã được xuất bản!');
 
         // 4. Điều hướng sang trang chi tiết để xem bài vừa đăng
         // Dùng tham số 'res.id' nhận về từ NestJS/Prisma
-        this.router.navigate(['/posts', res.id]);
+          this.router.navigate(['/posts', res.id]);
           
         },
         error: (err) => {
