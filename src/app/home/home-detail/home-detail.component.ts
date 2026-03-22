@@ -71,6 +71,9 @@ export class HomeDetailComponent implements OnInit {
   post: any;
   safeYoutubeUrl: SafeResourceUrl | null = null;
   isShorts = false;
+  // post-detail.component.ts
+cloudFrontUrl = '"https://cdn.ctlife.xyz"'; // Lấy từ biến môi trường hoặc config
+
 
   constructor(
     private postService: PostService,

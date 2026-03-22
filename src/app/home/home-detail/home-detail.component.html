@@ -53,24 +53,45 @@
   <p class="content">{{ post.content }}</p>
 
   <div class="media-content">
-    <!-- 1. Nếu là YouTube: Hiện Iframe -->
-    <div *ngIf="post.type === 'YOUTUBE' && safeYoutubeUrl" class="video-box" [class.is-shorts]="isShorts">
-      <iframe [src]="safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- 2. Nếu là Link báo: Hiện Card Metadata JSON -->
-    <div *ngIf="post.type === 'LINK' && post.metadata" class="link-card">
-      <img [src]="post.metadata.image" class="thumb">
-      <div class="info">
-        <h3>{{ post.metadata.title }}</h3>
-        <p>{{ post.metadata.description }}</p>
+    <!-- ƯU TIÊN 1: Nếu có danh sách MEDIA từ S3 (Loại bài MEDIA) -->
+    <div *ngIf="post.type === 'MEDIA' && post.media?.length > 0" class="media-grid">
+      <div *ngFor="let item of post.media" class="grid-item">
+        <!-- Nối link CloudFront: Bạn nên có biến cloudFrontUrl ở Component -->
+        <img *ngIf="item.type === 'IMAGE'" [src]="cloudFrontUrl + '/' + item.key" class="full-img">
+        
+        <video *ngIf="item.type === 'VIDEO'" 
+               [src]="cloudFrontUrl + '/' + item.key" 
+               controls 
+               playsinline 
+               class="post-video">
+        </video>
       </div>
     </div>
 
-    <!-- 3. Nếu là Ảnh (S3): Hiện ảnh lớn -->
-    <img *ngIf="post.type === 'IMAGE'" [src]="post.mediaUrl" class="full-img">
+    <!-- ƯU TIÊN 2: Các loại Link nhúng (Chỉ hiện nếu không có file upload trực tiếp) -->
+    <ng-container *ngIf="post.type !== 'MEDIA'">
+      
+      <!-- 1. Nếu là YouTube -->
+      <div *ngIf="post.type === 'YOUTUBE' && safeYoutubeUrl" class="video-box" [class.is-shorts]="isShorts">
+        <iframe [src]="safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <!-- 2. Nếu là Link báo: Hiện Card Metadata -->
+      <div *ngIf="post.type === 'LINK' && post.metadata" class="link-card">
+        <img [src]="post.metadata.image" *ngIf="post.metadata.image" class="thumb">
+        <div class="info">
+          <h3>{{ post.metadata.title }}</h3>
+          <p>{{ post.metadata.description }}</p>
+        </div>
+      </div>
+
+      <!-- 3. Nếu là Ảnh đơn (S3 link cũ) -->
+      <img *ngIf="post.type === 'IMAGE'" [src]="post.mediaUrl" class="full-img">
+    </ng-container>
   </div>
-  <app-comments  [postId]="post.id" ></app-comments>
+
+  <app-comments [postId]="post.id"></app-comments>
 </div>
+
 
 
