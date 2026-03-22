@@ -38,10 +38,10 @@
       </div>
     </div>
 
-    <!-- 5. Hiển thị Ảnh đơn (Nếu có link cũ) -->
-    <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" class="full-img">
+    <!-- 5. Hiển thị Ảnh đơn (Nếu có link cũ) 
+    <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" class="full-img">-->
+    <a *ngIf="post.mediaUrl" [href]="post.mediaUrl"></a>
 
   </div>
-
-  <app-comments [postId]="post.id"></app-comments>
 </div>
+<app-comments [postId]="post.id"></app-comments>
