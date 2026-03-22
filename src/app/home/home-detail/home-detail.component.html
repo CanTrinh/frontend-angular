@@ -57,13 +57,14 @@
     <div *ngIf="post.type === 'MEDIA' && post.media?.length > 0" class="media-grid">
       <div *ngFor="let item of post.media" class="grid-item">
         <!-- Nối link CloudFront: Bạn nên có biến cloudFrontUrl ở Component -->
-        <img *ngIf="item.type === 'IMAGE'" [src]="cloudFrontUrl + '/' + item.url" class="full-img">
+        <img *ngIf="item.type === 'IMAGE'" [src]="cloudFrontUrl + '/' + item.url" class="full-img" crossorigin="anonymous">
         
         <video *ngIf="item.type === 'VIDEO'" 
                [src]="cloudFrontUrl + '/' + item.url" 
                controls 
                playsinline 
-               class="post-video">
+               class="post-video"
+               crossorigin="anonymous">
         </video>
       </div>
     </div>
