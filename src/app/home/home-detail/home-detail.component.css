@@ -1,106 +1,104 @@
-/* Container chính */
+/* Container chính: Giới hạn độ rộng để không bị loãng */
 .post-detail {
-  max-width: 680px; /* Độ rộng tối ưu để đọc chữ */
-  margin: 20px auto;
-  padding: 16px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 580px; /* Thu nhỏ từ 680px xuống 580px giúp tập trung hơn */
+  margin: 16px auto;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
 }
 
-/* Nội dung chữ */
+/* Nội dung chữ: Font chữ hiện đại, dễ đọc */
 .content {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #1c1e21;
+  font-size: 15px; /* Giảm nhẹ kích thước chữ */
+  line-height: 1.5;
+  color: #262626;
   margin-bottom: 16px;
-  white-space: pre-wrap; /* Giữ các khoảng cách xuống dòng khi nhập */
+  white-space: pre-wrap;
 }
 
-/* Khoảng cách giữa các khối media */
-.media-content > div, 
-.media-content > img {
-  margin-bottom: 12px;
+/* Khối Media chung: Bo góc nhẹ nhàng */
+.media-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Khoảng cách đều giữa các thành phần */
+}
+
+/* Grid cho nhiều ảnh: Trông gọn hơn */
+.media-grid {
+  display: grid;
+  gap: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+/* Ảnh và Video: Giới hạn chiều cao để không chiếm hết màn hình */
+.full-img, .post-video {
+  width: 100%;
+  max-height: 450px; /* KHÔNG CHO PHÉP QUÁ CAO */
+  object-fit: contain; /* Giữ nguyên tỉ lệ ảnh, không bị méo/cắt */
+  background-color: #f8f9fa;
+  display: block;
+}
+
+/* YouTube Box: Giới hạn chiều rộng nếu là màn hình lớn */
+.video-box {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9; /* Tỉ lệ chuẩn hiện đại */
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Grid cho Media từ S3 (Ảnh/Video) */
-.media-grid {
-  display: grid;
-  gap: 4px;
-  /* Tự động chia cột: 1 ảnh thì full, 2 ảnh thì đôi, 3 ảnh trở lên thì grid */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.full-img, .post-video {
-  width: 100%;
-  display: block;
-  object-fit: cover;
-  background-color: #f0f2f5;
-  transition: opacity 0.3s;
-}
-
-/* YouTube Box */
-.video-box {
-  position: relative;
-  padding-bottom: 56.25%; /* Tỉ lệ 16:9 */
-  height: 0;
-}
-
 .video-box iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
+  border: none;
 }
 
-/* YouTube Shorts (Tỉ lệ dọc) */
-.video-box.is-shorts {
-  padding-bottom: 177.77%; /* Tỉ lệ 9:16 */
-  max-width: 350px;
-  margin: 0 auto 12px;
-}
-
-/* Card Metadata (Link báo) */
+/* Card Link: Thiết kế nằm ngang (Horizontal) để tiết kiệm diện tích */
 .link-card {
   display: flex;
-  flex-direction: column;
-  border: 1px solid #dddfe2;
+  align-items: stretch;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fbfbfb;
+  max-height: 100px; /* Khống chế độ cao card link */
   text-decoration: none;
-  background: #f0f2f5;
 }
 
 .link-card .thumb {
-  width: 100%;
-  height: 200px;
+  width: 100px; /* Ảnh nhỏ bên trái */
+  height: 100px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .link-card .info {
-  padding: 12px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .link-card h3 {
-  margin: 0 0 4px;
-  font-size: 17px;
-  color: #1d2129;
+  margin: 0 0 2px;
+  font-size: 14px;
+  color: #000;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Chỉ hiện 1 dòng tiêu đề */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .link-card p {
   margin: 0;
-  font-size: 14px;
-  color: #606770;
-  
-  /* Cấu hình chuẩn để cắt dòng */
+  font-size: 13px;
+  color: #65676b;
   display: -webkit-box;
+  -webkit-line-clamp: 2; /* Hiện tối đa 2 dòng mô tả */
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* Số dòng muốn hiển thị trước khi hiện dấu ... */
   overflow: hidden;
-  
-  /* Thêm dòng này để hỗ trợ các trình duyệt hiện đại hơn trong tương lai */
-  line-clamp: 2; 
 }
