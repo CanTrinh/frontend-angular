@@ -31,16 +31,17 @@
 
     <!-- 4. Hiển thị Link báo/Metadata (Nếu có metadata) -->
     <div *ngIf="post.metadata" class="link-card">
-      <img [src]="post.metadata.image" *ngIf="post.metadata.image" class="thumb">
-      <div class="info">
-        <h3>{{ post.metadata.title }}</h3>
-        <p>{{ post.metadata.description }}</p>
-      </div>
+      <a [href]="post.mediaUrl" target="_blank" rel="noopener noreferrer">
+        <img [src]="post.metadata.image" *ngIf="post.metadata.image" class="thumb">
+        <div class="info">
+          <h3>{{ post.metadata.title }}</h3>
+          <p>{{ post.metadata.description }}</p>
+        </div>
+      </a>
     </div>
 
     <!-- 5. Hiển thị Ảnh đơn (Nếu có link cũ) 
     <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" class="full-img">-->
-    <a *ngIf="post.mediaUrl" [href]="post.mediaUrl" target="_blank" rel="noopener noreferrer">{{post.mediaUrl}}</a>
 
   </div>
   <app-comments [postId]="post.id"></app-comments>
