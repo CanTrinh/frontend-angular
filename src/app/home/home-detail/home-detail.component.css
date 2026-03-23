@@ -1,6 +1,6 @@
 /* Container bọc ngoài cùng (giống bảng tin) */
 .post-detail {
-  max-width: 500px; /* Độ rộng chuẩn bài đăng Facebook trên Desktop */
+  max-width: 600px; /* Độ rộng chuẩn bài đăng Facebook trên Desktop */
   margin: 16px auto;
   padding: 12px 16px;
   background: #ffffff;
