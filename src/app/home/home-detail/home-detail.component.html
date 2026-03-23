@@ -40,8 +40,9 @@
 
     <!-- 5. Hiển thị Ảnh đơn (Nếu có link cũ) 
     <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" class="full-img">-->
-    <a *ngIf="post.mediaUrl" [href]="post.mediaUrl"></a>
+    <a *ngIf="post.mediaUrl" [href]="post.mediaUrl">{{post.mediaUrl}}</a>
 
   </div>
+  <app-comments [postId]="post.id"></app-comments>
 </div>
-<app-comments [postId]="post.id"></app-comments>
+
