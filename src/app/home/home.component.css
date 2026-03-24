@@ -84,6 +84,46 @@
     color: white;
 }
 
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="search"] {
+  line-height: 1.5rem;
+  width: 200px;
+  padding: 5px;
+  border: 2px solid #ccc; 
+
+  appearance: none;
+  border-radius: 6px;
+
+  outline: none;
+}
+
+input[type="search"]:hover, input[type="search"]:focus {
+  border: 2px solid red;
+  box-shadow: 1px 1px 1px gray;
+}
+
+.search {
+  width: 36px;
+  height: 24px;
+  border: none;
+  background-color: white;
+  /* background: url(search-24px.png) no-repeat center;
+  background-size: 18px; */
+}
+
+.mic {
+  width: 36px;
+  height: 24px;
+  background: url(mic1.png) no-repeat center;
+  background-size: 36px;
+}
+
+
 .newsfeed-container {
   max-width: 600px;
   margin: 20px auto;

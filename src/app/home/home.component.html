@@ -65,6 +65,13 @@
 <button class="createPost">
   <a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>
 </button>
+
+<form action="">
+  <div class="mic"></div>
+  <input type="search" name="search" id="search" aria-label="Search our site">
+  <button class="search" type="submit"><img src="../../assets/img/search-24px.svg" alt=""></button>
+</form>
+
 <div *ngIf="loading">Loading posts...</div>
 
 <div *ngIf="!loading && posts.length === 0">
