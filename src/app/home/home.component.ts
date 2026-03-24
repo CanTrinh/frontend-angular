@@ -15,7 +15,7 @@ export interface CategoryDto {
 
 
 @Component({
-  selector: 'app-hom',
+  selector: 'app-home',
   standalone:true,
   imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe,SlicePipe],
   templateUrl: './home.component.html',

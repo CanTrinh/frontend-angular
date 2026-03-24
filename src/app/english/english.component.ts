@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { User } from './english';
 import { EnglishService } from './english.service';
 import { AppComponent } from '../app.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 //import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -19,7 +20,7 @@ export class EnglishComponent implements OnInit {
   users: User[] = [];
   editUser: User | undefined; // the hero currently being edited
   userName = '';
-  greet = "chao mung ban den voi website cua toi";
+  
   constructor(private usersService: EnglishService, private app: AppComponent) {};
 
  
