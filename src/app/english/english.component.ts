@@ -19,7 +19,7 @@ export class EnglishComponent implements OnInit {
   users: User[] = [];
   editUser: User | undefined; // the hero currently being edited
   userName = '';
-
+  greet = "chao mung ban den voi website cua toi";
   constructor(private usersService: EnglishService, private app: AppComponent) {};
 
  
