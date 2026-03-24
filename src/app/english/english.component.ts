@@ -8,7 +8,7 @@ import { AppComponent } from '../app.component';
 
 @Component({
   standalone: true,
-  selector: 'app-users',
+  selector: 'app-enlish',
   templateUrl: './english.component.html',
   imports: [ CommonModule, FormsModule,ReactiveFormsModule],
   providers: [EnglishService],
