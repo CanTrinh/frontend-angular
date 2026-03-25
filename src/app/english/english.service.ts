@@ -30,7 +30,7 @@ export class EnglishService {
   
   }
 
-  uploadSingleFile(formData: FormData): Observable<any>{
+  uploadSingleMedia(formData: FormData): Observable<any>{
     return this.http.post(this.englishUrl, formData)
     .pipe(
       // Nếu lỗi, trả về object rỗng hoặc error tùy ý

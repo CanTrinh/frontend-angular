@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from './english';
 import { EnglishService } from './english.service';
 import Quill from 'quill';
@@ -16,60 +16,90 @@ import { QuillModule } from 'ngx-quill';
   styleUrls: ['./english.component.css']
 })
 export class EnglishComponent implements OnInit {
+  
 
-  ngOnInit(): void {
-    
-  }
+  postForm!: FormGroup;
+  selectedFiles: File[] = []; // Lưu file thực tế để gửi lên NestJS
+  isUploading = false;
 
-  constructor(
-    private englishService: EnglishService
-  ){
-
-  }
-
+  // Cấu hình Toolbar cho Quill (giống các forum)
   quillConfig = {
     toolbar: [
-      ['bold', 'italic', 'underline'],        // Chữ đậm, nghiêng
-      ['link', 'image', 'video'],             // Chèn link, ảnh, video
+      ['bold', 'italic', 'underline', 'strike'],        
+      ['blockquote', 'code-block'],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['clean']                               // Xóa định dạng
+      ['link', 'image', 'video'], 
+      ['clean']                                         
     ]
   };
 
-  // Hàm này chạy ngay khi Editor sẵn sàng
+  constructor(private fb: FormBuilder, private englishService: EnglishService) {}
+
+  ngOnInit() {
+    this.postForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(5)]],
+      content: ['', [Validators.required]] // Quill sẽ tự binding vào đây
+    });
+  }
+
+  // Xử lý kéo thả/paste ảnh trực tiếp vào Editor
   addDragAndDrop(quill: Quill) {
     const nativeEditor = quill.root;
-
-    // Bắt sự kiện Drop (Kéo thả)
+    
     nativeEditor.addEventListener('drop', (e: DragEvent) => {
       e.preventDefault();
-      if (e.dataTransfer && e.dataTransfer.files.length > 0) {
-        this.handleImageUpload(e.dataTransfer.files, quill);
+      if (e.dataTransfer?.files.length) {
+        this.handleInlineImage(e.dataTransfer.files[0], quill);
       }
     });
 
-    // Bắt sự kiện Paste (Dán ảnh từ clipboard - giống VOZ)
     nativeEditor.addEventListener('paste', (e: ClipboardEvent) => {
-      if (e.clipboardData && e.clipboardData.files.length > 0) {
-        this.handleImageUpload(e.clipboardData.files, quill);
+      if (e.clipboardData?.files.length) {
+        this.handleInlineImage(e.clipboardData.files[0], quill);
       }
     });
   }
 
-  handleImageUpload(files: FileList, quill: Quill) {
-    const file = files[0];
-    if (!file.type.startsWith('image/')) return;
-
-    // 1. Gửi file lên NestJS ngay lập tức
+  // Upload ảnh lẻ khi kéo thả vào editor (giống VOZ)
+  handleInlineImage(file: File, quill: Quill) {
     const formData = new FormData();
     formData.append('file', file);
 
-    this.englishService.uploadSingleFile(formData).subscribe(res => {
-      // 2. Lấy URL từ server trả về (ví dụ: res.url)
+    this.englishService.uploadSingleMedia(formData).subscribe(res => {
       const range = quill.getSelection();
-      // 3. Chèn ảnh vào đúng vị trí con trỏ
       quill.insertEmbed(range ? range.index : 0, 'image', res.url);
     });
   }
-}
 
+  // Hàm Submit tổng thể
+  onSubmit() {
+    if (this.postForm.invalid) return;
+
+    this.isUploading = true;
+    const formData = new FormData();
+
+    // 1. Đưa dữ liệu Text/HTML vào FormData
+    formData.append('title', this.postForm.get('title')?.value);
+    formData.append('content', this.postForm.get('content')?.value); // Đây là chuỗi HTML từ Quill
+
+    // 2. Nếu bạn có thêm input file riêng bên ngoài editor (nếu cần)
+    this.selectedFiles.forEach(file => {
+      formData.append('files', file);
+    });
+
+    // 3. Gửi lên NestJS
+    /*this.englishService.createPost(formData).subscribe({
+      next: (res) => {
+        console.log('Đăng bài thành công!', res);
+        this.isUploading = false;
+        // Chuyển trang hoặc reset form tại đây
+      },
+      error: (err) => {
+        this.isUploading = false;
+        alert('Lỗi khi đăng bài!');
+      }
+    });
+  
+  }*/
+}
+}

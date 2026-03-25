@@ -14,7 +14,7 @@
              class="full-img" 
              crossorigin="anonymous">
         
-        <video *ngIf="item.type === 'VIDEO'" 
+        <video *ngIf="item.type === 'MEDIA'" 
                [src]="cloudFrontUrl + '/' + item.url" 
                controls 
                playsinline 
