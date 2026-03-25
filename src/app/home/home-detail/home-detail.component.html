@@ -14,13 +14,15 @@
              class="full-img" 
              crossorigin="anonymous">
         
-        <video *ngIf="item.type ==='VIDEO'" 
-               [src]="cloudFrontUrl + '/' + item.url" 
-               controls 
-               playsinline 
-               class="post-video"
-               crossorigin="anonymous">
-        </video>
+      <video *ngIf="item.type === 'VIDEO'" 
+       controls 
+       playsinline 
+       class="post-video"
+       crossorigin="anonymous">
+      <source [src]="cloudFrontUrl + '/' + item.url" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ phát video.
+      </video>
+
       </div>
     </div>
 
