@@ -1,5 +1,5 @@
 /* HeroesComponent's private CSS styles */
-.search input {
+/*.search input {
     margin: 1rem 0;
   }
   
@@ -78,3 +78,82 @@
       justify-self: center;
     }
   }
+    */
+
+
+/* Khung bao ngoài Editor */
+.quill-editor-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.3s ease;
+
+  &:focus-within {
+    border-color: #007bff; /* Màu xanh khi nhấn vào soạn thảo */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  }
+}
+
+/* Tùy chỉnh Thanh công cụ (Toolbar) */
+::ng-deep .ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid #eee !important;
+  background-color: #f8f9fa;
+  padding: 8px !important;
+}
+
+/* Tùy chỉnh Vùng nhập liệu (Content) */
+::ng-deep .ql-container.ql-snow {
+  border: none !important;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  min-height: 200px; /* Chiều cao tối thiểu */
+  max-height: 500px; /* Giới hạn chiều cao, tự scroll nếu quá dài */
+  overflow-y: auto;
+}
+
+::ng-deep .ql-editor {
+  line-height: 1.6;
+  padding: 15px 20px !important;
+
+  /* Placeholder (Gợi ý gõ) */
+  &.ql-blank::before {
+    font-style: normal;
+    color: #999;
+    left: 20px !important;
+  }
+
+  /* Tự động tối ưu ảnh khi chèn vào giống VOZ */
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 10px auto; /* Căn giữa ảnh */
+    transition: transform 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.9);
+    }
+  }
+}
+
+::ng-deep {
+  .ql-snow .ql-picker {
+    color: #444;
+  }
+  .ql-snow .ql-stroke {
+    stroke: #444;
+    stroke-width: 1.5px;
+  }
+  .ql-snow .ql-fill {
+    fill: #444;
+  }
+  /* Khi di chuột qua các icon */
+  .ql-snow.ql-toolbar button:hover .ql-stroke,
+  .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+    stroke: #007bff !important;
+  }
+}
