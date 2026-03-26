@@ -20,7 +20,6 @@ Quill.register('modules/magicUrl', MagicUrl);
   selector: 'app-enlish',
   templateUrl: './english.component.html',
   imports: [ CommonModule, FormsModule,ReactiveFormsModule, QuillModule],
-  providers: [EnglishService],
   styleUrls: ['./english.component.css']
 })
 export class EnglishComponent {
