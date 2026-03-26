@@ -34,23 +34,81 @@
 </ul>
 -->
 
-<div class="quill-editor-container">
-  <quill-editor 
-    formControlName="content"
-    [modules]="quillConfig"
-    (onEditorCreated)="addDragAndDrop($event)">
-  </quill-editor>
-  
-  <!-- Link Preview Card hiện ra phía dưới nếu bắt được link -->
-  <!--<div class="link-preview-card" *ngIf="metadata">
-     <button (click)="metadata = null">×</button>
-     <img [src]="metadata.image">
-     <div class="info">
-       <b>{{metadata.title}}</b>
-       <p>{{metadata.description}}</p>
-     </div>
+<div class="feed-container">
+  <!-- PHẦN 1: FORM TẠO BÀI MỚI (Nằm trên cùng) -->
+  <div class="create-post-card card">
+    <form [formGroup]="createForm" (ngSubmit)="onCreateSubmit()" *ngIf="createForm">
+      <input formControlName="title" placeholder="Tiêu đề bài viết mới..." class="title-input">
+      
+      <div class="quill-wrapper">
+        <quill-editor 
+          formControlName="content" 
+          [modules]="quillConfig"
+          (onEditorCreated)="addDragAndDrop($event)"
+          placeholder="Bạn đang nghĩ gì?">
+        </quill-editor>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="createForm.invalid || isUploading" class="btn-primary">
+          {{ isUploading ? 'Đang đăng...' : '🚀 Đăng bài' }}
+        </button>
+      </div>
+    </form>
   </div>
-</div>-->
+
+  <!-- PHẦN 2: DANH SÁCH BÀI VIẾT -->
+  <div *ngFor="let post of posts; let i = index" class="post-card card" [class.is-editing]="editingPostId === post.id">
+    
+    <!-- CHẾ ĐỘ XEM (VIEW MODE) -->
+    <ng-container *ngIf="editingPostId !== post.id">
+      <div class="post-header">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <!-- Menu ba chấm cho Edit/Delete -->
+        <div class="post-menu" *ngIf="isOwner(post)">
+          <button (click)="enableEdit(post)">Sửa</button>
+          <button (click)="onDelete(post.id, i)" class="text-danger">Xóa</button>
+        </div>
+      </div>
+
+      <!-- Hiển thị nội dung HTML an toàn từ Quill -->
+      <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
+
+      <!-- Hiển thị Card link báo chí nếu có metadata -->
+      <div class="link-preview-card" *ngIf="post.metadata">
+        <a [href]="post.mediaUrl" target="_blank">
+          <img [src]="post.metadata.image" *ngIf="post.metadata.image">
+          <div class="meta-info">
+            <strong>{{ post.metadata.title }}</strong>
+            <p>{{ post.metadata.description }}</p>
+          </div>
+        </a>
+      </div>
+    </ng-container>
+
+    <!-- CHẾ ĐỘ SỬA TẠI CHỖ (INLINE EDIT MODE) -->
+     <!--
+    <ng-container *ngIf="editingPostId === post.id">
+      <form [formGroup]="editForm" (ngSubmit)="onUpdateSubmit(post.id)">
+        <input formControlName="title" class="title-input">
+        
+        <div class="quill-wrapper">
+          <quill-editor 
+            formControlName="content" 
+            [modules]="quillConfig"
+            (onEditorCreated)="addDragAndDrop($event)">
+          </quill-editor>
+        </div>
+
+        <div class="edit-actions">
+          <button type="submit" class="btn-success" [disabled]="editForm.invalid || isUpdating">Lưu</button>
+          <button type="button" class="btn-ghost" (click)="editingPostId = null">Hủy</button>
+        </div>
+      </form>
+    </ng-container>-->
+  </div>
+</div>
+
 
 
 

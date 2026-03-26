@@ -1,159 +1,33 @@
-/* HeroesComponent's private CSS styles */
-/*.search input {
-    margin: 1rem 0;
-  }
-  
-  .users {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .users li {
-    display: grid;
-    grid-template-columns: min-content max-content 1fr max-content max-content;
-    grid-template-areas: "badge name . edit delete";
-    margin: 1rem 0;
-    align-items: center;
-    background-color: #eee;
-    border-radius: 4px;
-  }
-  
-  .users li .badge {
-    grid-area: badge;
-  }
-  
-  .users li .name {
-    grid-area: name;
-  }
-  
-  .users li button {
-    margin: 0.3rem;
-    padding: 0.3rem 0.8rem;
-  }
-  
-  .users li button.edit {
-    grid-area: edit;
-  }
-  
-  .users li button.delete {
-    grid-area: delete;
-  }
-  
-  .users li button:hover, .heros li button:focus {
-    color: #eee;
-    background-color: #000;
-  }
-  
-  .users .badge {
-    padding: 0.5rem 0.6rem;
-    color: white;
-    background-color: #13a5c3;
-    margin-right: 0.8rem;
-    border-radius: 4px 0 0 4px;
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-  }
-  
-  .users input {
-    max-width: 12rem;
-    padding: .25rem;
-    border-color:1px black;
-  }
-  
-  @media (max-width: 550px) {
-    .users li {
-      grid-template-columns: min-content 1fr 1fr;
-      grid-template-rows: 2rem max-content;
-      grid-template-areas:
-        "badge name name"
-        "badge edit delete";
-    }
-  
-    .users li .name {
-      margin-top: 0.3rem;
-    }
-  
-    .users li button {
-      justify-self: center;
-    }
-  }
-    */
-
-
-/* Khung bao ngoài Editor */
-.quill-editor-container {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
+.card {
   background: #fff;
-  transition: border-color 0.3s ease;
-
-  &:focus-within {
-    border-color: #007bff; /* Màu xanh khi nhấn vào soạn thảo */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-  }
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
 }
 
-/* Tùy chỉnh Thanh công cụ (Toolbar) */
-::ng-deep .ql-toolbar.ql-snow {
-  border: none !important;
-  border-bottom: 1px solid #eee !important;
-  background-color: #f8f9fa;
-  padding: 8px !important;
+.title-input {
+  width: 100%;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  outline: none;
+  &:focus { border-bottom: 2px solid #007bff; }
 }
 
-/* Tùy chỉnh Vùng nhập liệu (Content) */
-::ng-deep .ql-container.ql-snow {
-  border: none !important;
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  font-size: 15px;
-  min-height: 200px; /* Chiều cao tối thiểu */
-  max-height: 500px; /* Giới hạn chiều cao, tự scroll nếu quá dài */
-  overflow-y: auto;
+.quill-wrapper {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 10px;
 }
 
-::ng-deep .ql-editor {
-  line-height: 1.6;
-  padding: 15px 20px !important;
-
-  /* Placeholder (Gợi ý gõ) */
-  &.ql-blank::before {
-    font-style: normal;
-    color: #999;
-    left: 20px !important;
-  }
-
-  /* Tự động tối ưu ảnh khi chèn vào giống VOZ */
-  img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    display: block;
-    margin: 10px auto; /* Căn giữa ảnh */
-    transition: transform 0.2s;
-
-    &:hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
-  }
+/* Quan trọng: Để nội dung xem giống hệt nội dung lúc soạn */
+.post-content.ql-editor {
+  padding: 0;
+  overflow-y: hidden;
+  img { max-width: 100%; height: auto; border-radius: 4px; }
 }
 
-::ng-deep {
-  .ql-snow .ql-picker {
-    color: #444;
-  }
-  .ql-snow .ql-stroke {
-    stroke: #444;
-    stroke-width: 1.5px;
-  }
-  .ql-snow .ql-fill {
-    fill: #444;
-  }
-  /* Khi di chuột qua các icon */
-  .ql-snow.ql-toolbar button:hover .ql-stroke,
-  .ql-snow.ql-toolbar button.ql-active .ql-stroke {
-    stroke: #007bff !important;
-  }
-}
+.btn-primary { background: #007bff; color: white; padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; }
+.text-danger { color: #ff4d4f; margin-left: 10px; border: none; background: none; cursor: pointer; }

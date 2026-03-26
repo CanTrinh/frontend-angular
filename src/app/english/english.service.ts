@@ -1,44 +1,36 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-
-import { Observable, catchError, map } from 'rxjs';
-
-import { User } from './english';
-import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'my-auth-token'
-  })
-};
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class EnglishService {
-  //englishUrl = `${environment.apiUrl}`;  // URL to web api
-  englishUrl= `http://localhost.3000`;
-  private errorHandler = inject(HttpErrorHandler);
-  private handleError: HandleError;
+  private readonly API_URL = 'http://localhost:3000/posts';
+  private readonly UPLOAD_URL = 'http://localhost:3000/media/upload';
 
-  constructor(
-    private http: HttpClient,
-    ) {
-      
-    this.handleError = this.errorHandler.createHandleError('EnglishService');
-  
+  constructor(private http: HttpClient) {}
+
+  // Lấy danh sách bài viết
+  getPosts(): Observable<any[]> {
+    return this.http.get<any[]>(this.API_URL);
   }
 
-  uploadMedia(formData: FormData): Observable<any>{
-    return this.http.post(this.englishUrl, formData)
-    .pipe(
-      // Nếu lỗi, trả về object rỗng hoặc error tùy ý
-      catchError(this.handleError('Loi tao post english', null))
-    );
+  // Upload ảnh lẻ khi kéo thả (Trả về { url: string })
+  uploadMedia(formData: FormData): Observable<{ url: string }> {
+    return this.http.post<{ url: string }>(this.UPLOAD_URL, formData);
   }
-  
+
+  // Tạo bài viết mới (JSON)
+  createPost(data: any): Observable<any> {
+    return this.http.post(this.API_URL, data);
+  }
+
+  // Cập nhật bài viết (JSON)
+  updatePost(id: string, data: any): Observable<any> {
+    return this.http.patch(`${this.API_URL}/${id}`, data);
+  }
+
+  // Xóa bài viết
+  deletePost(id: string): Observable<any> {
+    return this.http.delete(`${this.API_URL}/${id}`);
+  }
 }
