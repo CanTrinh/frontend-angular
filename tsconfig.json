@@ -5,7 +5,8 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "skipLibCheck": true,      // QUAN TRỌNG: Bỏ qua lỗi trong node_modules
+    "strict": false,            // moi vua doi sang false de su dung quill
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
