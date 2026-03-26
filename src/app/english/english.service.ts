@@ -16,7 +16,9 @@ const httpOptions = {
   })
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class EnglishService {
   //englishUrl = `${environment.apiUrl}`;  // URL to web api
   englishUrl= `http://localhost.3000`;
