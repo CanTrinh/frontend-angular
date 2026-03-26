@@ -18,7 +18,8 @@ const httpOptions = {
 
 @Injectable()
 export class EnglishService {
-  englishUrl = `${environment.apiUrl}`;  // URL to web api
+  //englishUrl = `${environment.apiUrl}`;  // URL to web api
+  englishUrl= `http://localhost.3000`;
   private errorHandler = inject(HttpErrorHandler);
   private handleError: HandleError;
 
@@ -30,7 +31,7 @@ export class EnglishService {
   
   }
 
-  uploadSingleMedia(formData: FormData): Observable<any>{
+  uploadMedia(formData: FormData): Observable<any>{
     return this.http.post(this.englishUrl, formData)
     .pipe(
       // Nếu lỗi, trả về object rỗng hoặc error tùy ý

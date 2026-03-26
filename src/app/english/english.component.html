@@ -34,16 +34,23 @@
 </ul>
 -->
 
-<div class="form-group">
-  <label class="form-label">Nội dung bài viết</label>
-  <div class="quill-editor-container">
-    <quill-editor 
-      formControlName="content"
-      [modules]="quillConfig"
-      (onEditorCreated)="addDragAndDrop($event)"
-      placeholder="Hôm nay bạn thế nào?">
-    </quill-editor>
+<div class="quill-editor-container">
+  <quill-editor 
+    formControlName="content"
+    [modules]="quillConfig"
+    (onEditorCreated)="addDragAndDrop($event)">
+  </quill-editor>
+  
+  <!-- Link Preview Card hiện ra phía dưới nếu bắt được link -->
+  <!--<div class="link-preview-card" *ngIf="metadata">
+     <button (click)="metadata = null">×</button>
+     <img [src]="metadata.image">
+     <div class="info">
+       <b>{{metadata.title}}</b>
+       <p>{{metadata.description}}</p>
+     </div>
   </div>
-</div>
+</div>-->
+
 
 
