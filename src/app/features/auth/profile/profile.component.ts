@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { ProfileService } from './profile.service';
 import { LoginService } from '../login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
 
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, 
     private loginService: LoginService,
     private http: HttpClient,
+    private router: Router,
     private profileService: ProfileService) {}
 
   ngOnInit() {
@@ -94,6 +96,7 @@ export class ProfileComponent implements OnInit {
        if (this.fileInputVar) {
         this.fileInputVar.nativeElement.value = ""; 
       }
+      this.router.navigateByUrl(`/home`);
         
     },
     error: (err) => {console.error('Error update profile:', err);
