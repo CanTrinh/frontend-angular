@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class EnglishService {
-  private readonly API_URL = 'http://localhost:3000/posts';
-  private readonly UPLOAD_URL = 'http://localhost:3000/media/upload';
+  private readonly API_URL = `${environment.apiUrl}/posts`;
+  private readonly UPLOAD_URL = `${environment.apiUrl}/s3/image`;
 
   constructor(private http: HttpClient) {}
 
