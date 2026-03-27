@@ -101,7 +101,7 @@ import { DialogService} from '../../../dialog.service'
 })
 export class LoginComponent {
   isRegisterMode = false;
-
+  user: any;
   loginForm: FormGroup;
   registerForm: FormGroup;
   nofi= '';
@@ -136,6 +136,7 @@ export class LoginComponent {
   onLogin(): void {
       const data = this.loginForm.value
       this.nofi ='';
+      
       const User:UserSignIn = data as UserSignIn;
       this.loginService
         .signINUser(User)
@@ -152,6 +153,10 @@ export class LoginComponent {
          
           this.loginForm.reset();
           this.router.navigateByUrl(`/home`);
+          this.loginService.user$.subscribe(u=>{this.user = u})
+          if(!this.user.profilePic){
+            this.dialog.confirm('Bạn đã login thành công, nhấp đúp vào biểu tượng avatar để cập nhật ảnh avatar');
+          }
           console.log('get recieve respond', res.access_token);
           },
           error: (err: HttpErrorResponse) => {

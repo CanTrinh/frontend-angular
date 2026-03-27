@@ -12,7 +12,7 @@
   <form *ngIf="isRegisterMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <input formControlName="name" type="text" placeholder="Username(min-length 4)" />
     <input formControlName="email" type="email" placeholder="Email" />
-    <input formControlName="password" type="password" placeholder="Pass >=8kt (hoa,so,dac biet )" />
+    <input formControlName="password" type="password" placeholder="Pass >=8kt(hoa,so,dac biet)" />
     <button type="submit" [disabled]="!registerForm.valid">Register</button>
   </form>
 
