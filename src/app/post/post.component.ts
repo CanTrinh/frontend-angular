@@ -7,13 +7,19 @@ import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MessageService } from '../message.service';
 
+import Quill from 'quill';
+import { QuillModule } from 'ngx-quill';
+import MagicUrl from 'quill-magic-url';
+
+// Đăng ký module tự nhận diện link
+Quill.register('modules/magicUrl', MagicUrl);
 
 
 
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule,NgIf, NgFor ],
+  imports: [ReactiveFormsModule,NgIf, NgFor, QuillModule ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -25,6 +31,8 @@ export class PostComponent {
 
   selectedMedia: { file: File, previewUrl: any, type: string }[] = [];
   isUploading = false;
+
+  private currentQuillInstance: any;
 
   constructor(private fb: FormBuilder, 
     private postService: PostService,
@@ -41,6 +49,61 @@ export class PostComponent {
       });
 
     }
+
+  quillConfig = {
+    magicUrl: true, // Tự động biến link text thành thẻ <a>
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline'],
+        ['link', 'image', 'video'], // 'video' mặc định của Quill hỗ trợ nhúng YouTube
+        ['clean']
+      ],
+      handlers: {
+        // Ghi đè handler mặc định của nút 'image' nếu muốn chọn file thủ công
+        image: () => this.triggerFileSelect() 
+      }
+    }
+  };
+
+   // --- XỬ LÝ MEDIA TRONG QUILL ---
+  addDragAndDrop(quill: any) {
+    this.currentQuillInstance = quill;
+    const editor = quill.root;
+    
+    editor.addEventListener('drop', (e: DragEvent) => {
+      e.preventDefault();
+      if (e.dataTransfer?.files.length) this.handleUpload(e.dataTransfer.files[0]);
+    });
+
+    editor.addEventListener('paste', (e: ClipboardEvent) => {
+      const file = e.clipboardData?.files[0];
+      if (file?.type.startsWith('image/')) {
+        e.preventDefault();
+        this.handleUpload(file);
+      }
+    });
+  }
+
+  triggerFileSelect() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.click();
+    input.onchange = () => {
+      if (input.files?.length) this.handleUpload(input.files[0]);
+    };
+  }
+
+  private handleUpload(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    this.postService.uploadMedia(formData).subscribe(res => {
+      const range = this.currentQuillInstance.getSelection(true);
+      this.currentQuillInstance.insertEmbed(range.index, 'image', res.url);
+      this.currentQuillInstance.setSelection(range.index + 1);
+    });
+  }
+
 
   ngOnInit(): void {
      // Theo dõi Content để tự động bắt link
@@ -219,7 +282,7 @@ export class PostComponent {
 
 
 
-
+  isOwner(post: any) { return true; /* Logic kiểm tra user hiện tại */ }
   
 
 }

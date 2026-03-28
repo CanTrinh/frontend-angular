@@ -74,6 +74,8 @@
       <!-- Hiển thị nội dung HTML an toàn từ Quill -->
       <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
 
+      
+      
       <!-- Hiển thị Card link báo chí nếu có metadata -->
   <div *ngIf="isScanning" class="loading-text">🔍 Đang phân tích link...</div>
     
@@ -97,8 +99,11 @@
       </div>
     </div>
 
-      <!--
-      <div class="link-preview-card" *ngIf="post.metadata">
+      
+      
+    
+    
+    <div class="link-preview-card" *ngIf="post.metadata">
         <a [href]="post.mediaUrl" target="_blank">
           <img [src]="post.metadata.image" *ngIf="post.metadata.image">
           <div class="meta-info">
@@ -106,7 +111,7 @@
             <p>{{ post.metadata.description }}</p>
           </div>
         </a>
-      </div> -->
+      </div>
     </ng-container>
 
     <!-- CHẾ ĐỘ SỬA TẠI CHỖ (INLINE EDIT MODE) -->
