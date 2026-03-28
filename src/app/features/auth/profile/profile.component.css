@@ -1,0 +1,71 @@
+/* Container của Form */
+form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+/* Bio Textarea */
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+textarea:focus {
+  border-color: #007bff;
+}
+
+/* Khu vực Camera & Ảnh */
+video, img {
+  width: 100%;
+  border-radius: 8px;
+  background: #f0f0f0;
+  object-fit: cover;
+}
+
+/* Các nút bấm */
+button {
+  cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+/* Nút Chụp ảnh (Phụ) */
+button[type="button"] {
+  background: #6c757d;
+  color: white;
+  align-self: center;
+}
+
+/* Nút Cập nhật (Chính) */
+button[type="submit"] {
+  background: #007bff;
+  color: white;
+  font-size: 1rem;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Input File */
+input[type="file"] {
+  font-size: 0.9rem;
+  color: #555;
+}
