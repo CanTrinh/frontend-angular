@@ -21,13 +21,35 @@
 -->
 
 <form [formGroup]="profileForm" (ngSubmit)="updateProfiles()">
-  <!-- Bio -->
+            <ul>
+                <li>
+        
+                    <input type="file" (change)="onFileSelected($event)" #fileInput />
+                </li>
+
+                <li>
+                    <label for="bio">Bio:</label>
+                    <textarea name="user_bio" id="bio"></textarea>
+                </li>
+
+                <li class="button">
+                    <button type="submit">Update Profile</button>
+                </li>
+            </ul>
+            <video #video autoplay></video>
+            <button type="button" (click)="capture()">Capture</button>
+            <canvas #canvas hidden></canvas>
+        </form>
+
+<!--
+<form [formGroup]="profileForm" (ngSubmit)="updateProfiles()">
+  
   <textarea formControlName="bio"></textarea>
 
-  <!-- File Upload -->
+  
   <input type="file" (change)="onFileSelected($event)" #fileInput />
 
-  <!-- Camera Capture -->
+  
   <video #video autoplay></video>
   <button type="button" (click)="capture()">Capture</button>
   <canvas #canvas hidden></canvas>
@@ -36,3 +58,4 @@
 
   <button type="submit">Update Profile</button>
 </form>
+-->
