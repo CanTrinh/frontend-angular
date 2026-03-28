@@ -118,8 +118,8 @@ input[type="search"]:hover, input[type="search"]:focus {
 
 .mic {
   
-  width: 36px;
-  height: 24px;
+  width: 32px;
+  height: 20px;
   background: url(../../assets/img/mic.svg) no-repeat center;
   background-size: 36px;
 }
