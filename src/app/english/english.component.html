@@ -75,6 +75,29 @@
       <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
 
       <!-- Hiển thị Card link báo chí nếu có metadata -->
+  <div *ngIf="isScanning" class="loading-text">🔍 Đang phân tích link...</div>
+    
+    <div class="link-preview-container" *ngIf="linkPreview">
+      <div class="preview-card-wrapper">
+        <button type="button" class="remove-preview" (click)="linkPreview = null">×</button>
+        
+        <!-- Nếu là YouTube -->
+        <div *ngIf="linkPreview.isYoutube" class="video-preview">
+           <p>📺 Video YouTube đã sẵn sàng nhúng</p>
+        </div>
+
+        <!-- Card cho báo chí / link thường -->
+        <div class="horizontal-card">
+          <img [src]="linkPreview.image" *ngIf="linkPreview.image" class="thumb">
+          <div class="meta">
+            <strong>{{ linkPreview.title }}</strong>
+            <p>{{ linkPreview.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!--
       <div class="link-preview-card" *ngIf="post.metadata">
         <a [href]="post.mediaUrl" target="_blank">
           <img [src]="post.metadata.image" *ngIf="post.metadata.image">
@@ -83,7 +106,7 @@
             <p>{{ post.metadata.description }}</p>
           </div>
         </a>
-      </div>
+      </div> -->
     </ng-container>
 
     <!-- CHẾ ĐỘ SỬA TẠI CHỖ (INLINE EDIT MODE) -->

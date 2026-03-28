@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EnglishService } from './english.service';
+import { PostService } from '../post/post.service';
+import { MessageService } from '../message.service';
 
 //import * as QuillNamespace from 'quill';// doi voi phien ban cu
 //const Quill: any = QuillNamespace; // Ép kiểu để tránh lỗi namespace
@@ -9,6 +11,7 @@ import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 import Quill from 'quill';
 import { QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -21,10 +24,13 @@ Quill.register('modules/magicUrl', MagicUrl);
   imports: [ CommonModule, FormsModule,ReactiveFormsModule, QuillModule,SafeHtmlPipe ],
   styleUrls: ['./english.component.css']
 })
-export class EnglishComponent implements OnInit{
+export class EnglishComponen {
   posts: any[] = [];
   createForm!: FormGroup;
   editForm!: FormGroup;
+
+  linkPreview: any = null; // Chứa data từ NestJS
+  isScanning = false;
   
   editingPostId: string | null = null;
   isUploading = false;
@@ -48,12 +54,54 @@ export class EnglishComponent implements OnInit{
 
   private currentQuillInstance: any;
 
-  constructor(private fb: FormBuilder, private englishService: EnglishService) {}
+  constructor(private fb: FormBuilder, 
+    private englishService: EnglishService,
+    private postService: PostService,
+    private messageService: MessageService) {}
 
   ngOnInit() {
     this.initForms();
     this.loadPosts();
+
+     // Theo dõi Content để tự động bắt link
+        this.createForm.get('content')?.valueChanges.pipe(
+          debounceTime(800),
+          distinctUntilChanged()
+        ).subscribe(text => {
+          const url = this.postService.extractUrl(text);
+          if (url && (!this.linkPreview || url !== this.linkPreview.url)) {
+            this.fetchMetadata(url);
+          }
+      });
   }
+
+  fetchMetadata(url: string) {
+  this.isScanning = true;
+  
+  this.postService.getLinkMetadata(url).subscribe({
+    next: (res) => {
+      // 1. Kiểm tra nếu có dữ liệu metadata thực sự (ít nhất phải có title)
+      if (res && res.title) {
+        this.linkPreview = res;
+        
+        // Tự điền vào ô Media URL nếu ô đó đang trống
+        /*if (!this.createForm.get('mediaUrl')?.value) {
+          this.createForm.patchValue({ mediaUrl: url }, { emitEvent: false });
+        }*/
+      } else {
+        // 2. Trường hợp trả về 200 OK nhưng data rỗng (link rác/không có meta)
+        this.linkPreview = null;
+        this.messageService.add('⚠️ Link này không hỗ trợ bản xem trước.');
+      }
+      this.isScanning = false;
+    },
+    error: (err)=> {
+      // 3. Trường hợp lỗi 404/500: errorInterceptor trong main.ts sẽ tự hiện thông báo
+      this.linkPreview = null;
+      this.isScanning = false;
+    }
+  });
+}
 
   initForms() {
     this.createForm = this.fb.group({
