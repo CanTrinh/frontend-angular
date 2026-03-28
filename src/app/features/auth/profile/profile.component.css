@@ -1,7 +1,7 @@
 form {
                 /* Center the form on the page*/
-                margin: 0 auto;
-                width: 400px;
+                margin: 0 auto !important;
+                width: 400px !important;
                 /* Form outline */
                 padding: 1em;
                 border: 1px solid #ccc;
