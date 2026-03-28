@@ -24,7 +24,7 @@ Quill.register('modules/magicUrl', MagicUrl);
   imports: [ CommonModule, FormsModule,ReactiveFormsModule, QuillModule,SafeHtmlPipe ],
   styleUrls: ['./english.component.css']
 })
-export class EnglishComponen {
+export class EnglishComponent {
   posts: any[] = [];
   createForm!: FormGroup;
   editForm!: FormGroup;
