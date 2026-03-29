@@ -95,12 +95,24 @@ export class PostComponent {
   }
 
   private handleUpload(file: File) {
+    const isImage = file.type.startsWith('image/');
+    const isVideo = file.type.startsWith('video/');
     const formData = new FormData();
+
     formData.append('file', file);
+
     this.postService.uploadMedia(formData).subscribe(res => {
       const range = this.currentQuillInstance.getSelection(true);
-      this.currentQuillInstance.insertEmbed(range.index, 'image', res.url);
-      this.currentQuillInstance.setSelection(range.index + 1);
+      const index = range ? range.index : 0;
+
+      if(isImage){
+        this.currentQuillInstance.insertEmbed(index, 'image', res.url);
+        this.currentQuillInstance.setSelection(index + 1);
+      }else if(isVideo) {
+        // Chèn video vào vị trí con trỏ
+        this.currentQuillInstance.insertEmbed(index, 'video', res.url);
+        this.currentQuillInstance.setSelection(index + 1);
+      }
     });
   }
 
