@@ -5,13 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { SanitizeUrlService } from 'src/app/sanitize-url.service';
 import { CommentsComponent } from 'src/app/comments/comments.component';
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 
 
 @Component({
   selector: 'app-home-detail',
   standalone: true,
-  imports: [CommonModule, CommentsComponent],
+  imports: [CommonModule, CommentsComponent,SafeHtmlPipe],
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.css']
 })

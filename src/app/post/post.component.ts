@@ -10,7 +10,7 @@ import { MessageService } from '../message.service';
 import Quill from 'quill';
 import { QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
-import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
+
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -20,7 +20,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule,NgIf, NgFor, QuillModule, SafeHtmlPipe ],
+  imports: [ReactiveFormsModule,NgIf, NgFor, QuillModule,  ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
