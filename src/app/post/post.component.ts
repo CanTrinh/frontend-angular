@@ -87,7 +87,7 @@ export class PostComponent {
   triggerFileSelect() {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image|video/*' ;
+    input.accept = "image/*,video/*" ;
     if (input.size > 20 * 1024 * 1024) {
           alert(`File ${input.name} quá lớn!`);
     }
