@@ -10,6 +10,7 @@ import { MessageService } from '../message.service';
 import Quill from 'quill';
 import { QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
+import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -19,7 +20,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule,NgIf, NgFor, QuillModule ],
+  imports: [ReactiveFormsModule,NgIf, NgFor, QuillModule, SafeHtmlPipe ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -32,10 +33,10 @@ export class PostComponent {
   isScanning = false;
 
   selectedMedia: { file: File, previewUrl: any, type: string }[] = [];
-  
+
   isUploading = false;
   editingPostId: string | null = null;
-  isUpdating = false;
+  isUpdating = false ;
 
   private currentQuillInstance: any;
 
@@ -122,6 +123,24 @@ export class PostComponent {
         this.currentQuillInstance.setSelection(index + 1);
       }
     });
+  }
+
+   // --- LOGIC SỬA TẠI CHỖ ---
+  enableEdit(post: any) {
+    this.editingPostId = post.id;
+    this.editForm.patchValue({
+      title: post.title,
+      content: post.content
+    });
+  }
+
+  // --- LOGIC XÓA ---
+  onDelete(postId: number, index: number) {
+    if (confirm('Bạn có chắc muốn xóa bài viết này?')) {
+      this.postService.deletePost(postId).subscribe(() => {
+        this.post.splice(index, 1); // Xóa khỏi UI
+      });
+    }
   }
 
 

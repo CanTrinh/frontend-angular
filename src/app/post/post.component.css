@@ -303,6 +303,18 @@ button[type="submit"]:disabled {
   background: #ff4d4f;
 }
 
+.post-content.ql-editor img {
+    /* Ép ảnh vuông của bạn về kích thước vừa mắt */
+    width: 650px;       /* Kích thước lý tưởng để đọc trên Desktop */
+    max-width: 100%;    /* Tự động co nhỏ khi xem trên Mobile */
+    height: auto;       /* Giữ tỉ lệ 1:1 của NestJS */
+    
+    display: block;
+    margin: 20px auto;  /* Căn giữa và tạo khoảng cách với chữ */
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Hiệu ứng nổi cho chuyên nghiệp */
+  }
+
 
 
 /* Hiệu ứng trượt từ dưới lên và mờ dần */

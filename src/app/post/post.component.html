@@ -69,20 +69,44 @@
       </div>
     </div>-->
 
+    <ng-container *ngIf="editingPostId !== post.id">
+      <div class="post-header">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <!-- Menu ba chấm cho Edit/Delete -->
+        <div class="post-menu" *ngIf="isOwner(post)">
+          <button (click)="enableEdit(post)">Sửa</button>
+          <!--<button (click)="onDelete(post.id, i)" class="text-danger">Xóa</button>-->
+        </div>
+      </div>
+
+      <!-- Hiển thị nội dung HTML an toàn từ Quill -->
+      <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>    
+    
+    <div class="link-preview-card" *ngIf="post.metadata">
+        <a [href]="post.mediaUrl" target="_blank">
+          <img [src]="post.metadata.image" *ngIf="post.metadata.image">
+          <div class="meta-info">
+            <strong>{{ post.metadata.title }}</strong>
+            <p>{{ post.metadata.description }}</p>
+          </div>
+        </a>
+    </div>
+  </ng-container>
+
     <!-- PHẦN THÊM MỚI: LINK PREVIEW CARD -->
-    <div *ngIf="isScanning" class="loading-text">🔍 Đang phân tích link...</div>
+    <!--<div *ngIf="isScanning" class="loading-text">🔍 Đang phân tích link...</div>
     
     <div class="link-preview-container" *ngIf="linkPreview">
       <div class="preview-card-wrapper">
         <button type="button" class="remove-preview" (click)="linkPreview = null">×</button>
-        
+      -->
         <!-- Nếu là YouTube -->
-        <div *ngIf="linkPreview.isYoutube" class="video-preview">
+        <!--<div *ngIf="linkPreview.isYoutube" class="video-preview">
            <p>📺 Video YouTube đã sẵn sàng nhúng</p>
-        </div>
+        </div>-->
 
         <!-- Card cho báo chí / link thường -->
-        <div class="horizontal-card">
+        <!--<div class="horizontal-card">
           <img [src]="linkPreview.image" *ngIf="linkPreview.image" class="thumb">
           <div class="meta">
             <strong>{{ linkPreview.title }}</strong>
@@ -90,7 +114,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- Submit -->
     <footer class="form-actions">
