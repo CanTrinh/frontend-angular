@@ -255,7 +255,7 @@ export class PostComponent {
 
         // 4. Điều hướng sang trang chi tiết để xem bài vừa đăng
         // Dùng tham số 'res.id' nhận về từ NestJS/Prisma
-          //this.router.navigate(['/posts', res.id]);
+          this.router.navigate(['/posts', res.id]);
           
         },
         error: (err) => {
