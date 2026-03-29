@@ -25,25 +25,29 @@
     </div>
 
     <!-- Media URL -->
+    <!--
     <div class="form-group">
       <label for="mediaUrl">Media URL</label>
       <input id="mediaUrl" type="text" formControlName="mediaUrl" placeholder="Link image/video/youtube" />
     </div>
+  -->
     
        <!-- 1. PHẦN UPLOAD FILE CẬP NHẬT -->
+    <!--
     <div class="form-group">
       <label for="fileUpload" class="upload-btn">
         <span>📷 Upload Images or Short Video (20s)</span>
       </label>
+    -->
       <!-- Chấp nhận ảnh và video, cho phép chọn nhiều file cùng lúc -->
-      <input 
+      <!--<input 
         id="fileUpload" 
         type="file" 
         (change)="onFileChange($event)" 
         multiple 
         accept="image/*,video/*" 
       />
-    </div>
+    </div>-->
 
     <!-- 2. PHẦN HIỂN THỊ PREVIEW FILE ĐÃ CHỌN -->
     <div class="selected-media-preview" *ngIf="selectedMedia.length > 0">
