@@ -26,11 +26,16 @@ Quill.register('modules/magicUrl', MagicUrl);
 export class PostComponent {
 
   postForm!: FormGroup;
+  editForm!: FormGroup;
+
   linkPreview: any = null; // Chứa data từ NestJS
   isScanning = false;
 
   selectedMedia: { file: File, previewUrl: any, type: string }[] = [];
+  
   isUploading = false;
+  editingPostId: string | null = null;
+  isUpdating = false;
 
   private currentQuillInstance: any;
 
@@ -231,7 +236,7 @@ export class PostComponent {
 
         // 4. Điều hướng sang trang chi tiết để xem bài vừa đăng
         // Dùng tham số 'res.id' nhận về từ NestJS/Prisma
-          this.router.navigate(['/posts', res.id]);
+          //this.router.navigate(['/posts', res.id]);
           
         },
         error: (err) => {
