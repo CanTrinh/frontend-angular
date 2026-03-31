@@ -65,6 +65,28 @@ export class PostComponent {
     }
   };
 
+   ngOnInit(): void {
+      this.postForm = this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(100)]],
+        content: ['', [Validators.required, Validators.maxLength(5000)]],
+        mediaUrl: [''],
+
+        //type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
+       // metadata: [null] 
+    });
+
+     // Theo dõi Content để tự động bắt link
+    this.postForm.get('content')?.valueChanges.pipe(
+      debounceTime(800),
+      distinctUntilChanged()
+    ).subscribe(text => {
+      const url = this.postService.extractUrl(text);
+      if (url && (!this.linkPreview || url !== this.linkPreview.url)) {
+        this.fetchMetadata(url);
+      }
+    });
+  }
+
    // --- XỬ LÝ MEDIA TRONG QUILL ---
   addDragAndDrop(quill: any) {
     this.currentQuillInstance = quill;
@@ -141,29 +163,7 @@ export class PostComponent {
   }
 
 
-  ngOnInit(): void {
-
-    this.postForm = this.fb.group({
-        title: ['', [Validators.required, Validators.maxLength(100)]],
-        content: ['', [Validators.required, Validators.maxLength(5000)]],
-        mediaUrl: [''],
-
-        //type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
-       // metadata: [null] 
-    });
-
-
-     // Theo dõi Content để tự động bắt link
-    this.postForm.get('content')?.valueChanges.pipe(
-      debounceTime(800),
-      distinctUntilChanged()
-    ).subscribe(text => {
-      const url = this.postService.extractUrl(text);
-      if (url && (!this.linkPreview || url !== this.linkPreview.url)) {
-        this.fetchMetadata(url);
-      }
-    });
-  }
+ 
   /*
   onFileChange(event: any) {
   const files = event.target.files;
