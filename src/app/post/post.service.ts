@@ -48,8 +48,8 @@ export class PostService {
     return match ? match[0] : null;
   }
 
-  createPost(formData: FormData): Observable<any> {
-    return this.http.post(this.createPostUrl, formData);
+  createPost(payload: any): Observable<any> {
+    return this.http.post(this.createPostUrl, payload);
     /*.pipe(
       // Nếu lỗi, trả về object rỗng hoặc error tùy ý
       catchError(this.handleError('createPost', null))

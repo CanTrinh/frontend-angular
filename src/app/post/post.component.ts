@@ -144,13 +144,13 @@ export class PostComponent {
     this.postForm = this.fb.group({
         title: ['', [Validators.required, Validators.maxLength(100)]],
         content: ['', [Validators.required, Validators.maxLength(5000)]],
-        //mediaUrl: [''],
+        mediaUrl: [''],
 
-       // type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
-        //metadata: [null] 
+        //type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
+       // metadata: [null] 
     });
 
-    
+
      // Theo dõi Content để tự động bắt link
     this.postForm.get('content')?.valueChanges.pipe(
       debounceTime(800),
@@ -231,28 +231,45 @@ export class PostComponent {
     
     this.isUploading = true;
 
+
     // 1. Khởi tạo FormData thay vì Plain Object
-    const formData = new FormData();
+    //const formData = new FormData();
 
     // 2. Thêm các trường text cơ bản
-    formData.append('title', this.postForm.value.title);
+    /*formData.append('title', this.postForm.value.title);
     formData.append('content', this.postForm.value.content);
     formData.append('mediaUrl', this.postForm.value.mediaUrl || '');
-    formData.append('draftId', this.draftId);
+    formData.append('draftId', this.draftId);*/
     //formData.append('type', this.postForm.get('type')?.value || 'TEXT');
 
     // 3. Thêm Metadata (Link Preview) dưới dạng chuỗi JSON
-    if (this.linkPreview) {
+    /*if (this.linkPreview) {
       formData.append('metadata', JSON.stringify(this.linkPreview));
-    }
+    }*/
 
     // 4. Thêm các file thực tế (Ảnh/Video) đã chọn từ mảng selectedMedia
    /* this.selectedMedia.forEach((item) => {
       formData.append('files', item.file); // 'files' phải khớp với tên trong NestJS FilesInterceptor
     });
     */
+
+  const payload = {
+    title: this.postForm.value.title,
+    content: this.postForm.value.content, // Chuỗi HTML từ Quill
+    
+    mediaUrl: this.postForm.value.mediaUrl,
+    draftId: this.draftId ,               // UUID string
+
+    metadata: this.linkPreview ? {
+      title: this.linkPreview.title,
+      description: this.linkPreview.description,
+      image: this.linkPreview.image,
+      url: this.linkPreview.url
+    } : null
+
+  };
       
-      this.postService.createPost(formData).subscribe({
+      this.postService.createPost(payload).subscribe({
         next: (res) => {
           console.log('Post created successfully:', res);
 
