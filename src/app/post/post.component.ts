@@ -116,7 +116,7 @@ export class PostComponent {
         this.currentQuillInstance.setSelection(index + 1);
       }else if(isVideo) {
         // Chèn video vào vị trí con trỏ
-        this.currentQuillInstance.insertEmbed(index, 'video', res.url);
+        this.currentQuillInstance.insertEmbed(index, 'video', `${environment.cloudFrontUrl}/${res.url}`);
         this.currentQuillInstance.setSelection(index + 1);
       }
     });
