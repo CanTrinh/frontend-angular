@@ -46,18 +46,7 @@ export class PostComponent {
   constructor(private fb: FormBuilder, 
     private postService: PostService,
     private messageService: MessageService,
-    private router: Router) {
-       // Initialize Reactive Form
-      this.postForm = this.fb.group({
-        title: ['', [Validators.required, Validators.maxLength(100)]],
-        content: ['', [Validators.required, Validators.maxLength(5000)]],
-        mediaUrl: [''],
-
-        type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
-        metadata: [null] 
-      });
-
-    }
+    private router: Router) {}
 
   quillConfig = {
     magicUrl: true, // Tự động biến link text thành thẻ <a>
@@ -151,6 +140,17 @@ export class PostComponent {
 
 
   ngOnInit(): void {
+
+    this.postForm = this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(100)]],
+        content: ['', [Validators.required, Validators.maxLength(5000)]],
+        //mediaUrl: [''],
+
+       // type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
+        //metadata: [null] 
+    });
+
+    
      // Theo dõi Content để tự động bắt link
     this.postForm.get('content')?.valueChanges.pipe(
       debounceTime(800),
