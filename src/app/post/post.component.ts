@@ -21,7 +21,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule,NgIf, NgFor, QuillModule,  ],
+  imports: [ReactiveFormsModule,NgIf, QuillModule,  ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
