@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "handwriting";
+  src: url(../../assets/fonts/journal-webfont.woff2) format(woff2),
+  url(../../assets/fonts/journal-webfont.woff) format(woff);
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "typewriter";
+  src: url(../../assets/fonts/momt___-webfont.woff2) format(woff2),
+  url(../../assets/fonts/momt___-webfont.woff) format(woff);
+  font-weight: normal;
+  font-style: normal;
+}
 @media screen and (width > 40em) {
   .weather{
     display: flex;
@@ -110,6 +124,7 @@
   }
 
   .logo p {
+    font: 1em "typewriter", monospace;
     padding: 10px;
   }
   
