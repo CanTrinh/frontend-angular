@@ -13,7 +13,7 @@ export class PostService {
 
   private apiUrl = `${environment.apiUrl}/posts`; // NestJS backend
   private apiUrlLink = `${environment.apiUrl}`;
-  private readonly UPLOAD_URL = `${environment.apiUrl}/s3/image`; 
+  private readonly UPLOAD_URL = `${environment.apiUrl}/media/upload`; 
   //vi standalone nen ta inject thay vi dua vao constructor
   private http = inject(HttpClient);
   //private errorHandler = inject(HttpErrorHandler);
