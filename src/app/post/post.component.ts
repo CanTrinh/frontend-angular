@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 //import { CdkDrag} from '@angular/cdk/drag-drop'
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './post.service';
@@ -9,7 +9,7 @@ import { MessageService } from '../message.service';
 import { environment } from 'src/environments/environment.prod';
 
 import Quill from 'quill';
-import { QuillModule } from 'ngx-quill';
+import { QuillEditorComponent, QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
 
 
@@ -43,6 +43,7 @@ export class PostComponent {
 
   private currentQuillInstance: any;
 
+  @ViewChild('editor') editor: QuillEditorComponent;
   constructor(private fb: FormBuilder, 
     private postService: PostService,
     private messageService: MessageService,
@@ -252,10 +253,10 @@ export class PostComponent {
       formData.append('files', item.file); // 'files' phải khớp với tên trong NestJS FilesInterceptor
     });
     */
-
+  const htmlContent = this.editor.quillEditor.root.innerHTML;
   const payload = {
     title: this.postForm.value.title,
-    content: this.postForm.value.content, // Chuỗi HTML từ Quill
+    content: htmlContent, // Chuỗi HTML từ Quill
     
     mediaUrl: this.postForm.value.mediaUrl,
     draftId: this.draftId ,               // UUID string
@@ -269,6 +270,7 @@ export class PostComponent {
 
   };
       
+  console.log(payload.content);
       this.postService.createPost(payload).subscribe({
         next: (res) => {
           console.log('Post created successfully:', res);
