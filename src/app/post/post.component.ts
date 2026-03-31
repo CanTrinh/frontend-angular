@@ -6,6 +6,7 @@ import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MessageService } from '../message.service';
+import { environment } from 'src/environments/environment.prod';
 
 import Quill from 'quill';
 import { QuillModule } from 'ngx-quill';
@@ -120,7 +121,7 @@ export class PostComponent {
       const index = range ? range.index : 0;
 
       if(isImage){
-        this.currentQuillInstance.insertEmbed(index, 'image', res.url);
+        this.currentQuillInstance.insertEmbed(index, 'image', `${environment.cloudFrontUrl}/${res.url}`);
         this.currentQuillInstance.setSelection(index + 1);
       }else if(isVideo) {
         // Chèn video vào vị trí con trỏ
