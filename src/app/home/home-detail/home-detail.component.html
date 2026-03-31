@@ -3,7 +3,7 @@
   <ng-container *ngIf="!isEditing">
     <header class="post-header">
       <h1 class="post-title">{{ post.title }}</h1>
-      <div class="post-meta">Đăng bởi: {{ post.author }}</div>
+      <div class="post-meta">Đăng bởi: {{ post.author.name }}</div>
     </header>
 
     <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
