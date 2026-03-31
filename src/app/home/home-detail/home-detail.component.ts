@@ -6,18 +6,32 @@ import { SanitizeUrlService } from 'src/app/sanitize-url.service';
 import { CommentsComponent } from 'src/app/comments/comments.component';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
+import { jwtDecode } from "jwt-decode";
+import { LoginService } from '../../features/auth/login/login.service';
+import { Observable } from 'rxjs';
+
+
+import Quill from 'quill';
+import { QuillModule } from 'ngx-quill';
+import MagicUrl from 'quill-magic-url';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+
+// Đăng ký module tự nhận diện link
+Quill.register('modules/magicUrl', MagicUrl);
 
 
 
 @Component({
   selector: 'app-home-detail',
   standalone: true,
-  imports: [CommonModule, CommentsComponent,SafeHtmlPipe],
+  imports: [CommonModule, CommentsComponent,SafeHtmlPipe, QuillModule],
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.css']
 })
 export class HomeDetailComponent implements OnInit {
   post: any;
+  isAuthor: boolean;
+  currentUserId: number;
   safeYoutubeUrl: SafeResourceUrl | null = null;
   isShorts = false;
   // post-detail.component.ts
@@ -27,7 +41,8 @@ export class HomeDetailComponent implements OnInit {
   constructor(
     private postService: PostService,
     private sanitizeService: SanitizeUrlService, // Inject service của bạn
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -68,8 +83,49 @@ export class HomeDetailComponent implements OnInit {
       return (match && match[8].length === 11) ? match[8] : '';
   }
 
+  isOwner(post: any) { 
+    const token = this.loginService.getToken();
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      this.currentUserId = decoded.sub; // hoặc decoded.sub tùy cấu trúc token của bạn
+    }
+    return this.currentUserId;
 }
 
+isEditing = false;
+editTitle = '';
+editContent = '';
+
+// Hàm kích hoạt chế độ sửa
+onEdit() {
+  this.isEditing = true;
+  // Copy dữ liệu gốc sang biến tạm
+  this.editTitle = this.post.title;
+  this.editContent = this.post.content;
+}
+
+// Hàm lưu thay đổi
+/*onSave() {
+  const payload = {
+    title: this.editTitle,
+    content: this.editContent,
+    // Giữ nguyên hoặc cập nhật linkPreview nếu logic quét link vẫn chạy
+    linkPreview: this.linkPreview 
+  };
+
+  this.postService.updatePost(this.post.id, payload).subscribe(res => {
+    this.post = res; // Cập nhật lại dữ liệu hiển thị
+    this.isEditing = false; // Tắt editor
+    this.linkPreview = null; // Reset preview tạm
+  });
+}
+
+// Hàm hủy bỏ
+onCancel() {
+  this.isEditing = false;
+  this.linkPreview = null; // Xóa preview nháp nếu có
+}
+*/
 
 
-
+}

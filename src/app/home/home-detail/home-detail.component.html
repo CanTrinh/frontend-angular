@@ -1,110 +1,53 @@
-<!-- post-detail.component.html -->
-<!--<div class="post-detail" *ngIf="post">
-  <h3>{{post.title}}</h3>-->
-  <!-- 1. Hiển thị Nội dung chữ (Luôn hiện nếu có) -->
-  <!--<p class="content" *ngIf="post.content">{{ post.content }}</p>
-
-  <div class="media-content">-->
-    
-    <!-- 2. Hiển thị danh sách MEDIA từ S3 (Ảnh/Video upload trực tiếp) -->
-    <!--<div *ngIf="post.media?.length > 0" class="media-grid">
-      <div *ngFor="let item of post.media" class="grid-item">
-        <img *ngIf="item.type === 'IMAGE'" 
-             [src]="cloudFrontUrl + '/' + item.url" 
-             class="full-img" 
-             crossorigin="anonymous">
-        
-      <video *ngIf="item.type === 'VIDEO'" 
-       controls 
-       playsinline 
-       class="post-video"
-       crossorigin="anonymous">
-      <source [src]="cloudFrontUrl + '/' + item.url" type="video/mp4">
-        Trình duyệt của bạn không hỗ trợ phát video.
-      </video>
-
-      </div>
-    </div>-->
-
-    <!-- 3. Hiển thị YouTube (Nếu có URL) -->
-    <!--<div *ngIf="safeYoutubeUrl" class="video-box" [class.is-shorts]="isShorts">
-      <iframe [src]="safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
-    </div>-->
-
-    <!-- 4. Hiển thị Link báo/Metadata (Nếu có metadata) -->
-    <!--<div *ngIf="post.metadata" class="link-card">
-      <a [href]="post.mediaUrl" target="_blank" rel="noopener noreferrer">
-        <img [src]="post.metadata.image" *ngIf="post.metadata.image" class="thumb">
-        <div class="info">
-          <h3>{{ post.metadata.title }}</h3>
-          <p>{{ post.metadata.description }}</p>
-        </div>
-      </a>
-    </div>-->
-
-    <!-- 5. Hiển thị Ảnh đơn (Nếu có link cũ) 
-    <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" class="full-img">-->
-
-  <!--</div>
-  <app-comments [postId]="post.id"></app-comments>
-</div>-->
-
-<div class="post-detail-wrapper">
-  <!-- 1. PHẦN NỘI DUNG CHÍNH (Từ bài viết gốc) -->
-  <article class="main-post card">
+<article class="main-post card">
+  <!-- CHẾ ĐỘ XEM (DETAIL) -->
+  <ng-container *ngIf="!isEditing">
     <header class="post-header">
       <h1 class="post-title">{{ post.title }}</h1>
-      <div class="post-meta">Đăng bởi: {{ post.author.name }} • {{ post.createdAt | date:'dd/MM/yyyy' }}</div>
+      <div class="post-meta">Đăng bởi: {{ post.author }}</div>
     </header>
 
-    <!-- HIỂN THỊ NỘI DUNG TỪ QUILL (Quan trọng nhất) -->
-    <!-- Phải có class ql-editor để các format bold, image, video từ Quill hiển thị đúng -->
     <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
 
-    <!-- 2. HIỂN THỊ LINK PREVIEW / YOUTUBE (Nếu có trong DB) -->
-    <!-- Bạn cần lưu data linkPreview vào DB cùng lúc với bài viết -->
+    <!-- Link Preview tĩnh (không có nút X) -->
     <div class="post-attachment" *ngIf="post.linkPreview">
-      
-      <!-- Nếu là YouTube: Nhúng Iframe thật để người dùng xem luôn -->
-      <div *ngIf="post.linkPreview.isYoutube" class="youtube-embed">
-        <iframe 
-          [src]="post.linkPreview.url | safeHtml" 
-          frameborder="0" 
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <!-- Nếu là Link báo chí: Hiện Card tĩnh (không có nút X vì đây là trang View) -->
-      <div class="horizontal-card" *ngIf="!post.linkPreview.isYoutube">
-        <img [src]="post.linkPreview.image" *ngIf="post.linkPreview.image" class="thumb">
-        <div class="meta">
-          <a [href]="post.linkPreview.url" target="_blank">
-            <strong>{{ post.linkPreview.title }}</strong>
-          </a>
-          <p>{{ post.linkPreview.description }}</p>
-        </div>
+      <div class="horizontal-card">
+         <img [src]="post.linkPreview.image" class="thumb" *ngIf="post.linkPreview.image">
+         <div class="meta">
+           <strong>{{ post.linkPreview.title }}</strong>
+           <p>{{ post.linkPreview.description }}</p>
+         </div>
       </div>
     </div>
 
-    <!-- 3. CỤM NÚT ĐIỀU KHIỂN (Sửa/Xóa) -->
-    <!--<footer class="post-actions" *ngIf="isAuthor">
-      <button (click)="onEdit()" class="btn-edit">Chỉnh sửa bài viết</button>
-      <button (click)="onDelete()" class="btn-delete">Xóa bài</button>
-    </footer>-->
-  </article>
+    <footer class="post-actions" *ngIf="isAuthor">
+      <button (click)="onEdit()" class="btn-edit">Sửa bài</button>
+      <!--<button (click)="onDelete()" class="btn-delete">Xóa</button>-->
+    </footer>
+  </ng-container>
 
-  <!-- 4. PHẦN BÌNH LUẬN & QUICK REPLY -->
-  <section class="comment-section">
-    <app-comments [postId]="post.id"></app-comments>
-   <!-- <app-comment-list [postId]="post.id"></app-comment-list>-->
-    
-    <!-- Quick Reply: Một Quill Editor khác nằm cố định ở đây -->
-    <!--<div class="quick-reply-area card">
-       <h3>Phản hồi nhanh</h3>
-       <quill-editor [(ngModel)]="newComment" [modules]="quickQuillConfig"></quill-editor>
-       <button (click)="submitComment()">Gửi bình luận</button>
+  <!-- CHẾ ĐỘ SỬA (INLINE EDITOR) -->
+   <!--
+  <div *ngIf="isEditing" class="inline-edit-form">
+    <div class="form-group">
+      <input [(ngModel)]="editTitle" placeholder="Tiêu đề mới..." class="title-input">
+    </div>
+
+    <div class="form-group">
+      <quill-editor 
+        [(ngModel)]="editContent" 
+        [modules]="quillConfig"
+        (onEditorCreated)="addDragAndDrop($event)">
+      </quill-editor>
     </div>-->
-  </section>
-</div>
 
+    <!-- Tái sử dụng Link Preview Card (Có nút X để xóa khi đang sửa) -->
+    <!--<div class="link-preview-container" *ngIf="linkPreview || (post.linkPreview && !linkPreviewWasRemoved)">-->
+       <!-- Logic hiện preview card tương tự trang Create -->
+    <!--</div>
 
+    <div class="edit-actions">
+      <button (click)="onSave()" class="btn-save">Lưu thay đổi</button>
+      <button (click)="onCancel()" class="btn-cancel">Hủy</button>
+    </div>
+  </div>-->
+</article>

@@ -32,11 +32,13 @@ export class PostComponent {
   linkPreview: any = null; // Chứa data từ NestJS
   isScanning = false;
 
-  selectedMedia: { file: File, previewUrl: any, type: string }[] = [];
+  //selectedMedia: { file: File, previewUrl: any, type: string }[] = [];
 
   isUploading = false;
   editingPostId: string | null = null;
   isUpdating = false ;
+
+  draftId: string = crypto.randomUUID();
 
   private currentQuillInstance: any;
 
@@ -108,6 +110,9 @@ export class PostComponent {
     const isVideo = file.type.startsWith('video/');
     const formData = new FormData();
 
+    //this.draftId = crypto.randomUUID();
+
+    formData.append('draftId', this.draftId)
     formData.append('file', file);
 
     this.postService.uploadMedia(formData).subscribe(res => {
@@ -156,7 +161,7 @@ export class PostComponent {
       }
     });
   }
-
+  /*
   onFileChange(event: any) {
   const files = event.target.files;
     if (files) {
@@ -189,6 +194,7 @@ export class PostComponent {
     URL.revokeObjectURL(this.selectedMedia[index].previewUrl);
     this.selectedMedia.splice(index, 1);
   }
+  */
 
 
   fetchMetadata(url: string) {
@@ -231,6 +237,7 @@ export class PostComponent {
     formData.append('title', this.postForm.value.title);
     formData.append('content', this.postForm.value.content);
     formData.append('mediaUrl', this.postForm.value.mediaUrl || '');
+    formData.append('draftId', this.draftId);
     //formData.append('type', this.postForm.get('type')?.value || 'TEXT');
 
     // 3. Thêm Metadata (Link Preview) dưới dạng chuỗi JSON
@@ -239,9 +246,10 @@ export class PostComponent {
     }
 
     // 4. Thêm các file thực tế (Ảnh/Video) đã chọn từ mảng selectedMedia
-    this.selectedMedia.forEach((item) => {
+   /* this.selectedMedia.forEach((item) => {
       formData.append('files', item.file); // 'files' phải khớp với tên trong NestJS FilesInterceptor
     });
+    */
       
       this.postService.createPost(formData).subscribe({
         next: (res) => {
@@ -268,8 +276,8 @@ export class PostComponent {
   // Đừng quên dọn dẹp sau khi đăng hoặc xóa
   resetForm() {
     this.postForm.reset();
-    this.selectedMedia.forEach(m => URL.revokeObjectURL(m.previewUrl)); // Giải phóng bộ nhớ
-    this.selectedMedia = [];
+    //this.selectedMedia.forEach(m => URL.revokeObjectURL(m.previewUrl)); // Giải phóng bộ nhớ
+    //this.selectedMedia = [];
     this.linkPreview = null;
   }
 
