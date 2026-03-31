@@ -11,6 +11,7 @@
 
      <div class="form-group">
         <quill-editor 
+          #editor
           formControlName="content" 
           [modules]="quillConfig"
           (onEditorCreated)="addDragAndDrop($event)"

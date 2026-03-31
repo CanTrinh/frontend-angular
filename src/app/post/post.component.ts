@@ -43,7 +43,8 @@ export class PostComponent {
 
   private currentQuillInstance: any;
 
-  @ViewChild('editor') editor: QuillEditorComponent;
+  @ViewChild('editor', { static: false }) editor!: QuillEditorComponent;
+
   constructor(private fb: FormBuilder, 
     private postService: PostService,
     private messageService: MessageService,
@@ -253,6 +254,8 @@ export class PostComponent {
       formData.append('files', item.file); // 'files' phải khớp với tên trong NestJS FilesInterceptor
     });
     */
+
+  
   const htmlContent = this.editor.quillEditor.root.innerHTML;
   const payload = {
     title: this.postForm.value.title,
