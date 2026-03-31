@@ -12,7 +12,8 @@ export class PostService {
   userRole = 'USER';
 
   private apiUrl = `${environment.apiUrl}/posts`; // NestJS backend
-  private apiUrlLink = `${environment.apiUrl}`;
+  private createPostUrl = `${environment.apiUrl}/posts/create`;
+  private apiUrlLink = `${environment.apiUrl}/link-preview`;
   private UPLOAD_URL = `${environment.apiUrl}/media`; 
   //vi standalone nen ta inject thay vi dua vao constructor
   private http = inject(HttpClient);
@@ -31,7 +32,7 @@ export class PostService {
   // 1. Lấy Metadata từ URL (Giai đoạn 1)
   getLinkMetadata(url: string): Observable<any> {
     // Chỉ cần gọi trực tiếp, nếu lỗi Interceptor sẽ tự hiện Message
-    return this.http.post(`${this.apiUrlLink}/link-preview`, { url });
+    return this.http.post(this.apiUrlLink, { url });
     /*
     return this.http.post(`${this.apiUrl}/link-preview`, { url })
     .pipe(
@@ -48,7 +49,7 @@ export class PostService {
   }
 
   createPost(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, formData);
+    return this.http.post(this.createPostUrl, formData);
     /*.pipe(
       // Nếu lỗi, trả về object rỗng hoặc error tùy ý
       catchError(this.handleError('createPost', null))
