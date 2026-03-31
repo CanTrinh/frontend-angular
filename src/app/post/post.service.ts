@@ -63,7 +63,7 @@ export class PostService {
 
   //get post by id
 
-  getPost(id: number): Observable<any> {
+  getPost(id: string): Observable<any> {
      return this.http.get<any>(`${this.apiUrl}/${id}`); 
   }
 

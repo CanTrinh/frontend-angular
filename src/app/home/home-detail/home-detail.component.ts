@@ -46,7 +46,7 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.postService.getPost(id).subscribe(data => {
         this.post = data;
