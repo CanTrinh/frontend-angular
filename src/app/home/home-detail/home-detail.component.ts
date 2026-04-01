@@ -31,7 +31,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 export class HomeDetailComponent implements OnInit {
   post: any;
   isAuthor: boolean;
-  currentUserId: number;
+  currentUserId: string;
   safeYoutubeUrl: SafeResourceUrl | null = null;
   isShorts = false;
   // post-detail.component.ts
@@ -83,13 +83,15 @@ export class HomeDetailComponent implements OnInit {
       return (match && match[8].length === 11) ? match[8] : '';
   }
 
-  isOwner(post: any) { 
+isOwner(post: any): boolean { 
     const token = this.loginService.getToken();
     if (token) {
       const decoded: any = jwtDecode(token);
       this.currentUserId = decoded.sub; // hoặc decoded.sub tùy cấu trúc token của bạn
     }
-    return this.currentUserId;
+
+    return post.author.id === this.currentUserId? true : false;
+    
 }
 
 isEditing = false;

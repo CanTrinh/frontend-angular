@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <footer class="post-actions" *ngIf="isAuthor">
+    <footer class="post-actions" *ngIf="isOwner(post)">
       <button (click)="onEdit()" class="btn-edit">Sửa bài</button>
       <!--<button (click)="onDelete()" class="btn-delete">Xóa</button>-->
     </footer>
