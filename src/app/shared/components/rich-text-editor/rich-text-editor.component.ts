@@ -68,6 +68,11 @@ export class RichTextEditorComponent implements OnInit {
   }
 
   private detectLink(html: string){
+    // kiem tra neu text khong ton tai hoac khong phai chuoi
+    if(!html || typeof html !== 'string'){
+      this.linkDetected.emit(null);
+      return;
+    }
      // phat hien thay doi xem co link phai link url khong neu co gui ra tu output
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const matches = html.match(urlRegex);
