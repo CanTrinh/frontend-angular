@@ -81,7 +81,7 @@
     
     <div class="link-preview-container" *ngIf="linkPreview">
       <div class="preview-card-wrapper">
-        <button type="button" class="remove-preview" (click)="linkPreview = null">×</button>
+        <button type="button" class="remove-preview" (click)="onRemovePreview()">×</button>
       
         <!-- Nếu là YouTube -->
         <div *ngIf="linkPreview.isYoutube" class="video-preview">
