@@ -50,7 +50,7 @@ export class RichTextEditorComponent implements OnInit {
       takeUntil(this.destroy$) // huy khi component bi dong
     ).subscribe(html => {
       // phat noi dung cuoi cung ve cho form cha
-      this.contentChange.emit(html);
+      //this.contentChange.emit(html);
 
       // thuc hien bat link
       this.detectLink(html);
@@ -58,9 +58,9 @@ export class RichTextEditorComponent implements OnInit {
   }
 
   onContentChanged(event: any) {
-    /*if(event.html !== this.content){
+    if(event.html !== this.content){
       this.contentChange.emit(event.html);
-    }*/
+    }
    // day du lieu text thuan vao pheu Subject thay vi xu ly ngay
    this.contentSubject.next(event.text);
 
