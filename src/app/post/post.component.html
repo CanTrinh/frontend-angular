@@ -14,7 +14,7 @@
         <app-rich-text-editor
           class="quill-editor"
           [draftId]= "draftId"
-          [content] = "postForm.get('content')?.value"
+          [content] = "initialContent"
           (contentChange)= "handleEditorChange($event)"
           (linkDetected) = "fetchMetadata($event)"
         ></app-rich-text-editor>

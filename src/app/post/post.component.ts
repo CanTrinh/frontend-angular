@@ -43,10 +43,8 @@ export class PostComponent {
 
   draftId: string = crypto.randomUUID();
 
-  //private currentQuillInstance: any;
-
-  //@ViewChild('editor', { static: false }) editor!: QuillEditorComponent;
-
+ 
+  initialContent = '';
   @ViewChild(RichTextEditorComponent) editor!: RichTextEditorComponent;
   constructor(private fb: FormBuilder, 
     private postService: PostService,
@@ -61,31 +59,15 @@ export class PostComponent {
         content: ['', [Validators.required, Validators.maxLength(5000)]],
         mediaUrl: [''],
 
-        //type: ['TEXT'], // Mặc định là TEXT, sẽ tự cập nhật thành MEDIA/YOUTUBE...
-       // metadata: [null] 
     });
+  // Gán giá trị từ form vào biến này MỘT LẦN DUY NHẤT khi khởi tạo
+  this.initialContent = this.postForm.get('content')?.value || '';
+}
 
-     // Theo dõi Content để tự động bắt link
-    /*this.postForm.get('content')?.valueChanges.pipe(
-      debounceTime(800),
-      distinctUntilChanged()
-    ).subscribe(text => {
-      const url = this.postService.extractUrl(text);
-      if (url && (!this.linkPreview || url !== this.linkPreview.url)) {
-        this.fetchMetadata(url);
-      }
-    });*/
-  }
-
-  // ham nay hung (contentChange)tu shared component
-  handleEditorChange(html: string){
-    this.postForm.patchValue({
-      content: html
-    });
-
-    // danh dau la da cham vao (touched)
-    this.postForm.get('content')?.markAsTouched();
-  }
+ handleEditorChange(html: string) {
+  this.postForm.patchValue({ content: html }, { emitEvent: false }); // Thêm { emitEvent: false } để tối ưu
+  this.postForm.get('content')?.markAsTouched();
+}
  
 
    // --- LOGIC SỬA TẠI CHỖ ---
