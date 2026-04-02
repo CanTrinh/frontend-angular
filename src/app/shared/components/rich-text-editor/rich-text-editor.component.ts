@@ -61,8 +61,8 @@ export class RichTextEditorComponent implements OnInit {
     /*if(event.html !== this.content){
       this.contentChange.emit(event.html);
     }*/
-   // day du lieu vao pheu Subject thay vi xu ly ngay
-   this.contentSubject.next(event.html);
+   // day du lieu text thuan vao pheu Subject thay vi xu ly ngay
+   this.contentSubject.next(event.text);
 
 
   }
@@ -78,7 +78,8 @@ export class RichTextEditorComponent implements OnInit {
     const matches = html.match(urlRegex);
 
     if( matches && matches.length > 0) {
-      this.linkDetected.emit(matches[matches.length-1]);
+      const lastLink = matches[matches.length-1].trim();
+      this.linkDetected.emit(lastLink);
     } else {
       this.linkDetected.emit(null);
     }
