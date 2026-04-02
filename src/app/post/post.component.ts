@@ -45,8 +45,9 @@ export class PostComponent {
 
   //private currentQuillInstance: any;
 
-  @ViewChild('editor', { static: false }) editor!: QuillEditorComponent;
+  //@ViewChild('editor', { static: false }) editor!: QuillEditorComponent;
 
+  @ViewChild(RichTextEditorComponent) editor!: RichTextEditorComponent;
   constructor(private fb: FormBuilder, 
     private postService: PostService,
     private messageService: MessageService,
@@ -145,6 +146,17 @@ export class PostComponent {
     console.log(this.linkPreview);
 }
 
+
+  onRemovePreview(){
+    if(this.lastUrl){
+      // goi ham xoa link ben trong quill editor
+      this.editor.removeLinkFromContent(this.lastUrl);
+
+      //xoa card preview tren post
+      this.linkPreview = null;
+      this.lastUrl= '';
+    }
+  }
   // Submit handler
   async onSubmit() {
     

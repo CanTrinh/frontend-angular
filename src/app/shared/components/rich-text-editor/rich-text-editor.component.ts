@@ -84,6 +84,16 @@ export class RichTextEditorComponent implements OnInit {
     }
   }
 
+  removeLinkFromContent(url: string){
+    if( this.currentQuillInstance && url) {
+      const content = this.currentQuillInstance.getText(); // lay toan bo chu thuan
+      const index = content.indexOf(url); // tim vi tri cua url
+      if (index !== -1){
+        this.currentQuillInstance.deleteText(index, url.length);
+      }
+    }
+  }
+
 
   // phuong thuc xu ly cho viec nguoi dung chon tu nut image thay vi keo tha
   triggerFileSelect() {
