@@ -91,7 +91,7 @@ export class RichTextEditorComponent implements OnInit {
   triggerFileSelect() {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/*';
+    input.accept = 'image/*, video/*';
     input.click();
     input.onchange = () => {
       if (input.files?.length) this.handleUploadMedia(input.files[0]);

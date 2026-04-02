@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
 
@@ -9,7 +9,8 @@ import { environment } from '../../../environments/environment.prod';
 export class QuillEditorService {
   
   private readonly UPLOAD_URL = `${environment.apiUrl}/media`;
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
+  //constructor(private http: HttpClient) { }
 
   getModuleConfig(){
    return  {
