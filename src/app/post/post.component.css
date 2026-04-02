@@ -163,3 +163,36 @@ button[type="submit"]:disabled {
   font-style: italic;
   margin-bottom: 10px;
 }
+
+/* 1. Đảm bảo component bao ngoài chiếm hết chiều rộng */
+.form-group .quill-editor {
+  display: block;
+  width: 100%; /* Tràn bằng chiều rộng của form-group */
+  border: 1.5px solid #edeff1;
+  border-radius: 8px;
+  overflow: hidden; /* Để bo góc thực sự có tác dụng */
+}
+
+/* 2. Tác động vào phần nội dung bên trong của Quill */
+::ng-deep .ql-container {
+  font-family: inherit;
+  font-size: 1rem;
+  border: none !important; /* Bỏ border mặc định của Quill để dùng border của bọc ngoài */
+  min-height: 250px; /* Tăng chiều cao vùng nhập liệu */
+}
+
+::ng-deep .ql-editor {
+  min-height: 250px; /* Đảm bảo vùng soạn thảo luôn cao ít nhất 250px */
+  max-height: 500px; /* Giới hạn chiều cao, nếu dài quá sẽ có scrollbar */
+  overflow-y: auto;
+  padding: 15px;
+}
+
+/* 3. Tùy chỉnh thanh công cụ (toolbar) cho đồng bộ */
+::ng-deep .ql-toolbar {
+  border: none !important;
+  border-bottom: 1.5px solid #edeff1 !important; /* Chỉ giữ lại đường kẻ dưới thanh công cụ */
+  background-color: #f8f9fa;
+  padding: 8px !important;
+}
+
