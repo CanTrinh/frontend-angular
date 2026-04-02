@@ -39,7 +39,7 @@
 /* css dung chung cho create post va ca detail post*/
 /* --- 1. Định dạng nội dung từ Quill (Dùng cho cả Create và View) --- */
 .quill-editor {
-  display: flex !important;
+  display: flex;
   max-width: 800px;
   font-size: 16px;
   line-height: 1.6;
