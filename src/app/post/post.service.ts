@@ -67,6 +67,10 @@ export class PostService {
      return this.http.get<any>(`${this.apiUrl}/${id}`); 
   }
 
+  updatePost(id: string, data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, data);
+  }
+
   // Get comments for a post
   getComments(postId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
@@ -78,7 +82,7 @@ export class PostService {
   }
 
   // Delete a post
-  deletePost(postId: number): Observable<void> {
+  deletePost(postId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${postId}`);
   }
 

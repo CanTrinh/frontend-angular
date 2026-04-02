@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule, } from '@angular/common';
 import { PostService } from 'src/app/post/post.service';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +25,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-home-detail',
   standalone: true,
-  imports: [CommonModule, CommentsComponent,SafeHtmlPipe, QuillModule],
+  imports: [CommonModule, CommentsComponent,SafeHtmlPipe, QuillModule, FormsModule],
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.css']
 })
@@ -34,6 +35,11 @@ export class HomeDetailComponent implements OnInit {
   currentUserId: string;
   safeYoutubeUrl: SafeResourceUrl | null = null;
   isShorts = false;
+
+  isEditing = false;
+  linkPreview: any = null;
+  editTitle = '';
+  editContent = '';
   // post-detail.component.ts
   cloudFrontUrl = "https://cdn.ctlife.xyz"; // Lấy từ biến môi trường hoặc config
 
@@ -94,10 +100,6 @@ isOwner(post: any): boolean {
     
 }
 
-isEditing = false;
-editTitle = '';
-editContent = '';
-
 // Hàm kích hoạt chế độ sửa
 onEdit() {
   this.isEditing = true;
@@ -107,7 +109,7 @@ onEdit() {
 }
 
 // Hàm lưu thay đổi
-/*onSave() {
+onSave() {
   const payload = {
     title: this.editTitle,
     content: this.editContent,
@@ -122,12 +124,20 @@ onEdit() {
   });
 }
 
+onDelete(postId: string) {
+    if (confirm('Bạn có chắc muốn xóa bài viết này?')) {
+      this.postService.deletePost(postId).subscribe(() => {
+        //this.posts.splice(index, 1); // Xóa khỏi UI
+      });
+    }
+  }
+
 // Hàm hủy bỏ
 onCancel() {
   this.isEditing = false;
   this.linkPreview = null; // Xóa preview nháp nếu có
 }
-*/
+
 
 
 }

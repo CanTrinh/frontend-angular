@@ -10,6 +10,7 @@
     </div>
 
      <div class="form-group">
+        <!--
         <quill-editor 
           #editor
           formControlName="content" 
@@ -17,6 +18,15 @@
           (onEditorCreated)="addDragAndDrop($event)"
           placeholder="Bạn đang nghĩ gì?">
         </quill-editor>
+      -->
+
+        <app-rich-text-editor
+          [draftId]= "draftId"
+          [content] = "postForm.get('content')?.value"
+          (contentChange)= "handleEditorChange($event)"
+          (linkDetected) = "fetchMetadata($event)"
+        ></app-rich-text-editor>
+    
     </div>
 
     <!-- Media URL -->

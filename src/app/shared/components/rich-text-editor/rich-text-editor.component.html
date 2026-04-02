@@ -1,0 +1,7 @@
+<quill-editor 
+          [(ngModel)]="content" 
+          [modules]="quillConfig"
+          (onEditorCreated)="addDragAndDrop($event)"
+          [placeholder]="placeholder"
+          (onContentChanged)="onContentChanged($event)">
+</quill-editor>
