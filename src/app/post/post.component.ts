@@ -125,7 +125,7 @@ export class PostComponent {
       this.linkPreview = null;
       this.isScanning = false;
     }
-    console.log(this.linkPreview);
+
 }
 
 

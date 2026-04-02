@@ -14,7 +14,7 @@ export class PostService {
   private apiUrl = `${environment.apiUrl}/posts`; // NestJS backend
   private createPostUrl = `${environment.apiUrl}/posts/create`;
   private apiUrlLink = `${environment.apiUrl}/link-preview`;
-  private UPLOAD_URL = `${environment.apiUrl}/media`; 
+  //private UPLOAD_URL = `${environment.apiUrl}/media`; 
   //vi standalone nen ta inject thay vi dua vao constructor
   private http = inject(HttpClient);
   //private errorHandler = inject(HttpErrorHandler);
@@ -25,9 +25,9 @@ export class PostService {
     this.handleError = this.errorHandler.createHandleError('PostService');
   }*/
 
-  uploadMedia(formData: FormData): Observable<{ url: string }> {
+  /*uploadMedia(formData: FormData): Observable<{ url: string }> {
     return this.http.post<{ url: string }>(this.UPLOAD_URL, formData);
-  }
+  }*/
 
   // 1. Lấy Metadata từ URL (Giai đoạn 1)
   getLinkMetadata(url: string): Observable<any> {
