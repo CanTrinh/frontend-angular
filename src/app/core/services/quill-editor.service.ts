@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
@@ -10,6 +10,9 @@ export class QuillEditorService {
   
   private readonly UPLOAD_URL = `${environment.apiUrl}/media`;
   private http = inject(HttpClient);
+  // Tạo một Subject để phát tín hiệu khi nhấn nút Image
+  private imageButtonClickSource = new Subject<any>();
+  imageButtonClick$ = this.imageButtonClickSource.asObservable();
   //constructor(private http: HttpClient) { }
 
   getModuleConfig(){

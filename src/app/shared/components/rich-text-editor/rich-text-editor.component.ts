@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import Quill from 'quill';
@@ -20,7 +20,7 @@ Quill.register('modules/magicUrl', MagicUrl);
   templateUrl: './rich-text-editor.component.html',
   styleUrls: ['./rich-text-editor.component.css']
 })
-export class RichTextEditorComponent implements OnInit {
+export class RichTextEditorComponent implements OnInit, OnDestroy {
 
   // tao mot luong du lieu noi bo
   private contentSubject = new Subject<string>();
@@ -41,7 +41,15 @@ export class RichTextEditorComponent implements OnInit {
   constructor(private quillService: QuillEditorService){}
 
   ngOnInit(): void {
+    // lay config tu service quill
     this.quillConfig = this.quillService.getModuleConfig();
+
+    // 2. Đăng ký lắng nghe sự kiện bấm nút Image từ Service
+    this.quillService.imageButtonClick$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.triggerFileSelect(); // Hàm mở trình chọn file của bạn
+    });
 
     // cau hinh bo loc cho luong du lieu
     this.contentSubject.pipe(
@@ -101,13 +109,18 @@ export class RichTextEditorComponent implements OnInit {
   //khi nguoi dung go hoac chen anh hay video boi hanh dong keo tha
   addDragAndDrop(quill: any) {
     this.currentQuillInstance = quill;
-    const editor = quill.root;
-    const toolbar = quill.getModuleConfig('toolbar');
 
-    //ghi de hanh dong nut image
-    toolbar.addHandler('image', () => {
-      this.triggerFileSelect();
-    })
+    const editor = quill.root;
+    
+     // 1. Lấy đúng module Toolbar đang chạy
+    const toolbar = quill.getModule('toolbar');
+
+    // 2. Ghi đè handler trực tiếp vào instance
+    if (toolbar) {
+      toolbar.addHandler('image', () => {
+        this.triggerFileSelect();
+      });
+    }
     
     editor.addEventListener('drop', (e: DragEvent) => {
       e.preventDefault();
