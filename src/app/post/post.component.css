@@ -1,29 +1,165 @@
+/* Container chính */
 .post-form {
-  max-width: 800px;
-  display: flex;
-  margin: 40px auto;
-  
-  .preview-card-wrapper {
-    position: relative; /* Để nút X nằm đè lên */
-    
-    .remove-preview {
-      position: absolute;
-      top: -10px; right: -10px;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: #ff4d4f;
-      color: white;
-      border: none;
-      cursor: pointer;
-      z-index: 5;
-    }
-  }
+  max-width: 650px;
+  margin: 2rem auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.form-group input {
+fieldset {
+  border: none;
+  padding: 24px;
+  margin: 0;
+}
+
+legend {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1b;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+/* Group các phần tử */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Input tiêu đề */
+input[type="text"] {
   width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #edeff1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Tinh chỉnh Rich Text Editor */
+.quill-editor {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1.5px solid #edeff1;
+}
+
+/* Link Preview Card */
+.link-preview-container {
+  margin-top: 15px;
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.preview-card-wrapper {
+  position: relative;
   padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #dbdee1;
-  border-radius: 4px;
+}
+
+.remove-preview {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-card {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.horizontal-card .thumb {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.horizontal-card .meta {
+  flex: 1;
+}
+
+.horizontal-card .meta strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #1c1e21;
+}
+
+.horizontal-card .meta p {
+  font-size: 0.85rem;
+  color: #65676b;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Nút Submit */
+.form-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #edeff1;
+  padding-top: 16px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 32px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Loading text */
+.loading-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 10px;
 }
