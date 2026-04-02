@@ -1,5 +1,6 @@
 .post-form {
   max-width: 800px;
+  display: flex;
   margin: 40px auto;
   
   .preview-card-wrapper {
