@@ -148,7 +148,7 @@ export class PostComponent {
 
 
   onRemovePreview(){
-    console.log(this.lastUrl);
+    //console.log(this.lastUrl);
     if(this.lastUrl){
       // goi ham xoa link ben trong quill editor
       this.editor.removeLinkFromContent(this.lastUrl);

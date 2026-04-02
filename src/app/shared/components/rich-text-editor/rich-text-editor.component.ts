@@ -28,7 +28,7 @@ export class RichTextEditorComponent implements OnInit {
 
   @Input() draftId!: string; // draftid lay tu post component
   @Input() content: string = '';
-  @Input() placeholder: string = 'Viết nội dung tại đây...';
+  @Input() placeholder: string = 'Bạn có thể chèn link báo/youtube, upload ảnh/video < 20mb, nhập text tại đây';
 
   @Output() contentChange = new EventEmitter<string>();
   @Output() linkDetected = new EventEmitter<string|null>();
