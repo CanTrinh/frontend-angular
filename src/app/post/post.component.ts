@@ -110,7 +110,7 @@ export class PostComponent {
 
     this.isScanning = true;
     
-    if(url && url !== this.lastUrl) {
+    if(url && (url !== this.lastUrl)) {
       this.lastUrl = url;
 
       this.postService.getLinkMetadata(url).subscribe({
@@ -137,9 +137,12 @@ export class PostComponent {
         }
       });
     }else if(!url) {
+      
       this.lastUrl = '';
       this.linkPreview = null;
+      this.isScanning = false;
     }
+    console.log(this.linkPreview);
 }
 
   // Submit handler

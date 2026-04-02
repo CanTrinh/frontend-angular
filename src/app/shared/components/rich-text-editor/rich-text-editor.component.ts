@@ -45,7 +45,7 @@ export class RichTextEditorComponent implements OnInit {
 
     // cau hinh bo loc cho luong du lieu
     this.contentSubject.pipe(
-      debounceTime(3000), // doi 3000ms sau khi ngung go moi xu ly
+      debounceTime(800), // doi 800ms sau khi ngung go moi xu ly
       distinctUntilChanged(), //chi chay neu noi dung khac lan truoc
       takeUntil(this.destroy$) // huy khi component bi dong
     ).subscribe(html => {
