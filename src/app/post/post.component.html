@@ -21,6 +21,7 @@
       -->
 
         <app-rich-text-editor
+          class="quill-editor"
           [draftId]= "draftId"
           [content] = "postForm.get('content')?.value"
           (contentChange)= "handleEditorChange($event)"
