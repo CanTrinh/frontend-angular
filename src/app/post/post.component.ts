@@ -69,26 +69,6 @@ export class PostComponent {
   this.postForm.get('content')?.markAsTouched();
 }
  
-
-   // --- LOGIC SỬA TẠI CHỖ ---
-  enableEdit(post: any) {
-    this.editingPostId = post.id;
-    this.editForm.patchValue({
-      title: post.title,
-      content: post.content
-    });
-  }
-
-  // --- LOGIC XÓA ---
-  onDelete(postId: string, index: number) {
-    if (confirm('Bạn có chắc muốn xóa bài viết này?')) {
-      this.postService.deletePost(postId).subscribe(() => {
-        this.post.splice(index, 1); // Xóa khỏi UI
-      });
-    }
-  }
-
-
   fetchMetadata(url: string |null) {
 
     this.isScanning = true;
@@ -144,37 +124,8 @@ export class PostComponent {
   async onSubmit() {
     
     this.isUploading = true;
-
-
-    // 1. Khởi tạo FormData thay vì Plain Object
-    //const formData = new FormData();
-
-    // 2. Thêm các trường text cơ bản
-    /*formData.append('title', this.postForm.value.title);
-    formData.append('content', this.postForm.value.content);
-    formData.append('mediaUrl', this.postForm.value.mediaUrl || '');
-    formData.append('draftId', this.draftId);*/
-    //formData.append('type', this.postForm.get('type')?.value || 'TEXT');
-
-    // 3. Thêm Metadata (Link Preview) dưới dạng chuỗi JSON
-    /*if (this.linkPreview) {
-      formData.append('metadata', JSON.stringify(this.linkPreview));
-    }*/
-
-    // 4. Thêm các file thực tế (Ảnh/Video) đã chọn từ mảng selectedMedia
-   /* this.selectedMedia.forEach((item) => {
-      formData.append('files', item.file); // 'files' phải khớp với tên trong NestJS FilesInterceptor
-    });
-    */
-
-  
   //const htmlContent = this.editor.quillEditor.root.innerHTML;
   const payload = {
-    /*title: this.postForm.value.title,
-    content: htmlContent, // Chuỗi HTML từ Quill
-    
-    mediaUrl: this.postForm.value.mediaUrl,
-    */
    ...this.postForm.value,
     draftId: this.draftId ,               // UUID string
 
@@ -254,16 +205,6 @@ export class PostComponent {
       error: (err) => console.error('Error deleting post:', err)
     });
   }
-
-  // Permissions (example logic)
-  canEdit(post: any): boolean {
-    return post.user.id === this.postService.currentUserId;
-  }
-
-  canDelete(post: any): boolean {
-    return post.user.id === this.postService.currentUserId || this.postService.isAdmin();
-  }
-
 
 
   isOwner(post: any) { return true; /* Logic kiểm tra user hiện tại */ }

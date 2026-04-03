@@ -1,3 +1,4 @@
+@import "~quill/dist/quill.snow.css";
 .post-detail-wrapper {
   max-width: 800px;
   margin: 40px auto;
