@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, } from '@angular/common';
 import { PostService } from 'src/app/post/post.service';
 import { ActivatedRoute } from '@angular/router';
@@ -52,10 +52,20 @@ export class HomeDetailComponent implements OnInit {
     private postService: PostService,
     private sanitizeService: SanitizeUrlService, // Inject service của bạn
     private route: ActivatedRoute,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private fb: FormBuilder,
   ) {}
 
+  
+
   ngOnInit() {
+
+     // 1. KHỞI TẠO FORM NGAY LẬP TỨC
+      this.postForm = this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(100)]],
+        content: ['', [Validators.required, Validators.maxLength(5000)]]
+      });
+
       const postId = this.route.snapshot.paramMap.get('id');
       if (postId) {
         this.loadPost(postId);
