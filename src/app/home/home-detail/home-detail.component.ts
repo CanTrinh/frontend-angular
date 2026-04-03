@@ -56,20 +56,18 @@ export class HomeDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.postService.getPost(id).subscribe(data => {
-        this.post = data;
+      const postId = this.route.snapshot.paramMap.get('id');
+      if (postId) {
+        this.loadPost(postId);
+      }
+  }
 
-        // 1. Cập nhật dữ liệu vào Form
-        this.postForm.patchValue({
-          title: data.title,
-          content: data.content
-        });
-
-        // 2. CẬP NHẬT LUÔN vào initialContent để Quill nhận được
-        this.initialContent = data.content; 
-        
+  
+  loadPost(id: string) {
+  
+    this.postService.getPost(id).subscribe(data => {
+    
+      this.post = data; 
         // 📺 Nếu là YouTube, xử lý link để nhúng
         if (this.post.type === 'YOUTUBE' && this.post.mediaUrl) {
            // 1. Kiểm tra xem có phải link Shorts không
@@ -80,12 +78,18 @@ export class HomeDetailComponent implements OnInit {
           // Nhúng vào Iframe chuẩn (YouTube tự động nhận diện nếu là Shorts)
           this.safeYoutubeUrl = this.sanitizeService.sanitizeResourceUrl(
             `https://www.youtube.com/embed/${videoId}`
-          );
+          );}
         }
-        }
-      });
-    }
-  }
+    // Cập nhật giá trị ban đầu cho Editor
+    this.initialContent = data.content;
+    
+    // Nạp dữ liệu vào form để sẵn sàng nếu người dùng nhấn Edit
+    this.postForm.patchValue({
+      title: data.title,
+      content: data.content
+    });
+  });
+}
 
     // Hàm hỗ trợ chuyển link thường sang link embed
   private convertToEmbedUrl(url: string): string {
@@ -156,11 +160,9 @@ onCancel() {
 toggleEdit() {
   this.isEditing = !this.isEditing;
   if (this.isEditing) {
-    // Khi bắt đầu sửa, nạp dữ liệu cũ vào form
-    this.postForm.patchValue({
-      title: this.post.title,
-      content: this.post.content
-    });
+    // 🔑 Quan trọng: Cập nhật lại initialContent từ dữ liệu post hiện tại 
+    // trước khi hiển thị Editor
+    this.initialContent = this.post.content;
   }
 }
 
