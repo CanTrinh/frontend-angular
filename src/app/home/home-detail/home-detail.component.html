@@ -6,7 +6,13 @@
       <div class="post-meta">Đăng bởi: {{ post.author.name }}</div>
     </header>
 
-    <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
+    <div class="post-detail-container">
+      <!-- Bắt buộc phải có các class ql-container và ql-snow để CSS của Quill hoạt động -->
+      <div class="ql-container ql-snow" style="border: none;">
+        <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
+      </div>
+    </div>
+
 
     <!-- Link Preview tĩnh (không có nút X) -->
     <div class="post-attachment" *ngIf="post.linkPreview">
