@@ -127,13 +127,13 @@ onSave() {
   });
 }
 
-onDelete(postId: string) {
+/*onDelete(postId: string) {
     if (confirm('Bạn có chắc muốn xóa bài viết này?')) {
       this.postService.deletePost(postId).subscribe(() => {
         //this.posts.splice(index, 1); // Xóa khỏi UI
       });
     }
-  }
+  }*/
 
 // Hàm hủy bỏ
 onCancel() {
@@ -141,11 +141,27 @@ onCancel() {
   this.linkPreview = null; // Xóa preview nháp nếu có
 }
 
-  toggleEdit(): void {
-    
-  }
 
-  onUpdate(): void {
+
+toggleEdit() {
+  this.isEditing = !this.isEditing;
+  if (this.isEditing) {
+    // Khi bắt đầu sửa, nạp dữ liệu cũ vào form
+    this.postForm.patchValue({
+      title: this.post.title,
+      content: this.post.content
+    });
+  }
+}
+
+onDelete() {
+  if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
+    // Gọi service xóa và quay lại trang chủ
+  }
+}
+
+
+onUpdate(): void {
     
   }
 
