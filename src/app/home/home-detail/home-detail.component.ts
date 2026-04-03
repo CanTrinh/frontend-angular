@@ -43,6 +43,7 @@ export class HomeDetailComponent implements OnInit {
   linkPreview: any = null;
   editTitle = '';
   editContent = '';
+  initialContent = '';
   // post-detail.component.ts
   cloudFrontUrl = "https://cdn.ctlife.xyz"; // Lấy từ biến môi trường hoặc config
 
@@ -59,6 +60,15 @@ export class HomeDetailComponent implements OnInit {
     if (id) {
       this.postService.getPost(id).subscribe(data => {
         this.post = data;
+
+        // 1. Cập nhật dữ liệu vào Form
+        this.postForm.patchValue({
+          title: data.title,
+          content: data.content
+        });
+
+        // 2. CẬP NHẬT LUÔN vào initialContent để Quill nhận được
+        this.initialContent = data.content; 
         
         // 📺 Nếu là YouTube, xử lý link để nhúng
         if (this.post.type === 'YOUTUBE' && this.post.mediaUrl) {

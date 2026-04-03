@@ -69,7 +69,7 @@ export class RichTextEditorComponent implements OnInit, OnDestroy {
     /*if(event.html !== this.content){
       this.contentChange.emit(event.html);
     }*/
-   // day du lieu text thuan vao pheu Subject thay vi xu ly ngay
+   // day du lieu html vao pheu Subject thay vi xu ly ngay
    this.contentSubject.next(event.html);
 
 
