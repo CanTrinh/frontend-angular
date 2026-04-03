@@ -70,7 +70,7 @@ export class RichTextEditorComponent implements OnInit, OnDestroy {
       this.contentChange.emit(event.html);
     }*/
    // day du lieu text thuan vao pheu Subject thay vi xu ly ngay
-   this.contentSubject.next(event.text);
+   this.contentSubject.next(event.html);
 
 
   }
@@ -81,8 +81,9 @@ export class RichTextEditorComponent implements OnInit, OnDestroy {
       this.linkDetected.emit(null);
       return;
     }
-     // phat hien thay doi xem co link phai link url khong neu co gui ra tu output
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    // Regex này sẽ dừng lại ngay khi gặp ký tự < (bắt đầu thẻ HTML) hoặc dấu nháy kép
+    const urlRegex = /(https?:\/\/[^<\s"']+)/g;
+
     const matches = html.match(urlRegex);
 
     if( matches && matches.length > 0) {
