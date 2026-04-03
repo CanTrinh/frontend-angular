@@ -1,60 +1,56 @@
-<article class="main-post card">
-  <!-- CHẾ ĐỘ XEM (DETAIL) -->
-  <ng-container *ngIf="!isEditing">
-    <header class="post-header">
-      <h1 class="post-title">{{ post.title }}</h1>
-      <div class="post-meta">Đăng bởi: {{ post.author.name }}</div>
-    </header>
-
-    <div class="post-detail-container">
-      <!-- Bắt buộc phải có các class ql-container và ql-snow để CSS của Quill hoạt động -->
-      <div class="ql-container ql-snow" style="border: none;">
-        <div class="post-content ql-editor" [innerHTML]="post.content | safeHtml"></div>
+<div class="post-form post-detail-view"> <!-- Dùng lại class post-form để giữ style khung -->
+  <fieldset>
+    <!-- Header: Tiêu đề và Nút điều khiển -->
+    <div class="detail-header">
+      <legend *ngIf="!isEditing">{{ post.title }}</legend>
+      <div class="post-controls">
+        <button type="button" class="btn-icon" (click)="toggleEdit()" title="Chỉnh sửa">✏️</button>
+        <button type="button" class="btn-icon btn-del" (click)="onDelete(post.id)" title="Xóa">🗑️</button>
       </div>
     </div>
 
-
-    <!-- Link Preview tĩnh (không có nút X) -->
-    <div class="post-attachment" *ngIf="post.linkPreview">
-      <div class="horizontal-card">
-         <img [src]="post.linkPreview.image" class="thumb" *ngIf="post.linkPreview.image">
-         <div class="meta">
-           <strong>{{ post.linkPreview.title }}</strong>
-           <p>{{ post.linkPreview.description }}</p>
-         </div>
+    <!-- CHẾ ĐỘ XEM (View Mode) -->
+    <ng-container *ngIf="!isEditing">
+      <div class="form-group readonly-editor">
+        <!-- Đưa nội dung vào khung có style y hệt Quill nhưng không có toolbar -->
+        <div class="ql-container ql-snow">
+          <div class="ql-editor" [innerHTML]="post.content | safeHtml"></div>
+        </div>
       </div>
-    </div>
 
-    <footer class="post-actions" *ngIf="isOwner(post)">
-      <button (click)="onEdit()" class="btn-edit">Sửa bài</button>
-      <button (click)="onDelete(post.id)" class="btn-delete">Xóa</button>
-    </footer>
-  </ng-container>
+      <!-- Hiển thị Link Preview y hệt lúc tạo -->
+      <div class="link-preview-container" *ngIf="post.linkPreview">
+        <div class="preview-card-wrapper">
+          <div class="horizontal-card">
+            <img [src]="post.linkPreview.image" *ngIf="post.linkPreview.image" class="thumb">
+            <div class="meta">
+              <strong>{{ post.linkPreview.title }}</strong>
+              <p>{{ post.linkPreview.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
 
-  <!-- CHẾ ĐỘ SỬA (INLINE EDITOR) -->
-   
-  <div *ngIf="isEditing" class="inline-edit-form">
-    <div class="form-group">
-      <input [(ngModel)]="editTitle" placeholder="Tiêu đề mới..." class="title-input">
-    </div>
-    <!--
-    <div class="form-group">
-      <quill-editor 
-        [(ngModel)]="editContent" 
-        [modules]="quillConfig"
-        (onEditorCreated)="addDragAndDrop($event)">
-      </quill-editor>
-    </div>-->
-  
+    <!-- CHẾ ĐỘ SỬA (Edit Mode) -->
+    <form [formGroup]="postForm" (ngSubmit)="onUpdate()" *ngIf="isEditing">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" />
+      </div>
 
-    <!-- Tái sử dụng Link Preview Card (Có nút X để xóa khi đang sửa) -->
-    <!--<div class="link-preview-container" *ngIf="linkPreview || (post.linkPreview && !linkPreviewWasRemoved)">-->
-       <!-- Logic hiện preview card tương tự trang Create -->
-    <!--</div>-->
+      <div class="form-group">
+        <app-rich-text-editor
+          [content]="post.content"
+          (contentChange)="handleEditorChange($event)">
+        </app-rich-text-editor>
+      </div>
 
-    <div class="edit-actions">
-      <button (click)="onSave()" class="btn-save">Lưu thay đổi</button>
-      <button (click)="onCancel()" class="btn-cancel">Hủy</button>
-    </div>
-  </div>
-</article>
+      <footer class="form-actions">
+        <button type="button" (click)="toggleEdit()">Cancel</button>
+        <button type="submit" class="btn-update">Update Post</button>
+      </footer>
+    </form>
+
+  </fieldset>
+</div>

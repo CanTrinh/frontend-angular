@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, } from '@angular/common';
 import { PostService } from 'src/app/post/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { SanitizeUrlService } from 'src/app/sanitize-url.service';
-import { CommentsComponent } from 'src/app/comments/comments.component';
+import { CommentsComponent } from '../../comments/comments.component';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { jwtDecode } from "jwt-decode";
@@ -16,6 +16,7 @@ import Quill from 'quill';
 import { QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { RichTextEditorComponent } from "../../shared/components/rich-text-editor/rich-text-editor.component";
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -25,12 +26,14 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-home-detail',
   standalone: true,
-  imports: [CommonModule, CommentsComponent,SafeHtmlPipe, QuillModule, FormsModule],
+  imports: [CommonModule, CommentsComponent, SafeHtmlPipe, QuillModule, FormsModule, ReactiveFormsModule, RichTextEditorComponent],
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.css']
 })
 export class HomeDetailComponent implements OnInit {
   post: any;
+  postForm!: FormGroup;
+  editForm!: FormGroup;
   isAuthor: boolean;
   currentUserId: string;
   safeYoutubeUrl: SafeResourceUrl | null = null;
@@ -136,6 +139,19 @@ onDelete(postId: string) {
 onCancel() {
   this.isEditing = false;
   this.linkPreview = null; // Xóa preview nháp nếu có
+}
+
+  toggleEdit(): void {
+    
+  }
+
+  onUpdate(): void {
+    
+  }
+
+  handleEditorChange(html: string) {
+  this.postForm.patchValue({ content: html }, { emitEvent: false }); // Thêm { emitEvent: false } để tối ưu
+  this.postForm.get('content')?.markAsTouched();
 }
 
 

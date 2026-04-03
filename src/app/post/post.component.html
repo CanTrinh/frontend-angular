@@ -21,53 +21,6 @@
     
     </div>
 
-    <!-- Media URL -->
-    <!--
-    <div class="form-group">
-      <label for="mediaUrl">Media URL</label>
-      <input id="mediaUrl" type="text" formControlName="mediaUrl" placeholder="Link image/video/youtube" />
-    </div>
-  -->
-    
-       <!-- 1. PHẦN UPLOAD FILE CẬP NHẬT -->
-    <!--
-    <div class="form-group">
-      <label for="fileUpload" class="upload-btn">
-        <span>📷 Upload Images or Short Video (20s)</span>
-      </label>
-    -->
-      <!-- Chấp nhận ảnh và video, cho phép chọn nhiều file cùng lúc -->
-      <!--<input 
-        id="fileUpload" 
-        type="file" 
-        (change)="onFileChange($event)" 
-        multiple 
-        accept="image/*,video/*" 
-      />
-    </div>-->
-
-    <!-- 2. PHẦN HIỂN THỊ PREVIEW FILE ĐÃ CHỌN -->
-     <!--
-    <div class="selected-media-preview" *ngIf="selectedMedia.length > 0">
-      <div *ngFor="let item of selectedMedia; let i = index" class="preview-item">
-      -->
-        <!-- Nút xóa file khỏi danh sách chọn -->
-        <!--<button type="button" class="btn-remove" (click)="removeSelectedFile(i)">×</button>-->
-        
-        <!-- Hiển thị Ảnh -->
-        <!--<img *ngIf="item.type === 'image'" [src]="item.previewUrl" class="media-thumb">-->
-        
-        <!-- Hiển thị Video -->
-         <!--
-        <div *ngIf="item.type === 'video'" class="video-thumb">
-          <video [src]="item.previewUrl" muted></video>
-          <span class="video-badge">VIDEO</span>
-        </div>
-      </div>
-    </div>-->
-
-
-
     <!-- PHẦN THÊM MỚI: LINK PREVIEW CARD -->
     <div *ngIf="isScanning" class="loading-text">🔍 Đang phân tích link...</div>
     
