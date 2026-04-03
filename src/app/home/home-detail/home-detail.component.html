@@ -33,7 +33,7 @@
     </ng-container>
 
     <!-- CHẾ ĐỘ SỬA (Edit Mode) -->
-    <form [formGroup]="postForm" (ngSubmit)="onUpdate()" *ngIf="isEditing">
+    <form [formGroup]="postForm" (ngSubmit)="onUpdate()" *ngIf="isOwner(post)">
       <div class="form-group">
         <label>Title</label>
         <input type="text" formControlName="title" />

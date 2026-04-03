@@ -149,7 +149,7 @@ onCancel() {
     
   }
 
-  handleEditorChange(html: string) {
+handleEditorChange(html: string) {
   this.postForm.patchValue({ content: html }, { emitEvent: false }); // Thêm { emitEvent: false } để tối ưu
   this.postForm.get('content')?.markAsTouched();
 }
