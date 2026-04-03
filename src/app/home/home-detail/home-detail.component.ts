@@ -12,6 +12,7 @@ import { LoginService } from '../../features/auth/login/login.service';
 import { Observable } from 'rxjs';
 
 
+
 import Quill from 'quill';
 import { QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
@@ -66,10 +67,37 @@ export class HomeDetailComponent implements OnInit {
         content: ['', [Validators.required, Validators.maxLength(5000)]]
       });
 
-      const postId = this.route.snapshot.paramMap.get('id');
+      /*const postId = this.route.snapshot.paramMap.get('id');
       if (postId) {
         this.loadPost(postId);
+      }*/
+     // 2. Lấy dữ liệu "tươi" từ Resolver (Đã có sẵn ngay khi trang vừa hiện lên)
+    this.route.data.subscribe(({ postData }) => {
+      if (postData) {
+        this.post = postData;
+        this.initialContent = postData.content;
+        
+        // Đổ vào form để sẵn sàng cho việc Edit
+        this.postForm.patchValue({
+          title: postData.title,
+          content: postData.content
+        });
+
+        // 📺 Nếu là YouTube, xử lý link để nhúng
+        if (this.post.type === 'YOUTUBE' && this.post.mediaUrl) {
+           // 1. Kiểm tra xem có phải link Shorts không
+          this.isShorts = this.post.mediaUrl.includes('/shorts/');
+          // 2. Trích xuất ID và sanitize như cũ
+          const videoId = this.extractYouTubeId(this.post.mediaUrl);
+           if (videoId) {
+          // Nhúng vào Iframe chuẩn (YouTube tự động nhận diện nếu là Shorts)
+          this.safeYoutubeUrl = this.sanitizeService.sanitizeResourceUrl(
+            `https://www.youtube.com/embed/${videoId}`
+          );}
+        }
       }
+    });
+    
   }
 
   

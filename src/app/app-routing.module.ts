@@ -16,6 +16,7 @@ import { PostComponent } from './post/post.component';
 import { authGuard } from './authentication/auth.guard';
 import { HomeDetailComponent } from './home/home-detail/home-detail.component';
 import { ProfileComponent } from './features/auth/profile/profile.component';
+import { postResolver } from './post/post.resolver';
 
 
 
@@ -26,7 +27,7 @@ export const appRoutes: Routes = [
     //loadChildren: ()=> import ('./home/home-center-routing.module').then(m=>m.childroutes),
   },
   {
-    path: 'posts/:id',component: HomeDetailComponent,
+    path: 'posts/:id',component: HomeDetailComponent, resolve: { postData: postResolver } // Đặt tên là postData
   },
   {
     path: 'home/create-post',component: PostComponent, canActivate: [authGuard]
