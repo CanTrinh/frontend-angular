@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, } from '@angular/common';
 import { PostService } from 'src/app/post/post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SanitizeUrlService } from 'src/app/sanitize-url.service';
 import { CommentsComponent } from '../../comments/comments.component';
 import { SafeResourceUrl } from '@angular/platform-browser';
@@ -53,6 +53,7 @@ export class HomeDetailComponent implements OnInit {
     private postService: PostService,
     private sanitizeService: SanitizeUrlService, // Inject service của bạn
     private route: ActivatedRoute,
+    private router: Router,
     private loginService: LoginService,
     private fb: FormBuilder,
   ) {}
@@ -204,9 +205,10 @@ toggleEdit() {
   }
 }
 
-onDelete() {
+async onDelete(postId: string) {
   if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
-    // Gọi service xóa và quay lại trang chủ
+    await this.postService.deletePost(postId);
+    this.router.navigateByUrl(`/home`);
   }
 }
 
