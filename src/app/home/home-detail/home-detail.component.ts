@@ -208,7 +208,7 @@ toggleEdit() {
 async onDelete(postId: string) {
   if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
     this.postService.deletePost(postId);
-    //this.router.navigateByUrl(`/home`);
+    this.router.navigateByUrl(`/home`);
   }
 }
 
