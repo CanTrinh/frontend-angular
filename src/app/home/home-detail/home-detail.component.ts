@@ -206,9 +206,17 @@ toggleEdit() {
 }
 
 async onDelete(postId: string) {
-  if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
-    this.postService.deletePost(postId);
-    this.router.navigateByUrl(`/home`);
+ if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
+    // Phải có .subscribe() thì request mới được gửi đi
+    this.postService.deletePost(postId).subscribe({
+      next: (response) => {
+        console.log('Xóa thành công', response);
+        this.router.navigateByUrl(`/home`);
+      },
+      error: (err) => {
+        console.error('Lỗi khi xóa', err);
+      }
+    });
   }
 }
 
