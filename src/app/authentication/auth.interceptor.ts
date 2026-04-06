@@ -11,12 +11,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   let clonedReq = req.clone({
     withCredentials: true 
   });
-  if (access_token) {
-    clonedReq = clonedReq.clone({
-      setHeaders: { Authorization: `Bearer ${access_token}` }
-    });
-    return next(clonedReq);
+  
+  if (req.url.includes('https://www.ctlife.xyz')){
+    if (access_token) {
+      clonedReq = clonedReq.clone({
+        setHeaders: { Authorization: `Bearer ${access_token}` }
+      });
+      return next(clonedReq);
+    }
   }
-  return next(clonedReq);
+  return next(req);
 };
 
