@@ -134,6 +134,7 @@ loadUserFromStorage() {
   private clearSession() {
     // 2. Xóa Access Token ở LocalStorage
     localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
 
     // 2. Cập nhật Subject để các Component (Header/Avatar) ẩn ảnh người dùng ngay lập tức
     this.userSubject.next(null);
