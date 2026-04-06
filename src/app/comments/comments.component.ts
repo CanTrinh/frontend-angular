@@ -13,7 +13,7 @@ import { LoginService } from '../features/auth/login/login.service';
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent implements OnInit {
-  @Input() postId!: number; // pass postId from parent component 
+  @Input() postId!: string; // pass postId from parent component 
   commentForm: FormGroup; 
   comments: any[] = []; 
   isLogged: boolean= false;

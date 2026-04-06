@@ -11,11 +11,11 @@ export class CommentService {
 
   constructor(private http: HttpClient) {}
 
-  getComments(postId: number) {
+  getComments(postId: string) {
     return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
   }
 
-  createComment(postId: number, commentData: CreateCommentDto) {
+  createComment(postId: string, commentData: CreateCommentDto) {
     
     return this.http.post<any>(`${this.apiUrl}/${postId}/comments`, commentData);
   }
