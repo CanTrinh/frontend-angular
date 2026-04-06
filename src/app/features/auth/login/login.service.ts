@@ -14,7 +14,7 @@ export const httpOptions = {
     'Content-Type':  'application/json',
     Authorization: 'my-auth-token'
   }),
-  withCredentials: true //phải có để NestJS ghi được Cookie vào trình duyệt
+
 };
 
 @Injectable({
