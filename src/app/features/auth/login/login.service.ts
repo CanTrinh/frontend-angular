@@ -91,7 +91,7 @@ saveTokens(access_token: string) {
   }
       // Hàm quan trọng nhất: Gọi lên NestJS để đổi token
 refreshToken(): Observable<any> {
-  return this.http.post<any>(`${this.API_URL}/refresh`, {}, { withCredentials: true })
+  return this.http.post<any>(`${this.API_URL}/refresh`, {})
     .pipe(
       tap((res) => {
         // CẬP NHẬT CÁI CŨ: Ghi đè Access Token mới vào LocalStorage
