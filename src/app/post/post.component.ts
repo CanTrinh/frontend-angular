@@ -174,7 +174,7 @@ export class PostComponent {
   showComments = false;
 
   // Toggle comments visibility
-  toggleComments(postId: number): void {
+  toggleComments(postId: string): void {
     this.showComments = !this.showComments;
     if (this.showComments && !this.post.comments) {
       this.postService.getComments(postId).subscribe({
@@ -185,7 +185,7 @@ export class PostComponent {
   }
 
   // Like post
-  likePost(postId: number): void {
+  likePost(postId: string): void {
     this.postService.likePost(postId).subscribe({
       next: (updatedPost) => (this.post.likes = updatedPost.likes),
       error: (err) => console.error('Error liking post:', err)
