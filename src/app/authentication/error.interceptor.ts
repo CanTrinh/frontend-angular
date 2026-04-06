@@ -1,52 +1,66 @@
-// error.interceptor.ts
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { LoginService } from '../features/auth/login/login.service';
 import { MessageService } from '../message.service';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
+
+let isRefreshing = false;
+let refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginService);
   const messageService = inject(MessageService);
 
-  /*return next(req).pipe(
-    catchError(error => {
-      const status = error.status;
-
-      // Log error message
-      messageService.add(`HTTP Error ${status}: ${error.message}`);
-
-      // 🔑 Auto logout on 401/403
-      if (status === 401 || status === 403) {
-        authService.logout();
-      }
-
-      return throwError(() => error);
-    })
-  );*/
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      let errorMessage = 'Đã có lỗi xảy ra';
+      // 1. Xử lý lỗi 401 (Hết hạn Access Token)
+      if (error.status === 401) {
+        if (!isRefreshing) {
+          isRefreshing = true;
+          refreshTokenSubject.next(null);
 
-      if (error.error instanceof ErrorEvent) {
-        // Lỗi phía Client (mạng, code...)
-        errorMessage = `Lỗi: ${error.error.message}`;
-      } else {
-        // Lỗi phía Server (AWS trả về)
-        errorMessage = `Mã lỗi: ${error.status} - ${error.message}`;
-        
-        // Tự động logout nếu hết hạn (401/403)
-        if (error.status === 401 || error.status === 403) {
-          authService.logout();
+          return authService.refreshToken().pipe(
+            switchMap((res: any) => {
+              isRefreshing = false;
+              authService.saveTokens(res.accessToken); // Lưu token mới
+              refreshTokenSubject.next(res.accessToken);
+              
+              // Thử lại request cũ với token mới
+              return next(req.clone({
+                setHeaders: { Authorization: `Bearer ${res.accessToken}` }
+              }));
+            }),
+            catchError((err) => {
+              isRefreshing = false;
+              authService.logout(); // Refresh thất bại mới logout
+              return throwError(() => err);
+            })
+          );
+        } else {
+          // Đợi token mới nếu đang có request refresh khác chạy
+          return refreshTokenSubject.pipe(
+            filter(token => token !== null),
+            take(1),
+            switchMap(token => next(req.clone({
+              setHeaders: { Authorization: `Bearer ${token}` }
+            })))
+          );
         }
       }
 
-      // Đẩy vào MessageService để hiển thị lên UI
+      // 2. Xử lý các lỗi khác (403, 404, 500...)
+      let errorMessage = 'Đã có lỗi xảy ra';
+      if (error.error instanceof ErrorEvent) {
+        errorMessage = `Lỗi: ${error.error.message}`;
+      } else {
+        errorMessage = `Mã lỗi: ${error.status} - ${error.message}`;
+        if (error.status === 403) {
+            authService.logout(); // 403 thường là bị cấm quyền, nên logout hoặc đẩy về Home
+        }
+      }
+
       messageService.add(errorMessage);
-      
       return throwError(() => error);
     })
   );
 };
-

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable, catchError, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { UserSignIn } from './dto/loginUser';
 //import { HttpErrorHandler, HandleError } from '../../../http-error-handler.service';
 import { RegisterUser } from './dto/registerUser.dto';
@@ -13,7 +13,8 @@ export const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
     Authorization: 'my-auth-token'
-  })
+  }),
+  withCredentials: true //phải có để NestJS ghi được Cookie vào trình duyệt
 };
 
 @Injectable({
@@ -22,6 +23,7 @@ export const httpOptions = {
 export class LoginService {
   loginUrl = `${environment.apiUrl}/auth/login`; 
   registerUrl = `${environment.apiUrl}/user/register`;
+  API_URL = `${environment.apiUrl}/auth`;
   //private handleError: HandleError;
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
@@ -41,8 +43,8 @@ export class LoginService {
         .pipe(
           //catchError(this.handleError('signInUser', userSignIn))
           tap(res =>{
-            sessionStorage.setItem('token', res.access_token);
-            sessionStorage.setItem('user', JSON.stringify(res.userInfor));
+            localStorage.setItem('access_token', res.access_token);
+            localStorage.setItem('user', JSON.stringify(res.userInfor));
             this.userSubject.next(res.userInfor);
 
           })
@@ -63,22 +65,48 @@ export class LoginService {
 
     // 4. (Quan trọng) Cập nhật lại vào sessionStorage/localStorage 
     // để khi người dùng F5 trang, thông tin mới vẫn còn đó.
-    sessionStorage.setItem('user', JSON.stringify(updatedUser));
+    localStorage.setItem('user', JSON.stringify(updatedUser));
   }
 
 
-    getToken(): string | null { 
-      return sessionStorage.getItem('token');
+  getToken(): string | null { 
+      return localStorage.getItem('access_token');
    }
 
-   isLoggedIn(): boolean { 
+  isLoggedIn(): boolean { 
     const token = this.getToken(); 
     return !!token; // true if token exists 
-    }
+  }
 
-  loadUserFromStorage() {
-  // Đổi từ localStorage sang sessionStorage
-  const savedUser = sessionStorage.getItem('user'); 
+
+   /* Lấy Refresh Token hiện tại
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refresh_token');
+  }*/
+
+  // Lưu cặp token mới sau khi refresh thành công
+saveTokens(access_token: string) {
+    localStorage.setItem('access_token', access_token);
+    //localStorage.setItem('refresh_token', refreshToken);
+  }
+      // Hàm quan trọng nhất: Gọi lên NestJS để đổi token
+refreshToken(): Observable<any> {
+  return this.http.post<any>(`${this.API_URL}/refresh`, {}, { withCredentials: true })
+    .pipe(
+      tap((res) => {
+        // CẬP NHẬT CÁI CŨ: Ghi đè Access Token mới vào LocalStorage
+        this.saveTokens(res.access_token);
+      }),
+      catchError((err) => {
+        this.logout(); // Nếu refresh lỗi (hết hạn cả 2), bắt login lại
+        return throwError(() => err);
+      })
+    );
+}
+
+loadUserFromStorage() {
+  // Đổi từ localStorage 
+  const savedUser = localStorage.getItem('user'); 
   
   if (savedUser) {
     try {
@@ -93,29 +121,36 @@ export class LoginService {
 }
 
 
- logout() {
-  // 1. Xóa sạch mọi thứ trong sessionStorage (Token, User Info, v.v.)
-  sessionStorage.clear();
-  // Hoặc dùng sessionStorage.clear() để xóa toàn bộ cho chắc chắn
-  
-  // 2. Cập nhật Subject để các Component (Header/Avatar) ẩn ảnh người dùng ngay lập tức
-  this.userSubject.next(null);
-  
-  // 3. Điều hướng người dùng về trang Login
-  this.router.navigate(['/login']);
-  
-  // (Tùy chọn) Gọi thêm API logout ở Backend nếu bạn cần xóa session ở server
-  // this.http.post(`${API_URL}/auth/logout`, {}).subscribe();
-}
+  logout() {
+    // 1. Gọi API Logout lên Server (quan trọng để xóa Cookie & DB)
+    // Dùng .subscribe() để đảm bảo request được gửi đi
+    this.http.post(`${this.API_URL}/logout`, {}, { withCredentials: true })
+      .subscribe({
+        next: () => this.clearSession(),
+        error: () => this.clearSession() // Vẫn xóa local nếu server lỗi
+      });
+  }
+
+  private clearSession() {
+    // 2. Xóa Access Token ở LocalStorage
+    localStorage.removeItem('access_token');
+
+    // 2. Cập nhật Subject để các Component (Header/Avatar) ẩn ảnh người dùng ngay lập tức
+    this.userSubject.next(null);
+    
+    // 3. Điều hướng về trang Login
+    this.router.navigate(['/login']);
+  }
 
 
 
-    registerUser(registerUser: RegisterUser):Observable<RegisterUser>
+
+  registerUser(registerUser: RegisterUser):Observable<RegisterUser>
     {
       return this.http.post<RegisterUser>(`${this.registerUrl}`, registerUser, httpOptions)
        /* .pipe(
           catchError(this.handleError('registerUser', registerUser))
         );*/
-    }
+  }
   
 }
