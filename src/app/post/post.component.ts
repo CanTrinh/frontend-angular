@@ -193,7 +193,7 @@ export class PostComponent {
   }
 
   // Edit post (could open a modal or navigate)
-  editPost(postId: number): void {
+  editPost(postId: string): void {
     console.log('Edit post:', postId);
     // implement navigation or modal here
   }
