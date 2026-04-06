@@ -72,12 +72,12 @@ export class PostService {
   }
 
   // Get comments for a post
-  getComments(postId: number): Observable<any[]> {
+  getComments(postId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
   }
 
   // Like a post
-  likePost(postId: number): Observable<any> {
+  likePost(postId: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${postId}/like`, {});
   }
 
