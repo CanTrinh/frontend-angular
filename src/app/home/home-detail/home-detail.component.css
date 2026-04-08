@@ -45,3 +45,85 @@
 .readonly-editor .ql-toolbar {
   display: none;
 }
+
+.post-interaction-footer {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+
+  /* Tầng thống kê con số*/
+  .stats-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px 8px 5px;
+    font-size: 14px;
+    color: #65676b;
+
+    .reaction-summary {
+      display: flex;
+      align-items: center;
+
+      .mini-icon {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #fff; /* Tạo viền trắng để các icon tách biệt khi đè lên nhau*/
+        border-radius: 50%;
+        margin-left: -6px; /* Hiệu ứng đè lên nhau*/
+        position: relative;
+
+        &:first-child {
+          margin-left: 0;
+          z-index: 3;
+        }
+        &:nth-child(2) { z-index: 2; }
+        &:nth-child(3) { z-index: 1; }
+      }
+
+      span {
+        margin-left: 6px;
+        &:hover { text-decoration: underline; cursor: pointer; }
+      }
+    }
+  }
+
+  /* Thanh kẻ mờ */
+  .footer-divider {
+    border: 0;
+    border-top: 1px solid #ebedf0;
+    margin: 0;
+  }
+
+  /* Tầng các nút hành động (Like, Comment)*/
+  .action-buttons {
+    display: flex;
+    padding: 4px 0;
+
+    /* Căn giữa các nút hoặc để sát trái tùy bạn*/
+    app-reaction-button, .btn-action {
+      flex: 1; /* Chia đều độ rộng cho các nút*/
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 36px;
+      border-radius: 4px;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #65676b;
+      font-weight: 600;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    }
+
+    .icon {
+      margin-right: 6px;
+      font-size: 18px;
+    }
+  }
+}
+
