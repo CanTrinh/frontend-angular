@@ -4,7 +4,8 @@
     <div *ngFor="let icon of reactionIcons" 
          class="icon-wrapper" 
          (click)="onSelect(icon.type)">
-      <img [src]="icon.url" [alt]="icon.type" />
+
+      <img [src]="icon.url" [alt]="icon.type" class="tooltip"/>
       <!--<span class="tooltip">{{ icon.label }}</span>-->
     </div>
   </div>
