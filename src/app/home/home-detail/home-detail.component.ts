@@ -48,7 +48,8 @@ export class HomeDetailComponent implements OnInit {
   // post-detail.component.ts
   cloudFrontUrl = "https://cdn.ctlife.xyz"; // Lấy từ biến môi trường hoặc config
 
-
+  likeUrl = "https://cdn.ctlife.xyz/static/images/reactions/like_v1.svg";
+  
   constructor(
     private postService: PostService,
     private sanitizeService: SanitizeUrlService, // Inject service của bạn
