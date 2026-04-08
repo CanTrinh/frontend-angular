@@ -10,17 +10,17 @@
     </div>
   </div>
 
-  <button class="main-button">
-  <!-- 1. Nếu đã có reaction: Hiện icon của reaction đó -->
-  <img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />
+  <button class="main-button" *ngIf="isLogin">
+    <!-- 1. Nếu đã có reaction: Hiện icon của reaction đó -->
+    <img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />
 
-  <!-- 2. Nếu CHƯA có reaction: Hiện icon "Thích" mặc định 
-  <img *ngIf="!currentUserReaction" src="../../../assets/img/like.svg" class="current-icon-default" />
-  -->
-  <!-- 3. Chữ hiển thị -->
-  <span [class.active]="currentUserReaction">
-    {{ currentUserReaction ? currentUserReaction.label : 'Thích' }}
-  </span>
-</button>
+    <!-- 2. Nếu CHƯA có reaction: Hiện icon "Thích" mặc định 
+    <img *ngIf="!currentUserReaction" src="../../../assets/img/like.svg" class="current-icon-default" />
+    -->
+    <!-- 3. Chữ hiển thị -->
+    <span [class.active]="currentUserReaction">
+      {{ currentUserReaction ? currentUserReaction.label : 'Thích' }}
+    </span>
+  </button>
 
 </div>

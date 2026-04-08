@@ -2,11 +2,12 @@ import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from '../auth/login/login.service';
 
 @Component({
   selector: 'app-reactions',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,],
   templateUrl: './reactions.component.html',
   styleUrls: ['./reactions.component.css']
 })
@@ -15,8 +16,11 @@ export class ReactionsComponent {
   @Input() isPost: boolean;
   @Input() currentUserReaction: any; // Nhận từ bài Post trả về
 
+
   private http = inject(HttpClient);
-  
+  constructor(private loginService: LoginService){}
+  isLogin:boolean = this.loginService.isLoggedIn();
+
   reactionIcons = [
     { type: 'LIKE', label: 'Thích', url: `${environment.cloudFrontUrl}/static/images/reactions/like_v1.svg` },
     { type: 'LOVE', label: 'Yêu', url: `${environment.cloudFrontUrl}/static/images/reactions/love_v1.svg` },

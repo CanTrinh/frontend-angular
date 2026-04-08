@@ -73,7 +73,7 @@ export class LoginService {
       return localStorage.getItem('access_token');
    }
 
-  isLoggedIn(): boolean { 
+isLoggedIn(): boolean { 
     const token = this.getToken(); 
     return !!token; // true if token exists 
   }
