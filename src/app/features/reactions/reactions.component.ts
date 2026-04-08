@@ -36,7 +36,10 @@ export class ReactionsComponent {
     };
     console.log(`User clicked ${type} for ${this.targetId}`);
 
-    return this.http.post(`${environment.apiUrl}/posts/reactions`, payload);
+    return this.http.post(`${environment.apiUrl}/posts/reactions`, payload).subscribe(reaction =>{
+      console.log(`ban da tha reaction thanh cong: ${reaction}`)
+
+    });
 
    
   }
