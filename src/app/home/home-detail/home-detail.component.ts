@@ -154,7 +154,7 @@ isOwner(post: any): boolean {
       this.currentUserId = decoded.sub; // hoặc decoded.sub tùy cấu trúc token của bạn
     }
 
-    return post.author.id === this.currentUserId? true : false;
+    return post.authorId === this.currentUserId? true : false;
     
 }
 
