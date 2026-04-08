@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  viewDetail(id: number) {
+  viewDetail(id: string) {
     this.router.navigate(['/posts', id]);
   }
 }
