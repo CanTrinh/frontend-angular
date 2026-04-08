@@ -17,11 +17,12 @@ export class ReactionsComponent {
   reactionIcons = [
     { type: 'LIKE', label: 'Thích', url: `${environment.cloudFrontUrl}/static/images/reactions/like_v1.svg` },
     { type: 'LOVE', label: 'Yêu', url: `${environment.cloudFrontUrl}/static/images/reactions/love_v1.svg` },
-    { type: 'HAHA', label: 'Haha', url: `${environment.cloudFrontUrl}/static/images/reactions/haha_v1.svg` },
+    /*{ type: 'HAHA', label: 'Haha', url: `${environment.cloudFrontUrl}/static/images/reactions/haha_v1.svg` },
     { type: 'WOW', label: 'Wow', url: `${environment.cloudFrontUrl}/static/images/reactions/wow_v1.svg` },
     { type: 'SAD', label: 'Buồn', url: `${environment.cloudFrontUrl}/static/images/reactions/sad_v1.svg` },
     { type: 'ANGRY', label: 'Tức', url: `${environment.cloudFrontUrl}/static/images/reactions/angry_v1.svg` },
-  ];
+  */
+    ];
 
   onSelect(type: string) {
     // Gọi API NestJS (toggleReaction) tại đây
