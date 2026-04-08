@@ -1,0 +1,17 @@
+<div class="reaction-container">
+  <!-- Menu icon hiện ra khi hover -->
+  <div class="reaction-menu">
+    <div *ngFor="let icon of reactionIcons" 
+         class="icon-wrapper" 
+         (click)="onSelect(icon.type)">
+      <img [src]="icon.url" [alt]="icon.type" />
+      <span class="tooltip">{{ icon.label }}</span>
+    </div>
+  </div>
+
+  <!-- Nút chính để hover vào -->
+  <button class="main-button">
+    <img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />
+    <span [class.active]="currentUserReaction">{{ currentUserReaction?.type || 'Thích' }}</span>
+  </button>
+</div>

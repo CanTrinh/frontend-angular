@@ -30,8 +30,32 @@
           </div>
         </div>
       </div>
+      
+      <!-- CHÈN FOOTER TƯƠNG TÁC TẠI ĐÂY -->
       <div class="post-interaction-footer">
-        <img  [src]="likeUrl" class="mini-icon" >
+        <!-- Tầng thống kê số lượng -->
+        <div class="stats-bar" *ngIf="post.totalReactions > 0">
+           <div class="reaction-summary">
+             <img *ngFor="let stat of post.topIconStats" [src]="stat.iconUrl" class="mini-icon">
+             <span>{{ post.totalReactions }}</span>
+           </div>
+        </div>
+
+        <!-- Thanh kẻ phân cách nếu cần -->
+        <hr class="footer-divider">
+
+        <!-- Các nút bấm hành động -->
+        <div class="action-buttons">
+          <app-reactions 
+            [targetId]="post.id" 
+            [isPost]="true" 
+            [currentUserReaction]="post.currentUserReaction">
+          </app-reactions>
+          
+          <button class="btn-action">
+            <span class="icon">💬</span> Bình luận
+          </button>
+        </div>
       </div>
 
     </ng-container>

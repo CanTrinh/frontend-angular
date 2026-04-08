@@ -18,6 +18,7 @@ import { QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { RichTextEditorComponent } from "../../shared/components/rich-text-editor/rich-text-editor.component";
+import { ReactionsComponent } from 'src/app/features/reactions/reactions.component';
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -27,7 +28,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-home-detail',
   standalone: true,
-  imports: [CommonModule, CommentsComponent, SafeHtmlPipe, QuillModule, FormsModule, ReactiveFormsModule, RichTextEditorComponent],
+  imports: [CommonModule, CommentsComponent, SafeHtmlPipe, QuillModule, FormsModule, ReactiveFormsModule, RichTextEditorComponent, ReactionsComponent],
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.css']
 })
@@ -49,7 +50,7 @@ export class HomeDetailComponent implements OnInit {
   cloudFrontUrl = "https://cdn.ctlife.xyz"; // Lấy từ biến môi trường hoặc config
 
   likeUrl = "https://cdn.ctlife.xyz/static/images/reactions/like_v1.svg";
-  
+
   constructor(
     private postService: PostService,
     private sanitizeService: SanitizeUrlService, // Inject service của bạn
