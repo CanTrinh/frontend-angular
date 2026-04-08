@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reactions',
@@ -14,6 +15,8 @@ export class ReactionsComponent {
   @Input() isPost: boolean;
   @Input() currentUserReaction: any; // Nhận từ bài Post trả về
 
+  private http = inject(HttpClient);
+  
   reactionIcons = [
     { type: 'LIKE', label: 'Thích', url: `${environment.cloudFrontUrl}/static/images/reactions/like_v1.svg` },
     { type: 'LOVE', label: 'Yêu', url: `${environment.cloudFrontUrl}/static/images/reactions/love_v1.svg` },
@@ -26,6 +29,15 @@ export class ReactionsComponent {
 
   onSelect(type: string) {
     // Gọi API NestJS (toggleReaction) tại đây
+    const payload = {
+      targetId: this.targetId,
+      isPost: this.isPost,
+      type: type
+    };
     console.log(`User clicked ${type} for ${this.targetId}`);
+
+    return this.http.post(`${environment.apiUrl}/posts/reactions`, payload);
+
+   
   }
 }
