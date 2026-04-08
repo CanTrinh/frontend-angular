@@ -2,61 +2,59 @@
   position: relative;
   display: inline-block;
 
-  /* Ẩn menu mặc định*/
+  /* 1. Thiết lập menu ban đầu (Ẩn)*/
   .reaction-menu {
-    display: none;
     position: absolute;
-    bottom: 100%; /* Hiện phía trên nút*/
+    bottom: 100%; /* Hiện phía trên nút bấm*/
     left: 0;
-    background: white;
-    padding: 5px 10px;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     display: flex;
     gap: 8px;
-    visibility: hidden;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    /* Hiệu ứng ẩn*/
     opacity: 0;
-    transform: translateY(10px);
+    visibility: hidden;
+    transform: translateY(10px); /* Đẩy xuống một chút để khi hiện có cảm giác "bay lên"*/
     transition: all 0.2s ease-in-out;
+    z-index: 10;
   }
 
-  /* Hover vào container thì hiện menu*/
+  /* 2. Kích hoạt menu khi HOVER vào container*/
   &:hover .reaction-menu {
-    display: flex;
-    visibility: visible;
     opacity: 1;
-    transform: translateY(-10px);
+    visibility: visible;
+    transform: translateY(-10px); /* Bay lên vị trí chuẩn*/
   }
 
+  /* Style cho từng icon trong menu*/
   .icon-wrapper {
     position: relative;
     cursor: pointer;
-    transition: transform 0.2s ease;
-    
+    transition: transform 0.2s;
+
     img {
-      width: 38px; /* Kích thước icon khi bay lên*
-      height: 38px;
-      transition: all 0.2s;
+      width: 32px; /* Kích thước icon trong menu bay*/
+      height: 32px;
     }
 
-    /* Hiệu ứng phóng to khi hover vào từng icon*/
     &:hover {
-      transform: scale(1.3);
-      transform-origin: bottom;
+      transform: scale(1.3); /* Phóng to icon khi rê chuột vào từng cái*/
     }
 
-    /*Tooltip hiện tên (Like, Love...)*/
     .tooltip {
       position: absolute;
       top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0,0,0,0.7);
+      background: #333;
       color: white;
       padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 11px;
-      display: none;
+      border-radius: 4px;
+      font-size: 10px;
+      display: none; /* Chỉ hiện tooltip khi hover vào icon lẻ*/
     }
 
     &:hover .tooltip {
@@ -65,23 +63,24 @@
   }
 }
 
-/* Màu sắc cho chữ khi đã chọn*/
+/* Nút bấm chính "Thích"*/
 .main-button {
   border: none;
   background: none;
-  cursor: pointer;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  
-  .active {
-    font-weight: bold;
-    color: #2078f4; /* Màu xanh Facebook*/
-  }
+  gap: 6px;
+  cursor: pointer;
+  color: #65676b;
+  font-weight: 600;
 
   .current-icon {
     width: 18px;
     height: 18px;
   }
-}
+
+  .active {
+    color: #2078f4; /* Màu xanh nếu đã react*/
+  }
 }

@@ -49,12 +49,13 @@
           <app-reactions 
             [targetId]="post.id" 
             [isPost]="true" 
-            [currentUserReaction]="post.currentUserReaction">
+            [currentUserReaction]="post.currentUserReaction"
+            (reactionChanged)="handleReactionChange($event)">
           </app-reactions>
           
-          <button class="btn-action">
+          <!--<button class="btn-action">
             <span class="icon">💬</span> Bình luận
-          </button>
+          </button>-->
         </div>
       </div>
 

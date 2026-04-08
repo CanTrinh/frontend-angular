@@ -1,26 +1,21 @@
 <div class="reaction-container">
-  <!-- Menu icon hiện ra khi hover -->
+  <!-- Menu icon: Chỉ hiện khi hover vào container -->
   <div class="reaction-menu">
     <div *ngFor="let icon of reactionIcons" 
          class="icon-wrapper" 
          (click)="onSelect(icon.type)">
-
-      <img [src]="icon.url" [alt]="icon.type"/>
-      <span class="tooltip">{{ icon.label }}</span>
+      <img [src]="icon.url" [alt]="icon.label" />
+      <!-- Tooltip tên icon (ví dụ: LIKE, LOVE) -->
+      <span class="tooltip">{{ icon.type }}</span>
     </div>
   </div>
 
+  <!-- Nút chính: Người dùng sẽ hover vào đây -->
   <button class="main-button" *ngIf="isLogin">
-    <!-- 1. Nếu đã có reaction: Hiện icon của reaction đó -->
     <img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />
-
-    <!-- 2. Nếu CHƯA có reaction: Hiện icon "Thích" mặc định 
-    <img *ngIf="!currentUserReaction" src="../../../assets/img/like.svg" class="current-icon-default" />
-    -->
-    <!-- 3. Chữ hiển thị -->
     <span [class.active]="currentUserReaction">
-      {{ currentUserReaction ? currentUserReaction.label : 'Thích' }}
+        {{ currentUserReaction ? currentUserReaction.type : 'Thích' }}
     </span>
   </button>
-
 </div>
+

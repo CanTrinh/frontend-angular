@@ -1,8 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../auth/login/login.service';
+import { REACTION_LIST } from '../../shared/constants/reaction.constant';
 
 @Component({
   selector: 'app-reactions',
@@ -15,23 +16,20 @@ export class ReactionsComponent {
   @Input() targetId: string;
   @Input() isPost: boolean;
   @Input() currentUserReaction: any; // Nhận từ bài Post trả về
+  readonly reactionIcons= REACTION_LIST;
 
 
   private http = inject(HttpClient);
   constructor(private loginService: LoginService){}
   isLogin:boolean = this.loginService.isLoggedIn();
 
-  reactionIcons = [
-    { type: 'LIKE', label: 'Thích', url: `${environment.cloudFrontUrl}/static/images/reactions/like_v1.svg` },
-    { type: 'LOVE', label: 'Yêu', url: `${environment.cloudFrontUrl}/static/images/reactions/love_v1.svg` },
-    { type: 'HAHA', label: 'Haha', url: `${environment.cloudFrontUrl}/static/images/reactions/haha_v1.svg` },
-    { type: 'WOW', label: 'Wow', url: `${environment.cloudFrontUrl}/static/images/reactions/wow_v1.svg` },
-    { type: 'SAD', label: 'Buồn', url: `${environment.cloudFrontUrl}/static/images/reactions/sad_v1.svg` },
-    { type: 'ANGRY', label: 'Tức', url: `${environment.cloudFrontUrl}/static/images/reactions/angry_v1.svg` },
+  @Output() reactionChanged = new EventEmitter<string>();
+
   
-    ];
 
   onSelect(type: string) {
+    // Bắn sự kiện ra ngoài để UI thay đổi ngay lập tức
+    this.reactionChanged.emit(type);
     // Gọi API NestJS (toggleReaction) tại đây
     const payload = {
       targetId: this.targetId,

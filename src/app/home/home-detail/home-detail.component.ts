@@ -19,6 +19,7 @@ import MagicUrl from 'quill-magic-url';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { RichTextEditorComponent } from "../../shared/components/rich-text-editor/rich-text-editor.component";
 import { ReactionsComponent } from 'src/app/features/reactions/reactions.component';
+import { REACTION_MAP } from '../../shared/constants/reaction.constant';
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -157,6 +158,68 @@ isOwner(post: any): boolean {
     return post.authorId === this.currentUserId? true : false;
     
 }
+
+handleReactionChange(newType: string) {
+  const oldType = this.post.currentUserReaction?.type || null;
+  const finalType = oldType === newType ? null : newType; // Nếu bấm trùng thì là Unlike (null)
+
+  // Cập nhật số lượng tổng
+  if (!oldType && finalType) this.post.totalReactions++;
+  else if (oldType && !finalType) this.post.totalReactions--;
+
+  // Cập nhật trạng thái user
+  this.post.currentUserReaction = finalType 
+    ? { type: finalType, iconUrl: REACTION_MAP[finalType] } 
+    : null;
+
+  // Cập nhật cụm icon stats
+  this.updateTopIconsLocally(finalType, oldType);
+
+  // Gửi API ngầm...
+}
+
+updateTopIconsLocally(newType: string | null, oldType: string | null) {
+  // 1. Nếu không có thay đổi thực sự thì bỏ qua
+  if (newType === oldType) return;
+
+  // 2. Tạo bản sao của danh sách top icons hiện tại
+  let currentStats = [...(this.post.topIconStats || [])];
+
+  // --- BƯỚC A: GIẢM/XÓA ICON CŨ (Nếu trước đó đã có reaction) ---
+  if (oldType) {
+    const oldIndex = currentStats.findIndex(s => s.type === oldType);
+    if (oldIndex !== -1) {
+      currentStats[oldIndex].count--;
+      // Nếu count về 0, xóa khỏi danh sách
+      if (currentStats[oldIndex].count <= 0) {
+        currentStats.splice(oldIndex, 1);
+      }
+    }
+  }
+
+  // --- BƯỚC B: TĂNG/THÊM ICON MỚI (Nếu không phải hành động Unlike) ---
+  if (newType) {
+    const newIndex = currentStats.findIndex(s => s.type === newType);
+    if (newIndex !== -1) {
+      currentStats[newIndex].count++;
+    } else {
+      // Nếu icon này chưa có trong top, thêm mới vào
+      currentStats.push({
+        type: newType,
+        count: 1,
+        iconUrl: REACTION_MAP[newType]
+      });
+    }
+  }
+
+  // --- BƯỚC C: SẮP XẾP VÀ CẮT LẤY TOP 3 ---
+  // Sắp xếp theo số lượng giảm dần và chỉ lấy 3 cái đầu tiên
+  this.post.topIconStats = currentStats
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3);
+}
+
+
 
 // Hàm kích hoạt chế độ sửa
 onEdit() {
