@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, take, tap, throwError } from 'rxjs';
 import { UserSignIn } from './dto/loginUser';
 //import { HttpErrorHandler, HandleError } from '../../../http-error-handler.service';
 import { RegisterUser } from './dto/registerUser.dto';
@@ -130,27 +130,32 @@ loadUserFromStorage() {
 }
 
 
-  logout() {
-    // 1. Gọi API Logout lên Server (quan trọng để xóa Cookie & DB)
-    // Dùng .subscribe() để đảm bảo request được gửi đi
+logout() {
+  // 1. Dọn dẹp local TRƯỚC để chặn vòng lặp
+  const token = localStorage.getItem('access_token');
+  this.clearSession(); 
+
+  // 2. Chỉ gọi API logout lên server nếu có token và không phải trường hợp server đang sập
+  if (token) {
     this.http.post(`${this.API_URL}/logout`, {}, { withCredentials: true })
+      .pipe(take(1)) // Đảm bảo chỉ thực hiện 1 lần
       .subscribe({
-        next: () => this.clearSession(),
-        error: () => this.clearSession() // Vẫn xóa local nếu server lỗi
+        next: () => console.log('Server session cleared'),
+        error: () => console.log('Server unreachable, local cleared anyway')
       });
   }
+}
 
-  private clearSession() {
-    // 2. Xóa Access Token ở LocalStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user');
-
-    // 2. Cập nhật Subject để các Component (Header/Avatar) ẩn ảnh người dùng ngay lập tức
-    this.userSubject.next(null);
-    
-    // 3. Điều hướng về trang Login
+private clearSession() {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('user');
+  this.userSubject.next(null);
+  
+  // Kiểm tra nếu không phải đang ở trang login thì mới điều hướng
+  if (this.router.url !== '/login') {
     this.router.navigate(['/login']);
   }
+}
 
 
 
