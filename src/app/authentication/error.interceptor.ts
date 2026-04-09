@@ -10,15 +10,26 @@ let refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<st
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginService);
   const messageService = inject(MessageService);
+  let isServerDown = false; // Biến dùng chung để chặn thông báo lặp
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-        // MỚI: Xử lý khi Server sập hoặc mất kết nối (Status 0)
+      //loi mat ket noi hoac sap server
       if (error.status === 0) {
-        authService.logout(); // Làm sạch Avatar ngay lập tức
-        messageService.add('Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại!');
+        if (!isServerDown) {
+          isServerDown = true; // Đánh dấu đã báo lỗi
+          
+          authService.logout();
+          messageService.add('Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại!');
+
+          // Sau 5-10 giây cho phép báo lại nếu người dùng vẫn cố thực hiện hành động
+          setTimeout(() => isServerDown = false, 5000);
+        }
         return throwError(() => error);
       }
+
+      // Reset cờ nếu có một request bất kỳ thành công hoặc lỗi khác 0 (Server đã sống lại)
+      isServerDown = false;
       // 1. Xử lý lỗi 401 (Hết hạn Access Token)
       if (error.status === 401) {
         if (!isRefreshing) {
