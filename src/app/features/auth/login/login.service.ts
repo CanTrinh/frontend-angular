@@ -25,7 +25,7 @@ export class LoginService {
   registerUrl = `${environment.apiUrl}/user/register`;
   API_URL = `${environment.apiUrl}/auth`;
   //private handleError: HandleError;
-  private userSubject = new BehaviorSubject<any>(null);
+  private userSubject = new BehaviorSubject<any>(this.getInitialUser());
   user$ = this.userSubject.asObservable();
   
   constructor(
@@ -34,6 +34,15 @@ export class LoginService {
       //httpErrorHandler: HttpErrorHandler
       ) {
       //this.handleError = httpErrorHandler.createHandleError('LoginService');
+  }
+
+  private getInitialUser() {
+    const savedUser = localStorage.getItem('user');
+    try {
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (e) {
+      return null;
+    }
   }
   
     
