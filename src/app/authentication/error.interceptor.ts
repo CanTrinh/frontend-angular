@@ -13,6 +13,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
+        // MỚI: Xử lý khi Server sập hoặc mất kết nối (Status 0)
+      if (error.status === 0) {
+        authService.logout(); // Làm sạch Avatar ngay lập tức
+        messageService.add('Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại!');
+        return throwError(() => error);
+      }
       // 1. Xử lý lỗi 401 (Hết hạn Access Token)
       if (error.status === 401) {
         if (!isRefreshing) {
