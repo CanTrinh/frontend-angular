@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
 
   posts: any[] = [];
   loading = false;
+  mistake = false;
+  
   
   private router = inject(Router);
 
@@ -44,15 +46,17 @@ export class HomeComponent implements OnInit {
   loadPosts(): void {
     this.loading = true;
     if(this.searchForm.valid){
-        this.postService.searchPosts(this.searchForm.value).subscribe({
+      const searchQuery: string = this.searchForm.get('search')?.value;
+        this.postService.searchPosts(searchQuery).subscribe({
         next: (data) => {
           this.posts = data;
           console.log(this.posts);
           this.loading = false;
         },
         error: (err) => {
-          console.error('Error loading posts:', err);
+          console.error('khong tim thay ket qua:', err);
           this.loading = false;
+
         }
       });
     }else {
