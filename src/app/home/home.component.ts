@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
           if(data=== null){
             this.mistake = true;
           }else{
+          this.mistake= false;
           this.posts = data;
           console.log(this.posts);
           this.loading = false;
