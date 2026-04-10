@@ -1,43 +1,90 @@
-.comment,
-.comment-section {
-  display: flex;
-  max-width: 600px;
-  align-items: flex-start;
-  border: 2px solid #edeff1;
-  border-radius: 8px;
+.comment-list {
+  max-width: 600px; /* Khớp với post-detail của bạn*/
   margin: 0 auto;
+  padding: 10px;
+
+  .comment-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+
+    .author-avatar {
+      width: 32px; /* Nhỏ gọn cho khung 600px*/
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #ddd;
+    }
+
+    .comment-content-group {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; /* Chiếm hết phần không gian còn lại*/
+      max-width: calc(100% - 42px); /* Trừ đi phần avatar và gap*/
+
+      .comment-bubble {
+        background-color: #f0f2f5;
+        padding: 8px 12px;
+        border-radius: 16px;
+        width: fit-content; /* Bong bóng co giãn theo độ dài chữ*/
+        max-width: 100%;
+
+        .content-text {
+          margin: 0;
+          font-size: 14px;
+          line-height: 1.4;
+          color: #1c1e21;
+          word-wrap: break-word; /* Xuống dòng nếu từ quá dài*/
+        }
+      }
+
+      .comment-meta {
+        display: flex;
+        justify-content: flex-end; /* Đẩy date sang bên phải*/
+        padding: 2px 5px 0 0;
+
+        .date {
+          font-size: 10.5px;
+          color: #8a8d91;
+          font-weight: 400;
+        }
+      }
+    }
+  }
 }
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%; /* circular avatar */
-  margin-right: 10px;
-  object-fit: cover;
-}
+/* Form nhập liệu tinh gọn*/
+.comment-form {
+  margin-top: 15px;
+  border-top: 1px solid #ebedf0;
+  padding-top: 10px;
 
-.comment-body {
-  flex: 1;
-}
+  .comment-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccd0d5;
+    background-color: #f0f2f5;
+    font-size: 14px;
+    font-family: inherit;
+    &:focus { outline: none; background-color: #fff; border-color: #1877f2; }
+  }
 
-.comment-body strong {
-  color: #333;
-  font-size: 14px;
-}
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
 
-.comment-body p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #444;
-}
-
-.comment-body .date {
-  font-size: 8px;
-  color: #888;
-}
-
-.author-avatar {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  object-fit: cover;
+    .btn-submit {
+      background: none;
+      border: none;
+      color: #1877f2;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      &:disabled { color: #bcc0c4; cursor: not-allowed; }
+    }
+  }
 }

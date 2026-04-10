@@ -1,23 +1,34 @@
 
 
-<!-- Comment List --> 
-<div class="comment-list"> 
-    <div *ngFor="let comment of comments" class="comment"> 
-        <img [src]="userUrl + comment.user.profilePic"  class="author-avatar">
-        <!--<strong>{{ comment.user.name }}</strong>--> 
-        <p>{{ comment.content }}</p>
-        <hr> 
-        <span class="date">{{ comment.createdAt | date:'short' }}</span> 
-    </div> 
-</div> 
+<div class="comment-list">
+    <div *ngFor="let comment of comments" class="comment-item">
+        <!-- Avatar nhỏ hơn một chút để nhường chỗ cho Text -->
+        <img [src]="userUrl + comment.user.profilePic" class="author-avatar">
 
-<!-- comment.component.html -->
-<div class="comment-section" *ngIf="isLogged===true">
-  <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
-    <textarea formControlName="content"
-              placeholder="Write a comment..."
-              rows="3"
-              class="comment-input"></textarea>
-    <button type="submit" [disabled]="commentForm.invalid">Post Comment</button>
-  </form>
+        <div class="comment-content-group">
+            <div class="comment-bubble">
+                <!-- Nội dung comment -->
+                <p class="content-text">{{ comment.content }}</p>
+            </div>
+            
+            <!-- Ngày tháng nằm sát lề phải của bong bóng -->
+            <div class="comment-meta">
+                <span class="date">{{ comment.createdAt | date:'HH:mm dd/MM/yyyy' }}</span>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Form nhập liệu bên dưới -->
+<div class="comment-section" *ngIf="isLogged">
+  <form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
+    <textarea formControlName="content"
+              placeholder="Viết bình luận..."
+              rows="2"
+              class="comment-input"></textarea>
+    <div class="form-actions">
+      <button type="submit" [disabled]="commentForm.invalid" class="btn-submit">Bình luận</button>
+    </div>
+  </form>
+</div>s
+
