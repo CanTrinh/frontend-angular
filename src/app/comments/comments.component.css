@@ -56,6 +56,10 @@
 }
 
 /* Form nhập liệu tinh gọn*/
+.comment-section {
+  max-width: 600px;
+} 
+
 .comment-form {
   margin-top: 15px;
   border-top: 1px solid #ebedf0;
