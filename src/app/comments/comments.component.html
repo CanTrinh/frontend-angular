@@ -3,8 +3,8 @@
 <!-- Comment List --> 
 <div class="comment-list"> 
     <div *ngFor="let comment of comments" class="comment"> 
-        <img [src]=`${userUrl}${comment.user.profilePic}` >
-        <strong>{{ comment.user.name }}</strong> 
+        <img [src]="user.profilePic"  class="author-avatar">
+        <!--<strong>{{ comment.user.name }}</strong>--> 
         <p>{{ comment.content }}</p> 
         <span class="date">{{ comment.createdAt | date:'short' }}</span> 
     </div> 

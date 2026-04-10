@@ -17,7 +17,7 @@ export class CommentsComponent implements OnInit {
   @Input() postId!: string; // pass postId from parent component 
   commentForm: FormGroup; 
   comments: any[] = [];
-  userUrl = `${environment.cloudFrontUrl}/`;
+  user: any;
   isLogged: boolean= false;
   constructor(private fb: FormBuilder, 
     private commentService: CommentService,
@@ -28,6 +28,11 @@ export class CommentsComponent implements OnInit {
       this.isLogged = this.loginService.isLoggedIn();
     } 
     ngOnInit() { 
+        this.loginService.user$.subscribe(u => {
+      // 1. Cập nhật user mới nhất (bao gồm cả profilePic mới)
+      this.user = u; 
+
+    });
       this.loadComments(); 
     } 
     
