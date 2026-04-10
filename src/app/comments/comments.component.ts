@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommentService } from './comment.service';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../features/auth/login/login.service';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { LoginService } from '../features/auth/login/login.service';
 export class CommentsComponent implements OnInit {
   @Input() postId!: string; // pass postId from parent component 
   commentForm: FormGroup; 
-  comments: any[] = []; 
+  comments: any[] = [];
+  userUrl = `${environment.cloudFrontUrl}/`;
   isLogged: boolean= false;
   constructor(private fb: FormBuilder, 
     private commentService: CommentService,
@@ -30,8 +32,19 @@ export class CommentsComponent implements OnInit {
     } 
     
     loadComments() { 
-      this.commentService.getComments(this.postId).subscribe(data => { 
-        this.comments = data; 
+      this.commentService.getComments(this.postId).subscribe({ 
+        next: (res) => {
+        
+
+        this.comments = res; 
+        console.log(res);
+
+          
+        },
+        error: (err) => {
+          console.error('Error load comments:', err);
+        }
+
       }); 
     }
 
