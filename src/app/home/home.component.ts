@@ -26,9 +26,9 @@ export class HomeComponent implements OnInit {
   searchForm!: FormGroup;
 
   posts: any[] = [];
-  loading = false;
-  mistake = false;
-  
+  //loading = false;
+  //mistake = false;
+  errorMessage: string = '';
   
   private router = inject(Router);
 
@@ -41,44 +41,40 @@ export class HomeComponent implements OnInit {
         search: ['', [Validators.required, Validators.maxLength(100)]],
     });
     this.loadPosts();
+
+    // 2. Lắng nghe thay đổi của ô input: Nếu xóa hết chữ thì tự động load lại tất cả
+    this.searchForm.get('search')?.valueChanges.subscribe(value => {
+      if (!value || value.trim() === '') {
+        this.errorMessage = '';
+        this.loadPosts(); // Load lại toàn bộ
+      }
+    });
   }
 
   loadPosts(): void {
-    this.loading = true;
-    if(this.searchForm.valid){
-      const searchQuery: string = this.searchForm.get('search')?.value;
-        this.postService.searchPosts(searchQuery).subscribe({
-        next: (data) => {
-          if(data=== null){
-            this.mistake = true;
-          }else{
-          this.mistake= false;
-          this.posts = data;
-          console.log(this.posts);
-          this.loading = false;
-          }
+   // this.loading = true;
+  
+  // Lấy chuỗi từ ô input
+  const keyword = this.searchForm.get('search')?.value || '';
 
-        },
-        error: (err) => {
-          console.error('loi tim post:', err);
-          this.loading = false;
-
-        }
-      });
-    }else {
-      this.postService.getPosts().subscribe({
-        next: (data) => {
-          this.posts = data;
-          console.log(this.posts);
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error loading posts:', err);
-          this.loading = false;
-        }
-      });
+  this.postService.getPosts(keyword).subscribe({
+    next: (data) => {
+      this.posts = data;
+      
+      // Xử lý thông báo nếu tìm mà không thấy
+      if (keyword && data.length === 0) {
+        this.errorMessage = `Không tìm thấy kết quả cho "${keyword}"`;
+      } else {
+        this.errorMessage = '';
+      }
+    },
+    error: (err) => {
+      this.errorMessage = 'Lỗi kết nối máy chủ';
     }
-  }
+  });
+}
+
+  
 
   viewDetail(id: string) {
     this.router.navigate(['/posts', id]);

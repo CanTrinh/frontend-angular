@@ -73,17 +73,20 @@
   <a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>
 </button>
 
-
+<!--
 <div *ngIf="loading">Loading posts...</div>
 
 <div *ngIf="!loading && posts.length === 0">
     No posts yet. Let login to Post !
 </div>
-<div *ngIf="mistake">
-    <p>Khong tim thay ket qua!</p>
+-->
+
+<!-- Hiển thị thông báo lỗi hoặc không tìm thấy -->
+<div *ngIf="errorMessage" class="alert-error">
+  {{ errorMessage }}
 </div>
 
-<div class="newsfeed-container" *ngIf="!mistake">
+<div class="newsfeed-container" *ngIf="posts.length > 0; else noData">
   <!-- Lặp qua danh sách bài viết -->
   <article *ngFor="let post of posts" class="post-card" (click)="viewDetail(post.id)">
     
@@ -121,3 +124,7 @@
   -->
   </article>
 </div>
+
+<ng-template #noData>
+  <p *ngIf="!errorMessage">Chưa có bài viết nào.</p>
+</ng-template>
