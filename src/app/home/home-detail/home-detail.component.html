@@ -3,7 +3,7 @@
     <!-- Header: Tiêu đề và Nút điều khiển -->
     <div class="detail-header">
       <legend *ngIf="!isEditing">{{ post.title }}</legend>
-      <div class="post-controls">
+      <div class="post-controls" *ngIf="isOwner(post)">
         <button type="button" class="btn-icon" (click)="toggleEdit()" title="Chỉnh sửa">✏️</button>
         <button type="button" class="btn-icon btn-del" (click)="onDelete(post.id)" title="Xóa">🗑️</button>
       </div>
