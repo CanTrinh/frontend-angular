@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
         },
         error: (err) => {
           console.error('khong tim thay ket qua:', err);
+          this.mistake = true;
           this.loading = false;
 
         }
