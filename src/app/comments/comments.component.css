@@ -58,6 +58,7 @@
 /* Form nhập liệu tinh gọn*/
 .comment-section {
   max-width: 600px;
+  margin: 0 auto;
 } 
 
 .comment-form {
