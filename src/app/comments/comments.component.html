@@ -5,7 +5,8 @@
     <div *ngFor="let comment of comments" class="comment"> 
         <img [src]="userUrl + comment.user.profilePic"  class="author-avatar">
         <!--<strong>{{ comment.user.name }}</strong>--> 
-        <p>{{ comment.content }}</p> 
+        <p>{{ comment.content }}</p>
+        <hr> 
         <span class="date">{{ comment.createdAt | date:'short' }}</span> 
     </div> 
 </div> 
