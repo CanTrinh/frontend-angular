@@ -61,6 +61,10 @@ export class PostService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  searchPosts(search: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/search/${search}` );
+  }
+
   //get post by id
 
   getPost(id: string): Observable<any> {

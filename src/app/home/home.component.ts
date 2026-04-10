@@ -23,29 +23,51 @@ export interface CategoryDto {
 })
 export class HomeComponent implements OnInit {
 
+  searchForm!: FormGroup;
+
   posts: any[] = [];
   loading = false;
+  
   private router = inject(Router);
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService,
+              private fb: FormBuilder, 
+  ) {}
 
   ngOnInit(): void {
+    this.searchForm = this.fb.group({
+        search: ['', [Validators.required, Validators.maxLength(100)]],
+    });
     this.loadPosts();
   }
 
   loadPosts(): void {
     this.loading = true;
-    this.postService.getPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-        console.log(this.posts);
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error loading posts:', err);
-        this.loading = false;
-      }
-    });
+    if(this.searchForm.valid){
+        this.postService.searchPosts(this.searchForm.value).subscribe({
+        next: (data) => {
+          this.posts = data;
+          console.log(this.posts);
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error loading posts:', err);
+          this.loading = false;
+        }
+      });
+    }else {
+      this.postService.getPosts().subscribe({
+        next: (data) => {
+          this.posts = data;
+          console.log(this.posts);
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error loading posts:', err);
+          this.loading = false;
+        }
+      });
+    }
   }
 
   viewDetail(id: string) {

@@ -63,9 +63,9 @@
 </section>
 -->
 
-<form action="">
+<form action="" [formGroup]="searchForm" (ngSubmit)="loadPosts()"  >
   <div class="mic"></div>
-  <input type="search" name="search" id="search" aria-label="Search our site">
+  <input type="search" name="search" id="search" formControlName="search" aria-label="Search our site">
   <button class="search" type="submit"><img src="../../assets/img/search.svg" alt=""></button>
 </form>
 
