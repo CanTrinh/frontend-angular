@@ -52,10 +52,13 @@ export class HomeComponent implements OnInit {
           this.posts = data;
           console.log(this.posts);
           this.loading = false;
+          if(data.length === 0){
+            this.mistake = true;
+          }
+
         },
         error: (err) => {
-          console.error('khong tim thay ket qua:', err);
-          this.mistake = true;
+          console.error('loi tim post:', err);
           this.loading = false;
 
         }
