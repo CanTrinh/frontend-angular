@@ -79,11 +79,11 @@
 <div *ngIf="!loading && posts.length === 0">
     No posts yet. Let login to Post !
 </div>
-<div *ngIf="!searchForm.valid && mistake">
+<div *ngIf="mistake">
     Khong tim thay ket qua!
 </div>
 
-<div class="newsfeed-container" *ngIf="!searchForm.valid || !mistake">
+<div class="newsfeed-container" *ngIf="!mistake">
   <!-- Lặp qua danh sách bài viết -->
   <article *ngFor="let post of posts" class="post-card" (click)="viewDetail(post.id)">
     
