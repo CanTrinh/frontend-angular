@@ -12,7 +12,7 @@
 
   <!-- Nút chính: Người dùng sẽ hover vào đây -->
   <button class="main-button" *ngIf="isLogin">
-    <img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />
+    <!--<img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />-->
     <span [class.active]="currentUserReaction">
         {{ currentUserReaction ? currentUserReaction.type : 'Thích' }}
     </span>
