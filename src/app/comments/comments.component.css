@@ -68,8 +68,7 @@
 
   .comment-input {
     width: 100%;
-    padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid #ccd0d5;
     background-color: #f0f2f5;
     font-size: 14px;
