@@ -49,11 +49,12 @@ export class HomeComponent implements OnInit {
       const searchQuery: string = this.searchForm.get('search')?.value;
         this.postService.searchPosts(searchQuery).subscribe({
         next: (data) => {
+          if(data=== null){
+            this.mistake = true;
+          }else{
           this.posts = data;
           console.log(this.posts);
           this.loading = false;
-          if(data.length === 0){
-            this.mistake = true;
           }
 
         },
