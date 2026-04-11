@@ -146,11 +146,11 @@ export class RichTextEditorComponent implements OnInit, OnDestroy {
         const index = range ? range.index : 0;
         
         if(isImage){
-          this.currentQuillInstance.insertEmbed(index, 'image', `${environment.cloudFrontUrl}/${url}`);
+          this.currentQuillInstance.insertEmbed(index, 'image', url);
           this.currentQuillInstance.setSelection(index + 1);
         }else if(isVideo) {
           // Chèn video vào vị trí con trỏ
-          this.currentQuillInstance.insertEmbed(index, 'video', `${environment.cloudFrontUrl}/${url}`);
+          this.currentQuillInstance.insertEmbed(index, 'video', url);
           this.currentQuillInstance.setSelection(index + 1);
         }
       }
