@@ -142,13 +142,13 @@
     }
 
     body.light-theme {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: #ffffff !important;
+      color: #000000 !important;
     }
 
     body.dark-theme {
-      background-color: #121212;
-      color: #ffffff;
+      background-color: #121212 !important;
+      color: #ffffff !important;
     }
 
     body.light-theme select {
