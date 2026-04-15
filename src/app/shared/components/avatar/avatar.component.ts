@@ -7,7 +7,7 @@ import { SocketService } from 'src/app/core/services/socket.service';
   standalone: true,
   imports: [NgClass, NgIf],
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+  styleUrls: ['./avatar.component.css']
 })
 export class AvatarComponent {
   @Input() imageUrl: string = 'assets/default-avatar.png';
