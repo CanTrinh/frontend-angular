@@ -96,6 +96,7 @@
     -->
      
       <app-avatar [imageUrl]="post.author.profilePic" 
+            [firstLetter]="post.author.name?.slice(0,1)"
             [status]="post.authorStatus" 
             [size]="40">
       </app-avatar>

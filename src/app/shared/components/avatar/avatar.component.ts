@@ -10,7 +10,8 @@ import { SocketService } from 'src/app/core/services/socket.service';
   styleUrls: ['./avatar.component.css']
 })
 export class AvatarComponent {
-  @Input() imageUrl: string = 'assets/default-avatar.png';
+  @Input() firstLetter: string;
+  @Input() imageUrl: string;
   @Input() status: 'online' | 'offline' | 'warning' | 'danger' = 'offline';
   @Input() size: number = 32; // Cho phép tùy chỉnh kích thước linh hoạt
 

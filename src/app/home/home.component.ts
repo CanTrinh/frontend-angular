@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   
 
   posts: Post[] = [];
- 
+  
   //loading = false;
   //mistake = false;
   errorMessage: string = '';
@@ -76,6 +76,7 @@ export class HomeComponent implements OnInit {
   this.postService.getPosts(keyword).subscribe({
     next: (data) => {
       this.posts = data;
+     
       
       // Xử lý thông báo nếu tìm mà không thấy
       if (keyword && data.length === 0) {
