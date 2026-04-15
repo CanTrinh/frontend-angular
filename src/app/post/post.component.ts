@@ -1,15 +1,14 @@
 import { Component, Input, ViewChild } from '@angular/core';
-//import { CdkDrag} from '@angular/cdk/drag-drop'
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './post.service';
 import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MessageService } from '../message.service';
-import { environment } from 'src/environments/environment.prod';
+
 
 import Quill from 'quill';
-import { QuillEditorComponent, QuillModule } from 'ngx-quill';
+import {  QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
 import { RichTextEditorComponent } from '../shared/components/rich-text-editor/rich-text-editor.component';
 

@@ -8,6 +8,7 @@ import { UserSignIn } from './dto/loginUser';
 import { RegisterUser } from './dto/registerUser.dto';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
+import { SocketService } from 'src/app/core/services/socket.service';
 
 export const httpOptions = {
   headers: new HttpHeaders({
@@ -31,9 +32,31 @@ export class LoginService {
   constructor(
       private http: HttpClient,
       private router: Router,
+      private socketService: SocketService
       //httpErrorHandler: HttpErrorHandler
       ) {
-      //this.handleError = httpErrorHandler.createHandleError('LoginService');
+
+    // BƯỚC 1: Hồi sinh dữ liệu khi F5
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      try {
+        const user = JSON.parse(savedUser);
+        this.userSubject.next(user); // Nạp lại vào Subject
+      } catch (e) {
+        localStorage.removeItem('user'); // Xóa nếu dữ liệu lỗi
+      }
+    }
+
+    // BƯỚC 2: Tự động kết nối/ngắt Socket
+    // Nhờ Bước 1, khi F5 biến 'user' sẽ có giá trị và hàm dưới đây sẽ tự connect
+    this.user$.subscribe(user => {
+      if (user && user.sub) {
+        this.socketService.connect(user.sub);
+      } else {
+        this.socketService.disconnect();
+      }
+    });
+
   }
 
   private getInitialUser() {
@@ -46,7 +69,7 @@ export class LoginService {
   }
   
     
-    signINUser(userSignIn: UserSignIn): Observable<UserSignIn> {
+  signINUser(userSignIn: UserSignIn): Observable<UserSignIn> {
       return this.http.post<UserSignIn>(`${this.loginUrl}`, userSignIn, httpOptions)
 
         .pipe(

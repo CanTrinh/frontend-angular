@@ -6,6 +6,10 @@ import { HomeService } from './home.service';
 import { DatePipe, NgFor, NgIf, NgForOf,SlicePipe } from '@angular/common';
 import { PostComponent } from '../post/post.component';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AvatarComponent } from '../shared/components/avatar/avatar.component';
+import { UserStatus } from '../shared/types/user-status.type';
+import { SocketService } from '../core/services/socket.service';
+import { Post } from '../shared/types/post.interface';
 
 // category.dto.ts
 export interface CategoryDto {
@@ -17,15 +21,17 @@ export interface CategoryDto {
 @Component({
   selector: 'app-home',
   standalone:true,
-  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe,SlicePipe],
+  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe, AvatarComponent ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
   searchForm!: FormGroup;
+  
 
-  posts: any[] = [];
+  posts: Post[] = [];
+ 
   //loading = false;
   //mistake = false;
   errorMessage: string = '';
@@ -33,6 +39,7 @@ export class HomeComponent implements OnInit {
   private router = inject(Router);
 
   constructor(private postService: PostService,
+              private socketService: SocketService,
               private fb: FormBuilder, 
   ) {}
 
@@ -49,11 +56,20 @@ export class HomeComponent implements OnInit {
         this.loadPosts(); // Load lại toàn bộ
       }
     });
+
+    // thuc hien subcribe bien userStatusMap$ ma da nhan du lieu tu gateway
+    this.socketService.userStatusMap$.subscribe(statusMap => {
+      this.posts.forEach(post => {
+        // Ép kiểu (casting) để đảm bảo Typescript không báo lỗi
+        const statusFromServer = statusMap.get(post.authorId) as UserStatus;
+        post.authorStatus = statusFromServer || 'offline';
+      });
+    });
+
+
   }
 
   loadPosts(): void {
-   // this.loading = true;
-  
   // Lấy chuỗi từ ô input
   const keyword = this.searchForm.get('search')?.value || '';
 
