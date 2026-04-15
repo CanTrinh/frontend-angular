@@ -96,14 +96,15 @@
     -->
      
       <app-avatar [imageUrl]="post.author.profilePic" 
-            [status]="userStatus" 
+            [status]="post.authorStatus" 
             [size]="40">
       </app-avatar>
 
     
       <div class="meta">
         <strong>{{ post.author.name }}</strong>
-        <small>{{ post.createdAt | date:'short' }} • {{ post.category?.name }}</small>
+        <small>{{ post.createdAt | date:'short' }}</small>
+        <!--<small>{{ post.createdAt | date:'short' }} • {{ post.category?.name }}</small>-->
       </div>
     </header>
 
