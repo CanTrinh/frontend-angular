@@ -13,7 +13,7 @@
   height: 90%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #fff;
+  /*border: 2px solid #fff;*/
 }
 
 .avatar-wrapper.online { background-color: #31a24c; }
