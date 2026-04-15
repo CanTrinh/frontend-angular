@@ -156,6 +156,10 @@ loadUserFromStorage() {
 logout() {
   // 1. Dọn dẹp local TRƯỚC để chặn vòng lặp
   const token = localStorage.getItem('access_token');
+
+  // 1. Ngắt kết nối Socket ngay lập tức
+  this.socketService.disconnect(); 
+  // don dep localstorage
   this.clearSession(); 
 
   // 2. Chỉ gọi API logout lên server nếu có token và không phải trường hợp server đang sập
