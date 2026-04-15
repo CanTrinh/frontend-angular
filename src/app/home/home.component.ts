@@ -3,13 +3,14 @@ import { PostService } from '../post/post.service';
 import { CdkDrag} from '@angular/cdk/drag-drop'
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HomeService } from './home.service';
-import { DatePipe, NgFor, NgIf, NgForOf,SlicePipe } from '@angular/common';
+import { DatePipe, NgFor, NgIf, NgForOf,SlicePipe, AsyncPipe } from '@angular/common';
 import { PostComponent } from '../post/post.component';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AvatarComponent } from '../shared/components/avatar/avatar.component';
 import { UserStatus } from '../shared/types/user-status.type';
 import { SocketService } from '../core/services/socket.service';
 import { Post } from '../shared/types/post.interface';
+import { UserStatusPipe } from '../pipes/user-status.pipe';
 
 // category.dto.ts
 export interface CategoryDto {
@@ -21,7 +22,7 @@ export interface CategoryDto {
 @Component({
   selector: 'app-home',
   standalone:true,
-  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe, AvatarComponent ],
+  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe, AvatarComponent, UserStatusPipe ,AsyncPipe ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -58,14 +59,14 @@ export class HomeComponent implements OnInit {
     });
 
     // thuc hien subcribe bien userStatusMap$ ma da nhan du lieu tu gateway
-    this.socketService.userStatusMap$.subscribe(statusMap => {
+   /* this.socketService.userStatusMap$.subscribe(statusMap => {
       this.posts.forEach(post => {
         // Ép kiểu (casting) để đảm bảo Typescript không báo lỗi
         const statusFromServer = statusMap.get(post.authorId) as UserStatus;
         post.authorStatus = statusFromServer || 'offline';
         
       });
-    });
+    });*/
 
 
   }
