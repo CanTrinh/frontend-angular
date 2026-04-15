@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
         // Ép kiểu (casting) để đảm bảo Typescript không báo lỗi
         const statusFromServer = statusMap.get(post.authorId) as UserStatus;
         post.authorStatus = statusFromServer || 'offline';
+        
       });
     });
 
