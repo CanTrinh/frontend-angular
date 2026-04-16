@@ -13,6 +13,7 @@ import { authInterceptor } from './app/authentication/auth.interceptor';
 import { errorInterceptor } from './app/authentication/error.interceptor';
 import { MessageService } from './app/message.service';
 import { LoginService } from './app/features/auth/login/login.service';
+import { cacheInterceptor } from './app/core/interceptors/http-cache.interceptor';
 // import { importProvidersFrom } from '@angular/core';
 //import { HttpClientModule } from '@angular/common/http';
 
@@ -21,7 +22,12 @@ bootstrapApplication(AppComponent,{
   provideRouter(appRoutes, withComponentInputBinding()),
   //importProvidersFrom(HttpClientModule), HttpErrorHandler,MessageService,LoginService, 
   provideAnimations(),
-  provideHttpClient(withInterceptors([authInterceptor,errorInterceptor])),
+      provideHttpClient(
+      withInterceptors([
+        authInterceptor,    // 1. Gắn token trước
+        cacheInterceptor,   // 2. Kiểm tra cache (lưu cả request đã có token)
+        errorInterceptor    // 3. Xử lý lỗi cuối cùng
+      ])),
   MessageService,
   LoginService
 ] 
