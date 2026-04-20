@@ -15,6 +15,10 @@ import { RichTextEditorComponent } from '../shared/components/rich-text-editor/r
 import { CategoryDto } from '../shared/types/post.interface';
 import { CategoryService } from '../category/category.service';
 
+import { NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n'; // Import tiếng Việt
+// Hoặc import { en_US } from 'ng-zorro-antd/i18n'; nếu muốn tiếng Anh
+
+
 
 // Đăng ký module tự nhận diện link
 Quill.register('modules/magicUrl', MagicUrl);
@@ -25,6 +29,9 @@ Quill.register('modules/magicUrl', MagicUrl);
   selector: 'app-post',
   standalone:true,
   imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent,NzSelectModule ],
+  providers: [
+    { provide: NZ_I18N, useValue: vi_VN } // Cấu hình tại đây
+  ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
