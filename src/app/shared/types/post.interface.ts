@@ -9,6 +9,15 @@ export interface PostMetadata {
   isYoutube: boolean,
 }
 
+
+
+ export interface CategoryDto {
+  id: string; // Thêm trường này
+  name: string;
+  slug: string;
+}
+
+
 export interface Post {
   id: string;
   title: string;
@@ -16,6 +25,7 @@ export interface Post {
   createdAt: string;
   authorId: string;
   metadata: PostMetadata;
+  categories: CategoryDto[];
   author: {
     id: string;
     profilePic: string;

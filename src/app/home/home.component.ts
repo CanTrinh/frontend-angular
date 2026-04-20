@@ -12,11 +12,6 @@ import { SocketService } from '../core/services/socket.service';
 import { Post } from '../shared/types/post.interface';
 import { UserStatusPipe } from '../pipes/user-status.pipe';
 
-// category.dto.ts
-export interface CategoryDto {
-  id: number;
-  type: string;
-}
 
 
 @Component({

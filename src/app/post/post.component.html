@@ -2,6 +2,16 @@
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
   <fieldset>
     <legend>Create a Post</legend>
+    <div class="form-group">
+      <nz-select
+        nzMode="tags"
+        [nzMaxTagCount]="2"
+        nzPlaceHolder="Chọn hoặc nhập chủ đề mới (Cái đầu tiên là chính)"
+        formControlName="categoryNames" 
+      >
+        <nz-option *ngFor="let cat of categories" [nzLabel]="cat.name" [nzValue]="cat.name"></nz-option>
+      </nz-select>
+    </div>
     
     <!-- Title -->
     <div class="form-group">

@@ -1,67 +1,3 @@
-<!--
-<section class="feed">
-  <h2>Khoa hoc va cong nghe</h2>
-
-  <div *ngIf="loading">Loading posts...</div>
-
-  <div *ngIf="!loading && posts.length === 0">
-    No posts yet. Be the first to share something!
-  </div>
-
-  <div *ngFor="let post of posts" class="post-header">
-    <p *ngIf="!post.author.profilePic">{{ post.author.name }}</p>
-    <img [src]="post.author.profilePic" alt="" class="profile-pic">
-    <h3>
-      <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
-    </h3>
- </div>
- <a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>
-
--->
-  <!--<div *ngFor="let post of posts">
-    <article class="post-card">
-  <header class="post-header">
-    <img [src]="post.user.profilePic" alt="Profile picture" class="profile-pic" />
-    <div class="user-info">
-      <h4>{{ post.user.username }}</h4>
-      <time [attr.datetime]="post.createdAt">{{ post.createdAt | date:'short' }}</time>
-    </div>
-  </header> 
-
-  <section class="post-body">
-    <p>{{post.author.name}}</p>
-    <p>{{ post.title }}</p>
-    <p>{{ post.content }}</p>
-    <img *ngIf="post.mediaUrl" [src]="post.mediaUrl" alt="Post media" class="post-media" />
-  
-  </section>
-
-  <footer class="post-actions">
-    <button (click)="likePost(post.id)">❤️ {{ post.likes.length }}</button>
-    <button (click)="toggleComments(post.id)">💬 {{ post.comments.length }}</button>
-    <button *ngIf="canEdit(post)" (click)="editPost(post.id)">✏️ Edit</button>
-    <button *ngIf="canDelete(post)" (click)="deletePost(post.id)">🗑️ Delete</button>
-  </footer>
-
-  <section *ngIf="showComments" class="comments">
-    <h5>Comments</h5>
-    <div *ngFor="let comment of post.comments" class="comment">
-      <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
-    </div>
-  </section>
-</article> 
-
-   </div>-->
-    <!--<app-post [post]="post"></app-post>-->
-
-  <!--<a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>-->
-<!--
-</section>
-
-<section class="feed">
-  <h2>The thao</h2>
-</section>
--->
 
 <form action="" [formGroup]="searchForm" (ngSubmit)="loadPosts()"  >
   <div class="mic"></div>
@@ -73,15 +9,6 @@
   <a [routerLink]="['/home', 'create-post']" routerLinkActive="active" >Create Post</a>
 </button>
 
-<!--
-<div *ngIf="loading">Loading posts...</div>
-
-<div *ngIf="!loading && posts.length === 0">
-    No posts yet. Let login to Post !
-</div>
--->
-
-<!-- Hiển thị thông báo lỗi hoặc không tìm thấy -->
 <div *ngIf="errorMessage" class="alert-error">
   {{ errorMessage }}
 </div>
@@ -105,11 +32,22 @@
       <div class="meta">
         <strong>{{ post.author.name }}</strong>
         <small>{{ post.createdAt | date:'short' }}</small>
-        <!--<small>{{ post.createdAt | date:'short' }} • {{ post.category?.name }}</small>-->
+
       </div>
     </header>
 
     <div class="post-body">
+      <!-- PHẦN HIỂN THỊ CATEGORY -->
+      <div class="post-categories" *ngIf="post.categories && post.categories.length > 0">
+        <!-- Chuyên mục chính (Cái đầu tiên) -->
+        <span class="category-main">{{ post.categories[0].name }}</span>
+        
+        <!-- Các tag phụ (Nếu có nhiều hơn 1) -->
+        <span class="category-sub" *ngFor="let cat of post.categories.slice(1)">
+          #{{ cat.name }}
+        </span>
+      </div>
+      
       <h3 class="post-title">{{ post.title }}</h3>
       <!--<p class="post-excerpt">{{ post.content | slice:0:150 }}...</p>-->
 
@@ -127,12 +65,6 @@
         </div>
       </div>
     </div>
-    <!--
-    <footer class="post-footer">
-      <span>❤️ {{ post._count?.likes || 0 }} Likes</span>
-      <span>💬 {{ post._count?.comments || 0 }} Comments</span>
-    </footer>
-  -->
   </article>
 </div>
 

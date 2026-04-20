@@ -5,12 +5,15 @@ import { PostService } from './post.service';
 import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
 import { Router } from '@angular/router';
 import { MessageService } from '../message.service';
+import { NzSelectModule } from 'ng-zorro-antd/select'; 
 
 
 import Quill from 'quill';
 import {  QuillModule } from 'ngx-quill';
 import MagicUrl from 'quill-magic-url';
 import { RichTextEditorComponent } from '../shared/components/rich-text-editor/rich-text-editor.component';
+import { CategoryDto } from '../shared/types/post.interface';
+import { CategoryService } from '../category/category.service';
 
 
 // Đăng ký module tự nhận diện link
@@ -21,7 +24,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent],
+  imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent,NzSelectModule ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -29,6 +32,8 @@ export class PostComponent {
 
   postForm!: FormGroup;
   editForm!: FormGroup;
+
+  categories: CategoryDto[];
 
   linkPreview: any = null; // Chứa data từ NestJS
   isScanning = false;
@@ -48,14 +53,20 @@ export class PostComponent {
   constructor(private fb: FormBuilder, 
     private postService: PostService,
     private messageService: MessageService,
+    private categoryService: CategoryService,
     private router: Router) {}
 
   
 
    ngOnInit(): void {
-      this.postForm = this.fb.group({
+
+    // 1. Lấy tất cả categories cho dropdown
+    this.categoryService.getCatergories().subscribe(cats => this.categories = cats);
+
+    this.postForm = this.fb.group({
         title: ['', [Validators.required, Validators.maxLength(100)]],
         content: ['', [Validators.required, Validators.maxLength(5000)]],
+        categoryNames: [[], [Validators.required, Validators.maxLength(2)]],
         mediaUrl: [''],
 
     });

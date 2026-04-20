@@ -151,4 +151,52 @@ input[type="search"]:hover, input[type="search"]:focus {
   line-clamp: 2;
 }
 
+/* Container chứa các tag */
+.post-categories {
+  margin-bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Style cho chuyên mục chính (giống VnExpress: đậm, màu đặc trưng) */
+.category-main {
+  color: #9f224e; /* Màu đỏ rượu đặc trưng của VnExpress */
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-right: 1px solid #e5e5e5;
+  padding-right: 8px;
+}
+
+/* Style cho các tag phụ */
+.category-sub {
+  color: #757575;
+  font-size: 12px;
+  background: #f7f7f7;
+  padding: 2px 8px;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.category-sub:hover {
+  color: #222;
+  background: #ebebeb;
+}
+
+/* Tinh chỉnh tiêu đề bài viết để cân đối với category */
+.post-title {
+  margin-top: 4px;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #222;
+  cursor: pointer;
+}
+
+.post-title:hover {
+  color: #9f224e;
+}
+
+
 

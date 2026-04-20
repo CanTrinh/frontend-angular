@@ -26,6 +26,7 @@
     "amlich": "^0.0.2",
     "graphql": "^16.11.0",
     "jwt-decode": "^4.0.0",
+    "ng-zorro-antd": "^16.2.2",
     "ngx-quill": "^23.0.1",
     "ngx-quill-upload": "^1.0.4",
     "ngx-socket-io": "^4.5.0",
