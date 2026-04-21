@@ -37,12 +37,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           return authService.refreshToken().pipe(
             switchMap((res: any) => {
               isRefreshing = false;
-              authService.saveTokens(res.accessToken); // Lưu token mới
-              refreshTokenSubject.next(res.accessToken);
+              authService.saveTokens(res.access_token); // Lưu token mới
+              refreshTokenSubject.next(res.access_token);
               
               // Thử lại request cũ với token mới
               return next(req.clone({
-                setHeaders: { Authorization: `Bearer ${res.accessToken}` }
+                setHeaders: { Authorization: `Bearer ${res.access_token.trim()}` }
               }));
             }),
             catchError((err) => {
