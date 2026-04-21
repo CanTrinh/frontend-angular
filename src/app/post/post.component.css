@@ -27,6 +27,12 @@ legend {
   margin-bottom: 20px;
 }
 
+.form-group nz-select {
+  width: 100%;
+  display: block;
+}
+
+
 label {
   display: block;
   font-weight: 600;
