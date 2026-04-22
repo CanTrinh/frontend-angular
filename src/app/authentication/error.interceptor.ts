@@ -47,7 +47,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             }),
             catchError((err) => {
               isRefreshing = false;
-              //authService.logout(); // Refresh thất bại mới logout
+              authService.logout(); // Refresh thất bại mới logout
               return throwError(() => err);
             })
           );
@@ -70,7 +70,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       } else {
         errorMessage = `Mã lỗi: ${error.status} - ${error.message}`;
         if (error.status === 403) {
-            authService.logout(); // 403 thường là bị cấm quyền, nên logout hoặc đẩy về Home
+            //authService.logout(); // 403 thường là bị cấm quyền, nên logout hoặc đẩy về Home
+            errorMessage= 'lỗi không có quyền thực hiện';
         }
       }
 
