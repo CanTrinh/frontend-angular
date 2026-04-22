@@ -3,12 +3,16 @@
   <fieldset>
     <legend>Create a Post</legend>
     <div class="form-group">
-      <nz-select nzMode="tags" formControlName="categoryNames">
+    
+      <nz-select 
+        nzMode="tags" 
+        [nzMaxTagCount]="2"
+        nzPlaceHolder="Chọn chủ đề cho bài viết"
+        formControlName="categoryNames">
         <ng-container *ngFor="let cat of categories">
           <nz-option [nzLabel]="cat.name" [nzValue]="cat.name"></nz-option>
         </ng-container>
       </nz-select>
-
       <!--<p style="color: red">Debug Cats: {{ categories | json }}</p>-->
 
     </div>
