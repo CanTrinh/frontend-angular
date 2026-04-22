@@ -28,7 +28,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent,NzSelectModule, JsonPipe ],
+  imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent,NzSelectModule, JsonPipe, NgFor ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN } // Cấu hình tại đây
   ],
