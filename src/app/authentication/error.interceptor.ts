@@ -29,7 +29,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
       
       // 1. Xử lý lỗi 401 (Hết hạn Access Token)
-      if (error.status === 401) {
+      if (error.status === 401||error.status === 403) {
         if (!isRefreshing) {
           isRefreshing = true;
           refreshTokenSubject.next(null);
@@ -67,13 +67,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       let errorMessage = 'Đã có lỗi xảy ra';
       if (error.error instanceof ErrorEvent) {
         errorMessage = `Lỗi: ${error.error.message}`;
-      } else {
+      } /*else {
         errorMessage = `Mã lỗi: ${error.status} - ${error.message}`;
         if (error.status === 403) {
             //authService.logout(); // 403 thường là bị cấm quyền, nên logout hoặc đẩy về Home
             errorMessage= 'lỗi không có quyền thực hiện';
         }
-      }
+      }*/
 
       messageService.add(errorMessage);
       return throwError(() => error);
