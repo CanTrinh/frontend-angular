@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './post.service';
-import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
+import { DatePipe, NgFor, NgIf, NgForOf, JsonPipe, } from '@angular/common';
 import { Router } from '@angular/router';
 import { MessageService } from '../message.service';
 import { NzSelectModule } from 'ng-zorro-antd/select'; 
@@ -28,7 +28,7 @@ Quill.register('modules/magicUrl', MagicUrl);
 @Component({
   selector: 'app-post',
   standalone:true,
-  imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent,NzSelectModule ],
+  imports: [ReactiveFormsModule, NgIf, QuillModule, RichTextEditorComponent,NzSelectModule, JsonPipe ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN } // Cấu hình tại đây
   ],
