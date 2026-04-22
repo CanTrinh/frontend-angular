@@ -73,7 +73,7 @@ export class PostComponent {
     this.postForm = this.fb.group({
         title: ['', [Validators.required, Validators.maxLength(100)]],
         content: ['', [Validators.required, Validators.maxLength(5000)]],
-        categoryNames: [[], [Validators.required, Validators.maxLength(2)]],
+        categoryNames: [[], [Validators.required]],
         mediaUrl: [''],
 
     });
