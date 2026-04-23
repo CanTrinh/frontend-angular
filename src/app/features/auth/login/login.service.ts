@@ -146,8 +146,8 @@ loadUserFromStorage() {
       // Đẩy dữ liệu vào Subject để các Component (Header, Profile) nhận được ảnh/tên
       this.userSubject.next(user); 
     } catch (e) {
-      console.error("Lỗi đọc dữ liệu user từ session", e);
-      this.logout(); // Nếu dữ liệu lỗi, ép logout cho an toàn
+      console.error("Lỗi đọc dữ liệu user từ localStorage", e);
+      //this.logout(); // Nếu dữ liệu lỗi, ép logout cho an toàn
     }
   }
 }
