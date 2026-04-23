@@ -43,9 +43,9 @@ export class HttpErrorHandler {
       this.messageService.add(`${serviceName}: ${operation} failed: ${message}`);
 
       // 🔑 Auto-logout logic
-      if (error.status === 401 || error.status === 403) {
+      /*if (error.status === 401 || error.status === 403) {
         this.authService.logout();
-      }
+      }*/
 
       // Let the app keep running by returning a safe result.
       return of( result );

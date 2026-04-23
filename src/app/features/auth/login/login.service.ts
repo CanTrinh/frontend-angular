@@ -130,7 +130,7 @@ refreshToken(): Observable<any> {
         this.saveTokens(res.access_token);
       }),
       catchError((err) => {
-        this.logout(); // Nếu refresh lỗi (hết hạn cả 2), bắt login lại
+        //this.logout(); // Nếu refresh lỗi (hết hạn cả 2), bắt login lại
         return throwError(() => err);
       })
     );
