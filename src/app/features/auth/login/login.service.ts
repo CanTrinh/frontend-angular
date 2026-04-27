@@ -51,7 +51,7 @@ export class LoginService {
     // Nhờ Bước 1, khi F5 biến 'user' sẽ có giá trị và hàm dưới đây sẽ tự connect
     this.user$.subscribe(user => {
       if (user && user.sub) {
-        this.socketService.connect(user.sub);
+        this.socketService.connect();
       } else {
         this.socketService.disconnect();
       }
