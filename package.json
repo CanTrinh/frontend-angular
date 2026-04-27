@@ -24,6 +24,7 @@
     "@apollo/client": "^3.13.8",
     "@auth0/angular-jwt": "^5.2.0",
     "@ctrl/tinycolor": "^4.2.0",
+    "agora-rtc-sdk-ng": "^4.24.3",
     "amlich": "^0.0.2",
     "graphql": "^16.11.0",
     "jwt-decode": "^4.0.0",
