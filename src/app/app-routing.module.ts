@@ -17,6 +17,7 @@ import { authGuard } from './authentication/auth.guard';
 import { HomeDetailComponent } from './home/home-detail/home-detail.component';
 import { ProfileComponent } from './features/auth/profile/profile.component';
 import { postResolver } from './post/post.resolver';
+import { ChatRoomComponent } from './chat-room/chat-room.component';
 
 
 
@@ -47,6 +48,7 @@ export const appRoutes: Routes = [
   { path: 'honda',  component: HondaListComponent, data: {animation: 'listxe'} },
   { path: 'honda/:id', component: HondaDetailComponent, data: {animation: 'xe'}},
   { path: 'english', component: EnglishComponent},
+  { path: 'chat-room', component: ChatRoomComponent},
   { path: 'login' , component: LoginComponent},
   { path: 'user/profile' , component: ProfileComponent},
   { path: 'register' , component: RegisterComponent},

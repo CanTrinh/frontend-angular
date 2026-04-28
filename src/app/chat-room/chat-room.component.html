@@ -1,1 +1,29 @@
-<p>chat-room works!</p>
+<div class="chat-container">
+  <!-- Màn hình Video ẩn/hiện -->
+  <div *ngIf="isCalling" class="video-overlay">
+    <div id="local-player" class="video-box"></div>
+    <div id="remote-player" class="video-box"></div>
+    <button (click)="isCalling = false; videoService.leave()" class="btn-end">Gác máy</button>
+  </div>
+
+  <!-- Popup cuộc gọi đến -->
+  <div *ngIf="incomingCallData" class="call-toast">
+    <p>{{ incomingCallData.fromName }} đang gọi...</p>
+    <button (click)="acceptCall()" class="btn-accept">Nghe</button>
+    <button (click)="rejectCall()" class="btn-reject">Từ chối</button>
+  </div>
+
+  <!-- Nội dung Chat -->
+  <div class="message-list" #scrollMe>
+    <div *ngFor="let m of messages" [ngClass]="m.isMe ? 'msg-me' : 'msg-them'">
+      <span class="sender">{{ m.sender }}</span>
+      <p>{{ m.text }}</p>
+    </div>
+  </div>
+
+  <!-- Điều khiển -->
+  <div class="chat-input">
+    <button (click)="startCall()">📹</button>
+    <input #box (keyup.enter)="send(box.value); box.value=''" placeholder="Nhập tin...">
+  </div>
+</div>
