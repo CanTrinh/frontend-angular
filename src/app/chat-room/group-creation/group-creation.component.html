@@ -1,0 +1,41 @@
+<div class="group-create-container">
+  <h3>Tạo nhóm chat mới</h3>
+  
+  <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+    <!-- Ô nhập tên nhóm -->
+    <div class="form-group">
+      <input 
+        type="text" 
+        formControlName="roomName" 
+        placeholder="Nhập tên nhóm chat..." 
+        class="form-control"
+      />
+    </div>
+
+    <!-- Danh sách bạn bè để tích chọn -->
+    <div class="friend-selection-list">
+      <label>Chọn thành viên vào nhóm:</label>
+      
+      <div class="friend-checkbox-item" *ngFor="let friend of friendsList; let i = index">
+        <input 
+          type="checkbox" 
+          [id]="'friend-' + friend.id"
+          [checked]="isFriendSelected(friend.id)"
+          (change)="onCheckboxChange($event, friend.id)"
+        />
+        <label [for]="'friend-' + friend.id">
+          <img [src]="friend.profilePic || 'assets/default-avatar.png'" class="avatar-sm" />
+          <span>{{ friend.name }}</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Các nút hành động -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="groupForm.invalid || getSelectedUserIds().length === 0">
+        🚀 Tạo Nhóm
+      </button>
+    </div>
+  </form>
+</div>
+

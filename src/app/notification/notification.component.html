@@ -1,0 +1,52 @@
+<!-- notification-bell.component.html -->
+<div class="notification-container" (clickOutside)="isOpen = false">
+  <!-- Biểu tượng chuông và Badge số lượng -->
+  <div class="bell-icon" (click)="toggleDropdown()">
+    <i class="fas fa-bell"></i>
+    <span class="badge" *ngIf="(unreadCount$ | async) as count">{{ count > 9 ? '9+' : count }}</span>
+  </div>
+
+  <!-- Bảng danh sách thông báo -->
+  <div class="noti-dropdown" *ngIf="isOpen" (clickOutside)="isOpen = false">
+    <div class="noti-header">
+      <h3>Thông báo</h3>
+      <button (click)="markAllRead()">Đọc tất cả</button>
+    </div>
+
+    <div class="noti-body" (scroll)="onScroll($event)">
+      <div *ngIf="notifications.length === 0" class="empty">Không có thông báo nào</div>
+
+      <div *ngFor="let noti of notifications" 
+           [class.unread]="!noti.isRead" 
+           class="noti-item"
+           (click)="markAsRead(noti)">
+        
+        <div [ngSwitch]="noti.type">
+          <!-- Giao diện Lời mời kết bạn -->
+          <div *ngSwitchCase="'FRIEND_REQUEST'" class="noti-content">
+            <img [src]="noti.metadata.avatar" class="avatar-small">
+            <div class="text">
+              <p><strong>{{ noti.metadata.senderName }}</strong> đã gửi lời mời kết bạn.</p>
+              <div class="actions" *ngIf="!noti.isProcessed">
+                <button class="btn-accept" (click)="handleFriend(noti, 'ACCEPTED', $event)">Chấp nhận</button>
+                <button class="btn-reject" (click)="handleFriend(noti, 'REJECTED', $event)">Từ chối</button>
+              </div>
+              <span class="processed-text" *ngIf="noti.isProcessed">Đã xử lý</span>
+            </div>
+          </div>
+
+          <!-- Giao diện Chấp nhận kết bạn -->
+          <div *ngSwitchCase="'FRIEND_ACCEPT'" class="noti-content">
+            <img [src]="noti.metadata.avatar" class="avatar-small">
+            <div class="text">
+              <p><strong>{{ noti.metadata.senderName }}</strong> đã chấp nhận lời mời.</p>
+            </div>
+          </div>
+        </div>
+        <span class="time">{{ noti.createdAt | date:'shortTime' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+

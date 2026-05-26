@@ -7,12 +7,32 @@ import { LoginService } from '../../features/auth/login/login.service';
 @Injectable({ providedIn: 'root' })
 export class SocketService {
   private socket: Socket;
+
+    // --- QUẢN LÝ TRẠNG THÁI ONLINE/OFFLINE ---
   private userStatusMap = new BehaviorSubject<Map<string, UserStatus>>(new Map());
   userStatusMap$ = this.userStatusMap.asObservable();
+
+  // --- QUẢN LÝ CUỘC GỌI AGORA VOICE/VIDEO ---
   private incomingCall = new Subject<any>();
   incomingCall$ = this.incomingCall.asObservable();
-  private messageSource = new BehaviorSubject<any[]>([]);
-  messages$ = this.messageSource.asObservable();
+  
+  private callResponse = new Subject<{ roomId: string; status: 'ACCEPTED' | 'REJECTED'; userId: string }>();
+  callResponse$ = this.callResponse.asObservable();
+
+  // --- QUẢN LÝ CHAT ROOMS & MESSAGES ---
+  // BehaviorSubject quản lý toàn bộ danh sách phòng chat hiển thị ở Sidebar (Tự động cập nhật khi có phòng mới)
+  private roomsSource = new BehaviorSubject<any[]>([]);
+  rooms$ = this.roomsSource.asObservable();
+
+  // BehaviorSubject quản lý tin nhắn của PHÒNG CHAT ĐANG MỞ (Để tránh loạn tin nhắn giữa các phòng)
+  private currentRoomMessagesSource = new BehaviorSubject<any[]>([]);
+  currentRoomMessages$ = this.currentRoomMessagesSource.asObservable();
+  private activeRoomId: string | null = null;
+
+  // --- QUẢN LÝ CHUÔNG THÔNG BÁO ---
+  private notificationSub = new BehaviorSubject<any>(null);
+  notificationSub$ = this.notificationSub.asObservable();
+
 
   constructor(private authService: LoginService) {}
 
@@ -47,22 +67,55 @@ export class SocketService {
       this.userStatusMap.next(currentMap);
     });
 
+    // --- LẮNG NGHE CHUÔNG THÔNG BÁO TỪ HTTP/DB ---
+    this.socket.on('newFriendRequest', (data) => this.notificationSub.next(data));
+    this.socket.on('Accepted request', (data) => this.notificationSub.next(data));
+    this.socket.on('newNotification', (data) => this.notificationSub.next(data));
+
+    // --- LẮNG NGHE ĐIỀU HƯỚNG PHÒNG CHAT (CHỦ ĐỘNG & BỊ ĐỘNG) ---
+    // Được kích hoạt khi user tạo phòng thành công HOẶC có người khác điền ID user vào phòng chat nhóm
+    this.socket.on('new_room_created', (newRoom: any) => {
+      const currentRooms = this.roomsSource.value;
+      // Đẩy phòng mới lên trên cùng thanh Sidebar
+      this.roomsSource.next([newRoom, ...currentRooms]);
+      // Tự động join socket room của phòng chat này để nhận tin nhắn ngầm
+      this.socket.emit('join_room', { roomId: newRoom.id });
+    });
+
+    // Lắng nghe tin nhắn mới đổ về
+    this.socket.on('newMessage', (messageData: any) => {
+      // 1. Cập nhật tin nhắn vào giao diện nếu user đang mở đúng phòng chat này
+      if (this.activeRoomId === messageData.roomId) {
+        const currentMsgs = this.currentRoomMessagesSource.value;
+        // Chặn trùng lặp tin nhắn nếu client tự append trước đó
+        if (!currentMsgs.some(m => m.id === messageData.id)) {
+          this.currentRoomMessagesSource.next([...currentMsgs, messageData]);
+        }
+      }
+      
+      // 2. Cập nhật tin nhắn mới nhất hiển thị dưới dạng "Preview" ở Sidebar
+      const currentRooms = this.roomsSource.value.map(room => {
+        if (room.id === messageData.roomId) {
+          return { ...room, lastMessage: messageData, unreadCount: this.activeRoomId === room.id ? 0 : (room.unreadCount || 0) + 1 };
+        }
+        return room;
+      });
+      this.roomsSource.next(currentRooms);
+    });
+
+    // --- LẮNG NGHE TÍN HIỆU CUỘC GỌI AGORA ---
+    this.socket.on('incomingCall', (data) => this.incomingCall.next(data));
+    this.socket.on('callResponse', (data) => this.callResponse.next(data));
+    this.socket.on('callEnded', (data) => this.callResponse.next({ roomId: data.roomId, status: 'REJECTED', userId: '' }));
+
+
     // Xử lý lỗi token hết hạn khi đang chạy
     this.socket.on('connect_error', (err) => {
       if (err.message === 'Authentication error') {
         console.log('Token expired, please login again');
       }
     });
-
-      // Lắng nghe cuộc gọi đến
-    this.socket.on('incomingCall', (data) => {
-      this.incomingCall.next(data);
-    });
-
-    // Lắng nghe phản hồi (chấp nhận/từ chối)
-    this.socket.on('callResponse', (data) => {
-      // Xử lý logic khi người kia trả lời
-    });
+    
   }
 
   // Gửi tin nhắn
@@ -70,8 +123,8 @@ export class SocketService {
     this.socket.emit('sendMessage', { roomId, message, senderName });
       
     // Update local ngay lập tức để user thấy tin nhắn của mình (UX mượt)
-    const currentMsgs = this.messageSource.value;
-    this.messageSource.next([...currentMsgs, { 
+    const currentMsgs = this.currentRoomMessagesSource.value;
+    this.currentRoomMessagesSource.next([...currentMsgs, { 
       text: message, 
       sender: 'Me', 
       time: new Date(),
@@ -82,9 +135,9 @@ export class SocketService {
   // Lắng nghe tin nhắn mới
   setupChatListeners() {
     this.socket.on('newMessage', (data) => {
-      const currentMsgs = this.messageSource.value;
+      const currentMsgs = this.currentRoomMessagesSource.value;
       // Chỉ thêm nếu không phải tin nhắn của chính mình (vì mình đã update ở trên)
-      this.messageSource.next([...currentMsgs, { ...data, isMe: false }]);
+      this.currentRoomMessagesSource.next([...currentMsgs, { ...data, isMe: false }]);
     });
   }
 
@@ -96,6 +149,28 @@ export class SocketService {
       });
     });
   }
+
+  //phat di thong bao tao phong chat hay 1-1
+  createRoomchat(roomId: string, userIds:string[]) {
+    this.socket.emit('invite-to-group', { roomId, userIds});
+  }
+
+  joinRoom(roomId: string) {
+    this.socket.emit('join-room', { roomId:roomId});
+  }
+
+  setInitialMessages(roomId: string, httpMessages: any[]) {
+    // 1. Đánh dấu phòng này là phòng đang mở trực tiếp trên giao diện
+    this.activeRoomId = roomId;
+
+    // 2. Kiểm tra và đảo ngược mảng NẾU Backend của bạn trả về dạng tin mới lên trước (desc)
+    // Nếu Backend đã sắp xếp sẵn theo thứ tự thời gian tăng dần (asc), bạn có thể bỏ qua dòng .reverse() này
+    const formattedMessages = [...httpMessages].reverse(); 
+
+    // 3. Xóa sạch tin cũ và nạp mảng tin nhắn mới vào Stream
+    this.currentRoomMessagesSource.next(formattedMessages);
+  }
+
 
   disconnect() {
     if (this.socket) {

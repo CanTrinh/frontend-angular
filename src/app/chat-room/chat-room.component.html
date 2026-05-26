@@ -1,29 +1,114 @@
-<div class="chat-container">
-  <!-- Màn hình Video ẩn/hiện -->
-  <div *ngIf="isCalling" class="video-overlay">
-    <div id="local-player" class="video-box"></div>
-    <div id="remote-player" class="video-box"></div>
-    <button (click)="isCalling = false; videoService.leave()" class="btn-end">Gác máy</button>
-  </div>
+<div class="chat-wrapper">
+  <div class="search-box">
+    <input type="text" 
+          placeholder="Tìm bạn bè mới..." 
+          (input)="onSearchUser($event)"
+          (focus)="showSearchResults = true">
+    
+    <div class="search-results-popover" *ngIf="showSearchResults">
+        <!-- Hiển thị khi đang load -->
+        <div *ngIf="isLoading" class="loading-text">Đang tìm kiếm...</div>
 
-  <!-- Popup cuộc gọi đến -->
-  <div *ngIf="incomingCallData" class="call-toast">
-    <p>{{ incomingCallData.fromName }} đang gọi...</p>
-    <button (click)="acceptCall()" class="btn-accept">Nghe</button>
-    <button (click)="rejectCall()" class="btn-reject">Từ chối</button>
-  </div>
+        <!-- Hiển thị danh sách kết quả -->
+        <div class="search-item" *ngFor="let user of searchUsers">
+          <img [src]="user.avatar || 'assets/default-avatar.png'" class="mini-avatar">
+          <span>{{ user.username }}</span>
+          <button class="btn-add-small" 
+            [disabled]="pendingRequestIds.has(user.id)"
+            (click)="sendFriendRequest(user.id)">
+      
+            <!-- Nếu đã bấm thì hiện dấu check, chưa thì hiện dấu cộng -->
+            <span *ngIf="!pendingRequestIds.has(user.id)">+</span>
+            <span *ngIf="pendingRequestIds.has(user.id)">✓</span>
+          </button>
 
-  <!-- Nội dung Chat -->
-  <div class="message-list" #scrollMe>
-    <div *ngFor="let m of messages" [ngClass]="m.isMe ? 'msg-me' : 'msg-them'">
-      <span class="sender">{{ m.sender }}</span>
-      <p>{{ m.text }}</p>
+        </div>
+
+        <!-- Hiển thị khi không tìm thấy -->
+        <div *ngIf="!isLoading && searchUsers.length === 0" class="no-result">
+          Không tìm thấy người dùng này.
+        </div>
     </div>
   </div>
 
-  <!-- Điều khiển -->
-  <div class="chat-input">
-    <button (click)="startCall()">📹</button>
-    <input #box (keyup.enter)="send(box.value); box.value=''" placeholder="Nhập tin...">
+  <!-- Cột trái: Danh sách phòng -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Tin nhắn</h3>
+    </div>
+    <div class="room-list">
+      <div *ngFor="let room of rooms" 
+           class="room-item" 
+           [class.active]="activeRoom?.id === room.id"
+           (click)="selectRoom(room)">
+        <div class="avatar-container">
+          <img [src]="room.avatar" alt="avatar">
+          <span class="status-dot" [class.online]="(socketService.userStatusMap$ | async)?.get(room.userId) === 'online'"></span>
+        </div>
+        <div class="room-info">
+          <span class="room-name">{{ room.name }}</span>
+          <span class="last-msg text-truncate">{{ room.lastMessage }}</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Khu vực chính: Chat & Video -->
+  <main class="chat-main">
+    <header class="chat-header">
+      <div class="header-user" *ngIf="activeRoom">
+        <h4>{{ activeRoom.name }}</h4>
+      </div>
+      <div class="header-actions" *ngIf="activeRoom">
+        <button class="btn-icon" (click)="startCall('VOICE')">📞</button>
+        <button class="btn-call" (click)="startCall('VIDEO')">📹 Video Call</button>
+      </div>
+    </header>
+
+    <!-- Khu vực hiển thị Video khi đang gọi -->
+    <section class="video-grid" *ngIf="isCalling">
+      <div id="local-player" class="video-window">
+        <span class="label">Bạn</span>
+      </div>
+      <div id="remote-player" class="video-window">
+        <span class="label">Đối phương</span>
+      </div>
+      <button class="btn-hangup" (click)="rejectCall()">Kết thúc</button>
+    </section>
+
+    <!-- Danh sách tin nhắn -->
+    <section class="message-area" #scrollContainer>
+      <div *ngFor="let m of messages$ | async" 
+           class="message-row" 
+           [class.me]="m.isMe">
+        <div class="message-bubble">
+          <p>{{ m.text }}</p>
+          <span class="message-time">{{ m.time | date:'HH:mm' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ô nhập tin nhắn -->
+    <footer class="chat-footer">
+      <input #msgInput 
+             type="text" 
+             placeholder="Nhập tin nhắn..." 
+             (keyup.enter)="sendMessage(msgInput.value); msgInput.value=''">
+      <button (click)="sendMessage(msgInput.value); msgInput.value=''">Gửi</button>
+    </footer>
+  </main>
+</div>
+
+<!-- Popup cuộc gọi đến -->
+<div class="call-overlay" *ngIf="incomingCallData">
+  <div class="call-card">
+    <div class="caller-info">
+      <div class="pulse-ring"></div>
+      <p>Cuộc gọi đến từ <strong>{{ incomingCallData.fromName }}</strong></p>
+    </div>
+    <div class="call-buttons">
+      <button class="accept" (click)="acceptCall()">Chấp nhận</button>
+      <button class="reject" (click)="rejectCall()">Từ chối</button>
+    </div>
   </div>
 </div>

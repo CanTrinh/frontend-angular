@@ -1,0 +1,151 @@
+.search-box {
+  padding: 15px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.search-results-popover {
+  position: absolute;
+  top: 55px; left: 10px; right: 10px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-item {
+  display: flex; align-items: center;
+  padding: 10px; gap: 10px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.mini-avatar { width: 30px; height: 30px; border-radius: 50%; }
+
+.btn-add-small {
+  margin-left: auto;
+  background: #28a745; color: white;
+  border: none; border-radius: 4px; padding: 2px 8px;
+}
+
+.chat-wrapper {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+}
+
+.sidebar-header { padding: 20px; border-bottom: 1px solid #eee; }
+
+.room-item {
+  display: flex;
+  padding: 15px;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.room-item:hover { background: #f0f0f0; }
+.room-item.active { background: #e3efff; border-right: 3px solid #007bff; }
+
+.avatar-container { position: relative; }
+.avatar-container img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+
+.status-dot {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #ccc; border: 2px solid #fff;
+}
+.status-dot.online { background: #28a745; }
+
+/* Main Chat Area */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.chat-header {
+  height: 70px; padding: 0 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.btn-call {
+  background: #007bff; color: white; border: none;
+  padding: 8px 16px; border-radius: 20px; cursor: pointer;
+}
+
+/* Video Grid */
+.video-grid {
+  height: 400px; background: #1a1a1a;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px;
+  position: relative;
+}
+
+.video-window { background: #333; border-radius: 8px; position: relative; overflow: hidden; }
+.video-window .label { position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 12px; }
+
+.btn-hangup {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: #dc3545; color: white; border: none; padding: 10px 25px; border-radius: 50px;
+}
+
+/* Message Area */
+.message-area {
+  flex: 1; overflow-y: auto; padding: 20px; background: #f4f7f6;
+  display: flex; flex-direction: column; gap: 15px;
+}
+
+.message-row { display: flex; justify-content: flex-start; }
+.message-row.me { justify-content: flex-end; }
+
+.message-bubble {
+  max-width: 60%; padding: 12px 16px; border-radius: 18px;
+  background: #fff; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.message-row.me .message-bubble { background: #007bff; color: white; }
+
+.message-time { font-size: 10px; opacity: 0.6; display: block; margin-top: 5px; text-align: right; }
+
+/* Footer */
+.chat-footer { padding: 20px; display: flex; gap: 10px; border-top: 1px solid #eee; }
+.chat-footer input {
+  flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none;
+}
+
+/* Call Overlay */
+.call-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+
+.call-card {
+  background: white; padding: 30px; border-radius: 20px; text-align: center;
+}
+
+.call-buttons { display: flex; gap: 20px; margin-top: 20px; }
+.call-buttons button { padding: 10px 30px; border-radius: 10px; border: none; cursor: pointer; }
+.accept { background: #28a745; color: white; }
+.reject { background: #dc3545; color: white; }

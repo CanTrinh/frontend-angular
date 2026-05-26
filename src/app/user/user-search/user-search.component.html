@@ -1,0 +1,39 @@
+<div class="search-container">
+  <!-- Thanh tìm kiếm -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      (input)="onSearchChange()" 
+      placeholder="Tìm kiếm người dùng bằng email hoặc tên..." 
+    />
+  </div>
+
+  <!-- Danh sách kết quả tìm kiếm -->
+  <div class="search-results" *ngIf="searchResults.length > 0">
+    <div class="user-item" *ngFor="let user of searchResults">
+      <div class="user-info" (click)="openDirectChat(user.id, user.name)">
+        <img [src]="user.profilePic || 'assets/default-avatar.png'" class="avatar" />
+        <span class="user-name">{{ user.name }}</span>
+      </div>
+      
+      <!-- Nút hành động dựa trên trạng thái kết bạn -->
+      <div class="actions">
+        <button 
+          *ngIf="user.friendshipStatus === 'NONE'" 
+          (click)="addFriend(user.id)" 
+          class="btn-add-friend"
+        >
+          ➕ Kết bạn
+        </button>
+        <span *ngIf="user.friendshipStatus === 'PENDING'" class="status-pending">
+          ⏳ Đã gửi lời mời
+        </span>
+        <span *ngIf="user.friendshipStatus === 'ACCEPTED'" class="status-friend">
+          ✔ Bạn bè
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
