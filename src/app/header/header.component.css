@@ -35,6 +35,9 @@
     overflow: hidden;
 
   }
+  .mode{
+    display: flex;
+  }
 }
 
 @media screen and (width <= 40em) {
