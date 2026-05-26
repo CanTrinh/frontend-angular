@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { ThemeService } from './theme.service';
 import { LunarService } from './lunar.service';
 import { SanitizeUrlService } from '../sanitize-url.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 //import { MatIconRegistry } from '@angular/material/icon';
 //import { DomSanitizer } from '@angular/platform-browser';
@@ -20,7 +21,7 @@ import { SanitizeUrlService } from '../sanitize-url.service';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [DatePipe, IconDirective, MatIconModule, NgForOf],
+  imports: [DatePipe, IconDirective, MatIconModule, NgForOf, NotificationComponent],
   providers: [WeatherApiService, ThemeService],
 })
 
