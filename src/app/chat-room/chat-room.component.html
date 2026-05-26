@@ -78,7 +78,7 @@
 
     <!-- Danh sách tin nhắn -->
     <section class="message-area" #scrollContainer>
-      <div *ngFor="let m of messages$ | async" 
+      <div *ngFor="let m of messages" 
            class="message-row" 
            [class.me]="m.isMe">
         <div class="message-bubble">
