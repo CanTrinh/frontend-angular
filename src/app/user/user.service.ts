@@ -12,8 +12,8 @@ export class UserService {
   constructor() { }
   
 
-    // Get all posts
-   searchUsers(searchTerm: string = ''): Observable<any> {
+   
+   searchUsers(searchTerm: string): Observable<any> {
     // Nếu searchTerm trống, API sẽ là .../users
     // Nếu có searchTerm, API sẽ là .../users?search=keyword
     let params = new HttpParams();
