@@ -12,7 +12,7 @@
         <!-- Hiển thị danh sách kết quả -->
         <div class="search-item" *ngFor="let user of searchUsers">
           <img [src]="user.avatar || 'assets/default-avatar.png'" class="mini-avatar">
-          <span>{{ user.username }}</span>
+          <span>{{ user.name }}</span>
           <button class="btn-add-small" 
             [disabled]="pendingRequestIds.has(user.id)"
             (click)="sendFriendRequest(user.id)">
