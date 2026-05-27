@@ -90,10 +90,12 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       return;
     }
     this.showSearchResults = true;
+    this.searchSubject.next(term);
+    
     this.searchSubscription = this.searchSubject.pipe(
       debounceTime(400),           // Đợi 400ms sau khi ngừng gõ mới phát tín hiệu
       distinctUntilChanged(),      // Chỉ tìm nếu từ khóa khác với lần tìm trước đó
-      filter(term => term.trim().length >= 2), // Chỉ tìm khi có từ 2 ký tự trở lên
+      filter((term) => term.trim().length >= 2), // Chỉ tìm khi có từ 2 ký tự trở lên
       switchMap(term => {          // Hủy bỏ request cũ nếu có request mới chen vào
         this.isLoading = true;
         return this.userService.searchUsers(term);
