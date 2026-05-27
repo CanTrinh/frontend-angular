@@ -61,6 +61,35 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       })
     );
 
+    /*
+    this.searchSubscription = this.searchSubject.pipe(
+      debounceTime(400),           // Đợi 400ms sau khi ngừng gõ mới phát tín hiệu
+      distinctUntilChanged(),      // Chỉ tìm nếu từ khóa khác với lần tìm trước đó
+      filter(term => term.trim().length >= 2), // Chỉ tìm khi có từ 2 ký tự trở lên
+      switchMap(term => {          // Hủy bỏ request cũ nếu có request mới chen vào
+        this.isLoading = true;
+        return this.userService.searchUsers(term);
+      })
+    ).subscribe({
+      next: (results) => {
+        this.searchUsers = results;
+        this.isLoading = false;
+      },
+      error: () => this.isLoading = false
+    });
+    */
+  
+  }
+
+  // Hàm gọi khi người dùng gõ phím
+  onSearchUser(event: Event) {
+    const term = (event.target as HTMLInputElement).value;
+    if (!term) {
+      this.searchUsers = [];
+      this.showSearchResults = false;
+      return;
+    }
+    this.showSearchResults = true;
     this.searchSubscription = this.searchSubject.pipe(
       debounceTime(400),           // Đợi 400ms sau khi ngừng gõ mới phát tín hiệu
       distinctUntilChanged(),      // Chỉ tìm nếu từ khóa khác với lần tìm trước đó
@@ -77,18 +106,6 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       error: () => this.isLoading = false
     });
   
-  }
-
-  // Hàm gọi khi người dùng gõ phím
-  onSearchUser(event: Event) {
-    const term = (event.target as HTMLInputElement).value;
-    if (!term) {
-      this.searchUsers = [];
-      this.showSearchResults = false;
-      return;
-    }
-    this.showSearchResults = true;
-    this.searchSubject.next(term);
   }
 
   sendFriendRequest(friendId: string) {
