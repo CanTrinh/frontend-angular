@@ -4,17 +4,20 @@ import { SocketService } from '../core/services/socket.service';
 import { debounceTime, distinctUntilChanged, filter, Subject, Subscription, switchMap } from 'rxjs';
 import { VideoService } from './video.service';
 import { UserService } from '../user/user.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })
 export class ChatRoomComponent implements OnInit, OnDestroy{
 
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  
+  searchForm!: FormGroup;
   
   rooms: any[] = [];
   activeRoom: any = null; // Lấy từ route hoặc danh sách phòng
@@ -38,10 +41,23 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   constructor(
     public socketService: SocketService,
     public videoService: VideoService,
-    private userService: UserService
+    private userService: UserService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
+    this.searchForm = this.fb.group({
+            search: ['', [Validators.required, Validators.maxLength(100)]],
+    });
+
+        // 2. Lắng nghe thay đổi của ô input: Nếu xóa hết chữ thì tự động load lại tất cả
+    this.searchForm.get('search')?.valueChanges.subscribe(value => {
+      if (!value || value.trim() === '') {
+        this.searchUsers = [];
+        this.showSearchResults = false;    
+      }
+    });
+
     this.socketService.connect();
     this.socketService.setupChatListeners();
 
@@ -82,9 +98,19 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   }
 
   // Hàm gọi khi người dùng gõ phím
-  onSearchUser(event: Event) {
-    const term = (event.target as HTMLInputElement).value;
-    if (!term) {
+  onSearchUser() {
+    //const term = (event.target as HTMLInputElement).value;
+    // Lấy chuỗi từ ô input
+    const term = this.searchForm.get('search')?.value || '';
+    this.userService.searchUsers(term).subscribe({
+      next: (results) => {
+        this.searchUsers = results;
+        this.isLoading = false;
+      },
+      error: () => this.isLoading = false
+    });
+
+    /*if (!term) {
       this.searchUsers = [];
       this.showSearchResults = false;
       return;
@@ -107,6 +133,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       },
       error: () => this.isLoading = false
     });
+    */
   
   }
 
