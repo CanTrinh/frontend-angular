@@ -54,7 +54,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.searchForm.get('search')?.valueChanges.subscribe(value => {
       if (!value || value.trim() === '') {
         this.searchUsers = [];
-        this.showSearchResults = false;    
+        this.showSearchResults = false; 
       }
     });
 
@@ -102,12 +102,16 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     //const term = (event.target as HTMLInputElement).value;
     // Lấy chuỗi từ ô input
     const term = this.searchForm.get('search')?.value || '';
+    if (term){
+      this.isLoading = true;
+      this.showSearchResults = true;
+    }
     this.userService.searchUsers(term).subscribe({
       next: (results) => {
         this.searchUsers = results;
         this.isLoading = false;
       },
-      error: () => this.isLoading = false
+      error: () => {this.isLoading = false; this.showSearchResults = false;}
     });
 
     /*if (!term) {
