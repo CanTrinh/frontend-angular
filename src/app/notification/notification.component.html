@@ -24,22 +24,22 @@
         <div [ngSwitch]="noti.type">
           <!-- Giao diện Lời mời kết bạn -->
           <div *ngSwitchCase="'FRIEND_REQUEST'" class="noti-content">
-            <img [src]="noti.metadata.avatar" class="avatar-small">
+            <img [src]="noti.metadata.thumbnailUrl" class="avatar-small">
             <div class="text">
-              <p><strong>{{ noti.metadata.senderName }}</strong> đã gửi lời mời kết bạn.</p>
-              <div class="actions" *ngIf="!noti.isProcessed">
+              <p>{{ noti.content }}</p>
+              <div class="actions" *ngIf="!noti.metadata.isProcessed">
                 <button class="btn-accept" (click)="handleFriend(noti, 'ACCEPTED', $event)">Chấp nhận</button>
                 <button class="btn-reject" (click)="handleFriend(noti, 'REJECTED', $event)">Từ chối</button>
               </div>
-              <span class="processed-text" *ngIf="noti.isProcessed">Đã xử lý</span>
+              <span class="processed-text" *ngIf="noti.metadata.isProcessed">Đã xử lý</span>
             </div>
           </div>
 
           <!-- Giao diện Chấp nhận kết bạn -->
           <div *ngSwitchCase="'FRIEND_ACCEPT'" class="noti-content">
-            <img [src]="noti.metadata.avatar" class="avatar-small">
+            <img [src]="noti.metadata.thumbnailUrl" class="avatar-small">
             <div class="text">
-              <p><strong>{{ noti.metadata.senderName }}</strong> đã chấp nhận lời mời.</p>
+              <p>{{ noti.content }}</p>
             </div>
           </div>
         </div>

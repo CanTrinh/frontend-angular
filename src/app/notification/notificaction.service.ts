@@ -7,13 +7,12 @@ import { environment } from 'src/environments/environment.prod';
 
 export interface NotificationResponse {
   data: any[];
-  meta: {
-    totalNoti: number;
-    totalUnread: number;
-    currentPage: number;
-    totalPages: number;
-    limitNotiforAPage: number;
-  };
+  totalNoti: number;
+  totalUnread: number;
+  currentPage: number;
+  totalPages: number;
+  limitNotiforAPage: number;
+
 }
 
 @Injectable({

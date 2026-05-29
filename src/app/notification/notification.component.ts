@@ -65,7 +65,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     if(this.loginService.isLoggedIn()){
       this.notiApi.getNotifications(1).subscribe((res) => {
         this.notifications = res.data;
-        this.unreadCountSubject.next(res.meta.totalUnread || 0); // Giả định server trả về totalUnread
+        this.unreadCountSubject.next(res.totalUnread || 0); // Giả định server trả về totalUnread
         this.loading = false;
       });
     }
