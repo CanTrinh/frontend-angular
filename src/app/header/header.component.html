@@ -28,7 +28,7 @@
 </div>-->
 
 <div class="mode">
-    <app-notification></app-notification>
+    <a routerLink="/notificantions" routerLinkActive="active" ariaCurrentWhenActive="page"><app-notification></app-notification></a>
     <ul>
         <li>
             <input type="checkbox" name="power" id="power" (change)="toggleTheme($event)">
