@@ -8,9 +8,11 @@ import { environment } from 'src/environments/environment.prod';
 export interface NotificationResponse {
   data: any[];
   meta: {
+    totalNoti: number;
     totalUnread: number;
-    page: number;
-    lastPage: number;
+    currentPage: number;
+    totalPages: number;
+    limitNotiforAPage: number;
   };
 }
 
