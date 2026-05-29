@@ -16,7 +16,7 @@ import { LoginService } from '../features/auth/login/login.service';
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   // Trạng thái hiển thị dropdown
-  isOpen = true;
+  isOpen = false;
   
   // Danh sách thông báo
   notifications: any[] = [];
