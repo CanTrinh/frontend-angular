@@ -18,7 +18,7 @@ import { HomeDetailComponent } from './home/home-detail/home-detail.component';
 import { ProfileComponent } from './features/auth/profile/profile.component';
 import { postResolver } from './post/post.resolver';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
-import { NotificationComponent } from './notification/notification.component';
+//import { NotificationComponent } from './notification/notification.component';
 
 
 
@@ -52,7 +52,7 @@ export const appRoutes: Routes = [
   { path: 'chat-room', component: ChatRoomComponent},
   { path: 'login' , component: LoginComponent},
   { path: 'user/profile' , component: ProfileComponent},
-  { path: 'notifications' , component: NotificationComponent},
+  //{ path: 'notifications' , component: NotificationComponent},
   { path: 'register' , component: RegisterComponent},
 
   { path: '',   redirectTo: '/home', pathMatch: 'full' },

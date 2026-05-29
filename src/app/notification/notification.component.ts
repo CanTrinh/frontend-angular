@@ -57,6 +57,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Đóng/mở Dropdown
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+    console.log(this.isOpen);
   }
 
   // Tải dữ liệu lần đầu

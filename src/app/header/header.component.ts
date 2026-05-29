@@ -22,7 +22,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [DatePipe, IconDirective, MatIconModule, NgForOf, NotificationComponent,RouterLink, RouterLinkActive],
+  imports: [DatePipe, IconDirective, MatIconModule, NgForOf, NotificationComponent,RouterLink, RouterLinkActive, NgIf],
   providers: [WeatherApiService, ThemeService],
 })
 
