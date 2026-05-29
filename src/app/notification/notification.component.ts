@@ -5,6 +5,7 @@ import { SocketService } from '../core/services/socket.service';
 import { UserService } from '../user/user.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ClickOutsideDirective } from '../shared/directives/click-outside.directive';
+import { LoginService } from '../features/auth/login/login.service';
 
 @Component({
   selector: 'app-notification',
@@ -34,7 +35,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   constructor(
     private notiApi: NotificationService,
     private socketService: SocketService,
-    private userService: UserService
+    private userService: UserService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -60,11 +62,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Tải dữ liệu lần đầu
   loadInitialNotifications() {
     this.loading = true;
-    this.notiApi.getNotifications(1).subscribe((res) => {
-      this.notifications = res.data;
-      this.unreadCountSubject.next(res.meta.totalUnread || 0); // Giả định server trả về totalUnread
-      this.loading = false;
-    });
+    if(this.loginService.isLoggedIn()){
+      this.notiApi.getNotifications(1).subscribe((res) => {
+        this.notifications = res.data;
+        this.unreadCountSubject.next(res.meta.totalUnread || 0); // Giả định server trả về totalUnread
+        this.loading = false;
+      });
+    }
   }
 
   // Đánh dấu 1 thông báo đã đọc (Optimistic Update)
