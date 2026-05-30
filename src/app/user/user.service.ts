@@ -30,7 +30,7 @@ export class UserService {
 
   resAddFriend(noti: any, status: string){
     const payload = {
-    receiveId: noti.metadata.senderId, // Lấy từ metadata cua nguoi gửi A qua socket
+    receiveId: noti.senderId, // Lấy từ metadata cua nguoi gửi A qua socket
     friendShipId: noti.relatedId,     // Lấy từ relatedId trong DB
     status: status
     };
