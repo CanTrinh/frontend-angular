@@ -16,12 +16,11 @@
   transition: transform 0.2s;
 }
 
-.bell-icon .bell{ 
-    max-width:24px;
-    object-fit:cover;
-    object-position: center;
-    overflow: hidden;
+i {
+    font-size: 24px;   /* Change size */
+    color: #333;       /* Change color */
 }
+
 
 .bell-icon:hover {
   color: #333;
