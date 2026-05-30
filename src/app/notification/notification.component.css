@@ -17,9 +17,8 @@
 }
 
 .bell-icon .bell{ 
-    max-width:100%;
-    max-height:100%;
-    object-fit:fill;
+    max-width:24px;
+    object-fit:cover;
     object-position: center;
     overflow: hidden;
 }
