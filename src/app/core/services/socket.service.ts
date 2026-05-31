@@ -52,6 +52,9 @@ export class SocketService {
 
     // 2. Lắng nghe sự kiện
     this.setupSocketListeners();
+
+    // 3. KÍCH HOẠT KẾT NỐI (Lúc này NestJS phản hồi về là Angular bắt được ngay)
+    this.socket.connect();
   }
 
   private setupSocketListeners() {
