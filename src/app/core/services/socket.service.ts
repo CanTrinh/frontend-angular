@@ -47,7 +47,8 @@ export class SocketService {
       auth: {
         token: `Bearer ${access_token}`
       },
-      transports: ['websocket']
+      transports: ['websocket'],
+      autoConnect: false,
     });
 
     // 2. Lắng nghe sự kiện
