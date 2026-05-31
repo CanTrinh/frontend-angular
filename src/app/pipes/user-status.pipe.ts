@@ -9,7 +9,11 @@ export class UserStatusPipe implements PipeTransform {
 
   transform(userId: string): Observable<UserStatus> {
     return this.socketService.userStatusMap$.pipe(
-      map(statusMap => statusMap.get(userId) || 'offline')
-    );
+      map(statusMap => {
+      const status = statusMap.get(userId) || 'offline';
+      console.log(`[Pipe Check] userId gốc: ${userId} (Kiểu: ${typeof userId}) -> Trạng thái tìm được: ${status}`); // 👈 Thêm dòng này
+      return status;
+      }
+    ))
   }
 }

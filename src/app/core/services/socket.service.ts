@@ -64,6 +64,7 @@ export class SocketService {
     });
 
     this.socket.on('initialOnlineUsers', (users: string[]) => {
+      console.log('👉 Angular ĐÃ NHẬN initialOnlineUsers:', users);
       const currentMap = new Map(this.userStatusMap.value);
       users.forEach(id => currentMap.set(id, 'online'));
       this.userStatusMap.next(currentMap);
