@@ -59,14 +59,16 @@ export class SocketService {
       const currentMap = new Map(this.userStatusMap.value);
       currentMap.set(data.userId, data.status);
       this.userStatusMap.next(currentMap);
-      console.log(this.userStatusMap$);
+      console.log('Bản đồ trạng thái hiện tại:', this.userStatusMap.value);
+
     });
 
     this.socket.on('initialOnlineUsers', (users: string[]) => {
-      const currentMap = new Map();
+      const currentMap = new Map(this.userStatusMap.value);
       users.forEach(id => currentMap.set(id, 'online'));
       this.userStatusMap.next(currentMap);
-      console.log(this.userStatusMap$);
+      console.log('Bản đồ trạng thái hiện tại:', this.userStatusMap.value);
+
     });
 
     // --- LẮNG NGHE CHUÔNG THÔNG BÁO TỪ HTTP/DB ---
