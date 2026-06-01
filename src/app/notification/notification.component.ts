@@ -38,7 +38,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private loginService: LoginService
   ) {
-     // 2. LẮNG NGHE TỰ ĐỘNG: Mỗi khi trạng thái user thay đổi, luồng này sẽ chạy
+        // 2. LẮNG NGHE TỰ ĐỘNG: Mỗi khi trạng thái user thay đổi, luồng này sẽ chạy
     this.loginService.user$.subscribe(user => {
       if (user && user.sub) {
         // Có user hợp lệ (Vừa login thành công HOẶC vừa F5 khôi phục từ localStorage)
@@ -51,8 +51,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadInitialNotifications();
-
     // Lắng nghe socket để nhận thông báo mới real-time
     const s = this.socketService.notificationSub$.subscribe((newNoti) => {
       if (newNoti) {
