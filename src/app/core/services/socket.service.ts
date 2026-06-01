@@ -36,10 +36,10 @@ export class SocketService {
 
   constructor(private authService: LoginService) {}
 
-  connect() {
+  async connect() {
     if (this.socket?.connected) return;
 
-    const access_token = this.authService.getToken();
+    const access_token = await this.authService.getToken();
     if (!access_token) return; // Không có token thì không kết nối
 
     // 1. Đổi từ query sang auth để bảo mật
