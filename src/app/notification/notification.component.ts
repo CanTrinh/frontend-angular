@@ -66,6 +66,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Đóng/mở Dropdown
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+    this.unreadCountSubject.next(0);
     console.log(this.isOpen);
   }
 
@@ -79,6 +80,21 @@ export class NotificationComponent implements OnInit, OnDestroy {
       });
   }
 
+    // Đánh dấu 1 thông báo đã đọc (Optimistic Update)
+  markAsSeen(noti: any) {
+    if (noti.isSeen) return;
+
+    noti.isSeen = true; // Cập nhật UI ngay lập tức
+    this.unreadCountSubject.next(Math.max(0, this.unreadCountSubject.value - 1));
+
+    this.notiApi.markAsRead(noti.id).subscribe({
+      error: () => {
+        noti.isRead = false; // Hoàn tác nếu lỗi
+        this.unreadCountSubject.next(this.unreadCountSubject.value + 1);
+      }
+    });
+  }
+  
   // Đánh dấu 1 thông báo đã đọc (Optimistic Update)
   markAsRead(noti: any) {
     if (noti.isRead) return;
