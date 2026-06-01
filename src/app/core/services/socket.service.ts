@@ -34,12 +34,12 @@ export class SocketService {
   notificationSub$ = this.notificationSub.asObservable();
 
 
-  constructor(private authService: LoginService) {}
+  constructor() {}
 
   async connect() {
     if (this.socket?.connected) return;
 
-    const access_token = await this.authService.getToken();
+    const access_token = localStorage.getItem('access_token'); 
     if (!access_token) return; // Không có token thì không kết nối
 
     // 1. Đổi từ query sang auth để bảo mật
