@@ -52,6 +52,7 @@ export class LoginService {
     this.user$.subscribe(user => {
       if (user && user.sub) {
         this.socketService.connect();
+        
       } else {
         this.socketService.disconnect();
       }

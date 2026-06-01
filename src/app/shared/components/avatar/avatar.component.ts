@@ -5,7 +5,7 @@ import { SocketService } from 'src/app/core/services/socket.service';
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [NgClass, NgIf],
+  imports: [NgClass],
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.css']
 })

@@ -37,7 +37,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private userService: UserService,
     private loginService: LoginService
-  ) {}
+  ) {
+     // 2. LẮNG NGHE TỰ ĐỘNG: Mỗi khi trạng thái user thay đổi, luồng này sẽ chạy
+    this.loginService.user$.subscribe(user => {
+      if (user && user.sub) {
+        // Có user hợp lệ (Vừa login thành công HOẶC vừa F5 khôi phục từ localStorage)
+        this.loadInitialNotifications();
+      } else {
+        // User logout -> Xóa sạch thông báo trong kho dữ liệu
+        this.unreadCountSubject.next(0);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.loadInitialNotifications();
@@ -63,13 +74,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Tải dữ liệu lần đầu
   loadInitialNotifications() {
     this.loading = true;
-    if(this.loginService.isLoggedIn()){
       this.notiApi.getNotifications(1).subscribe((res) => {
         this.notifications = res.data;
         this.unreadCountSubject.next(res.totalUnread || 0); // Giả định server trả về totalUnread
         this.loading = false;
       });
-    }
   }
 
   // Đánh dấu 1 thông báo đã đọc (Optimistic Update)
