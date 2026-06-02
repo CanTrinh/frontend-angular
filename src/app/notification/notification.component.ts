@@ -68,12 +68,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Đóng/mở Dropdown
   toggleDropdown() {
     this.isOpen = !this.isOpen;
-    this.unseenCountSubject.next(0);
-    this.notiApi.markAsSeen().subscribe({
-      error: ()=>{
-        console.log('lỗi gửi api http req');
-      }
-    });
+    if(this.unseenCountSubject.value !== 0){
+      this.unseenCountSubject.next(0);
+      this.notiApi.markAsSeen().subscribe({
+        error: ()=>{
+          console.log('lỗi gửi api http req');
+        }
+      });
+    }
   }
 
   // Tải dữ liệu lần đầu
