@@ -69,7 +69,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   toggleDropdown() {
     this.isOpen = !this.isOpen;
     const isSeen = true;
-    this.unreadCountSubject.next(0);
+    this.unseenCountSubject.next(0);
     this.notiApi.markAsSeen(isSeen);
   }
 
