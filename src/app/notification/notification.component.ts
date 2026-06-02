@@ -70,7 +70,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.isOpen = !this.isOpen;
     const isSeen = true;
     this.unseenCountSubject.next(0);
-    this.notiApi.markAsSeen(isSeen);
+    this.notiApi.markAsSeen();
   }
 
   // Tải dữ liệu lần đầu
