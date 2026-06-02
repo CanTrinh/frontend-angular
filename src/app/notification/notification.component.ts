@@ -68,9 +68,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Đóng/mở Dropdown
   toggleDropdown() {
     this.isOpen = !this.isOpen;
-    const isSeen = true;
     this.unseenCountSubject.next(0);
-    this.notiApi.markAsSeen();
+    this.notiApi.markAsSeen().subscribe({
+      error: ()=>{
+        console.log('lỗi gửi api http req');
+      }
+    });
   }
 
   // Tải dữ liệu lần đầu
@@ -102,7 +105,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
   markAllRead() {
     this.notifications.forEach(n => n.isRead = true);
     this.unreadCountSubject.next(0);
-    this.notiApi.markAllAsRead().subscribe();
+    this.notiApi.markAllAsRead().subscribe({
+      error: ()=> {
+        console.log("lỗi kích hoạt api http read noti");
+      }
+    });
   }
 
   // Xử lý Chấp nhận/Từ chối kết bạn
