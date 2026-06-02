@@ -1,0 +1,104 @@
+.search-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 8px 16px;
+  border-bottom: 1px solid #f0f0f0; /* Vạch ngăn nhẹ với khối tạo nhóm bên dưới */
+  max-height: 40%; /* Giới hạn khung tìm kiếm không chiếm quá nhiều chỗ */
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f8f9fa;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.search-bar input:focus {
+  border-color: #28a745; /* Màu xanh lá đặc trưng cho tìm kiếm/kết bạn */
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.15);
+}
+
+/* Khung chứa kết quả tìm kiếm đổ xuống */
+.search-results {
+  margin-top: 10px;
+  overflow-y: auto; /* Cuộn dọc nếu kết quả tìm kiếm quá dài */
+  flex: 1;
+}
+
+/* Từng dòng user tìm thấy */
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+/* Khối thông tin click để chat 1-1 */
+.user-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+}
+
+.user-info:hover .user-name {
+  color: #007bff; /* Tên đổi màu xanh dương báo hiệu click được */
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  background-color: #eaeaea;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333333;
+  transition: color 0.2s;
+}
+
+/* Khối nút bấm hành động kết bạn bên phải */
+.actions {
+  margin-left: 8px;
+}
+
+.btn-add-friend {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-friend:hover {
+  color: #ffffff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.status-pending {
+  font-size: 0.8rem;
+  color: #ffc107; /* Màu cam/vàng chờ đợi */
+  font-weight: 500;
+}
+
+.status-friend {
+  font-size: 0.8rem;
+  color: #6c757d; /* Màu xám nhẹ vì đã là bạn bè */
+  font-weight: 500;
+}

@@ -6,11 +6,12 @@ import { VideoService } from './video.service';
 import { UserService } from '../user/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GroupCreationComponent } from './group-creation/group-creation.component';
+import { UserSearchComponent } from '../user/user-search/user-search.component';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent ],
+  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent, UserSearchComponent ],
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })

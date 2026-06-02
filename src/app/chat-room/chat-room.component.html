@@ -1,16 +1,17 @@
 <div class="chat-wrapper">
+  
   <div class="search-box">
-
+    <!--
     <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchUser()"  >
       <input type="search" name="search" id="search" formControlName="search" aria-label="Search our site" placeholder="Tìm bạn bè mới...">
 
     </form>
     
     <div class="search-results-popover" *ngIf="showSearchResults">
-        <!-- Hiển thị khi đang load -->
+       
         <div *ngIf="isLoading" class="loading-text">Đang tìm kiếm...</div>
 
-        <!-- Hiển thị danh sách kết quả -->
+    
         <div class="search-item" *ngFor="let user of searchUsers">
           <img [src]="user.avatar || 'assets/default-avatar.png'" class="mini-avatar">
           <span>{{ user.name }}</span>
@@ -18,18 +19,19 @@
             [disabled]="pendingRequestIds.has(user.id)"
             (click)="sendFriendRequest(user.id)">
       
-            <!-- Nếu đã bấm thì hiện dấu check, chưa thì hiện dấu cộng -->
+           
             <span *ngIf="!pendingRequestIds.has(user.id)">+</span>
             <span *ngIf="pendingRequestIds.has(user.id)">✓</span>
           </button>
 
         </div>
 
-        <!-- Hiển thị khi không tìm thấy -->
+        
         <div *ngIf="!isLoading && searchUsers.length === 0" class="no-result">
           Không tìm thấy người dùng này.
         </div>
-    </div>
+    </div>-->
+    <app-user-search></app-user-search>
 
     <app-group-creation></app-group-creation>
 
