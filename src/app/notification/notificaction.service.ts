@@ -37,8 +37,8 @@ export class NotificationService {
     return this.http.get<NotificationResponse>(this.API_URL, { params });
   }
 
-  markAsSeen(isSeen: boolean){
-    return this.http.patch<NotificationResponse>(`${this.API_URL}/seen`, {isSeen});
+  markAsSeen(){
+    return this.http.patch(`${this.API_URL}/seen`, {});
   }
 
   /*
