@@ -1,7 +1,7 @@
 export interface UserSignIn {
     access_token: string;
     userInfor:{
-        id?: number;
+        sub?: number;
         name: string;
         password?: string;  
     }
