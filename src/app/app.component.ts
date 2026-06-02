@@ -14,6 +14,8 @@ import { slideInAnimation } from './animations';
 import { EnglishComponent } from './english/english.component';
 import { LoginService } from './features/auth/login/login.service';
 import { MessagesComponent } from './messages/messages.component';
+import { AvatarComponent } from './shared/components/avatar/avatar.component';
+import { UserStatusPipe } from './pipes/user-status.pipe';
 
 
 
@@ -23,7 +25,7 @@ import { MessagesComponent } from './messages/messages.component';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     imports: [HeaderComponent,
-      RouterLink, RouterLinkActive, RouterOutlet,CommonModule, MessagesComponent],
+      RouterLink, RouterLinkActive, RouterOutlet,CommonModule, MessagesComponent, AvatarComponent,UserStatusPipe],
     
 })
 export class AppComponent implements AfterViewInit{

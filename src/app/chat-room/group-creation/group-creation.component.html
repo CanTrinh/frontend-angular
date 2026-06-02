@@ -24,7 +24,7 @@
           (change)="onCheckboxChange($event, friend.id)"
         />
         <label [for]="'friend-' + friend.id">
-          <img [src]="friend.profilePic || 'assets/default-avatar.png'" class="avatar-sm" />
+          <img [src]="friend.avatar" class="avatar-sm" />
           <span>{{ friend.name }}</span>
         </label>
       </div>

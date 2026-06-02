@@ -1,10 +1,6 @@
 <div class="chat-wrapper">
   <div class="search-box">
-    <!--<input type="text" 
-          placeholder="Tìm bạn bè mới..." 
-          (input)="onSearchUser($event)"
-          (focus)="showSearchResults = true">
-  -->
+    
     <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchUser()"  >
       <input type="search" name="search" id="search" formControlName="search" aria-label="Search our site" placeholder="Tìm bạn bè mới...">
 
@@ -36,10 +32,12 @@
     </div>
   </div>
 
+
+
   <!-- Cột trái: Danh sách phòng -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h3>Tin nhắn</h3>
+      <h3>Room Chat</h3>
     </div>
     <div class="room-list">
       <div *ngFor="let room of rooms" 
@@ -99,7 +97,7 @@
              type="text" 
              placeholder="Nhập tin nhắn..." 
              (keyup.enter)="sendMessage(msgInput.value); msgInput.value=''">
-      <button (click)="sendMessage(msgInput.value); msgInput.value=''">Gửi</button>
+      <button (click)="sendMessage(msgInput.value); msgInput.value=''">Send</button>
     </footer>
   </main>
 </div>

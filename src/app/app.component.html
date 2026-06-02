@@ -53,14 +53,22 @@
             <ng-container *ngIf="loginService.user$ | async as user">
     
             <!-- Giữ nguyên class profile-icon -->
+             <!--
             <a routerLink="user/profile" class="profile-icon" *ngIf="!user.profilePic">
                 {{ user.name?.slice(0,1) | uppercase }}
-            </a>
+            </a>-->
 
             <!-- Giữ nguyên class profile-avatar -->
+             <!--
             <a routerLink="user/profile" class="profile-avatar" *ngIf="user.profilePic">
                 <img [src]="user.profilePic" crossorigin="anonymous" alt="Avatar">
-            </a>
+            </a>-->
+
+                <app-avatar [imageUrl]="user.profilePic" 
+                        [firstLetter]="user.name?.slice(0,1) | uppercase "
+                        [status]="user.id | userStatusPipe | async" 
+                        [size]="40">
+                </app-avatar>
 
             </ng-container>
 
