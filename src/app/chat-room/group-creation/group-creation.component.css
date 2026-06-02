@@ -1,0 +1,148 @@
+/* Container tổng - Ôm trọn thành phần tạo nhóm */
+.group-create-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 360px; /* Giới hạn chiều rộng để vừa với sidebar/phòng chat cha */
+  height: 100%;     /* Chiếm toàn bộ chiều cao của component cha cấp cho nó */
+  padding: 16px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0; /* Đường vạch ngăn cách nếu để ở bên trái */
+  box-sizing: border-box;
+}
+
+/* Tiêu đề góc trên */
+.group-create-container h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  color: #333333;
+  font-weight: 600;
+}
+
+/* Form bọc ngoài - Sử dụng flex dọc để đẩy nút bấm xuống đáy nếu cần */
+.group-create-container form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden; /* Ngăn chặn form bị phình to ra ngoài */
+}
+
+/* Ô nhập tên nhóm */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Đổi màu viền khi bấm vào nhập */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+/* Khối danh sách chọn bạn bè */
+.friend-selection-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Chiếm toàn bộ không gian còn lại ở giữa */
+  overflow-y: auto; /* Tạo thanh cuộn dọc riêng biệt cho danh sách bạn bè */
+  margin-bottom: 16px;
+  padding-right: 4px; /* Tránh đè lên thanh cuộn */
+}
+
+.friend-selection-list label:first-child {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #666666;
+  margin-bottom: 10px;
+  position: sticky; /* Giữ chữ "Chọn thành viên" cố định khi cuộn danh sách */
+  top: 0;
+  background: #ffffff;
+}
+
+/* Từng dòng item bạn bè */
+.friend-checkbox-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+}
+
+.friend-checkbox-item:hover {
+  background-color: #f8f9fa; /* Hiệu ứng highlight khi hover chuột */
+  border-radius: 6px;
+}
+
+/* Input checkbox */
+.friend-checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+/* Label bọc avatar và tên */
+.friend-checkbox-item label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Ảnh Avatar tròn nhỏ */
+.avatar-sm {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+  background-color: #eee;
+}
+
+/* Tên bạn bè */
+.friend-checkbox-item span {
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+/* Vùng chứa nút bấm ở đáy */
+.form-actions {
+  margin-top: auto; /* Đẩy khối này xuống sát đáy form */
+  padding-top: 12px;
+}
+
+/* Nút Tạo Nhóm */
+.form-actions button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-actions button:hover:not([disabled]) {
+  background-color: #0056b3;
+}
+
+/* Trạng thái nút bị khóa khi form chưa hợp lệ */
+.form-actions button:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  cursor: not-allowed;
+}

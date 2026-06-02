@@ -1,6 +1,6 @@
 <div class="chat-wrapper">
   <div class="search-box">
-    
+
     <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchUser()"  >
       <input type="search" name="search" id="search" formControlName="search" aria-label="Search our site" placeholder="Tìm bạn bè mới...">
 
@@ -30,6 +30,9 @@
           Không tìm thấy người dùng này.
         </div>
     </div>
+
+    <app-group-creation></app-group-creation>
+
   </div>
 
 

@@ -5,11 +5,12 @@ import { debounceTime, distinctUntilChanged, filter, Subject, Subscription, swit
 import { VideoService } from './video.service';
 import { UserService } from '../user/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { GroupCreationComponent } from './group-creation/group-creation.component';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent ],
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })
