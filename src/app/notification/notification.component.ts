@@ -25,6 +25,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private unreadCountSubject = new BehaviorSubject<number>(0);
   unreadCount$ = this.unreadCountSubject.asObservable();
 
+  private unseenCountSubject = new BehaviorSubject<number>(0);
+  unseenCount$ = this.unseenCountSubject.asObservable();
   // Phân trang
   page = 1;
   loading = false;
@@ -45,7 +47,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.loadInitialNotifications();
       } else {
         // User logout -> Xóa sạch thông báo trong kho dữ liệu
-        this.unreadCountSubject.next(0);
+        this.unseenCountSubject.next(0);
       }
     });
   }
@@ -57,7 +59,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         // Đưa thông báo mới lên đầu (unshift)
         this.notifications = [newNoti, ...this.notifications];
         // Tăng số lượng chưa đọc
-        this.unreadCountSubject.next(this.unreadCountSubject.value + 1);
+        this.unseenCountSubject.next(this.unreadCountSubject.value + 1);
       }
     });
     this.subscription.add(s);
@@ -66,8 +68,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
   // Đóng/mở Dropdown
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+    const isSeen = true;
     this.unreadCountSubject.next(0);
-    console.log(this.isOpen);
+    this.notiApi.markAsSeen(isSeen);
   }
 
   // Tải dữ liệu lần đầu
@@ -75,26 +78,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.loading = true;
       this.notiApi.getNotifications(1).subscribe((res) => {
         this.notifications = res.data;
-        this.unreadCountSubject.next(res.totalUnread || 0); // Giả định server trả về totalUnread
+        this.unseenCountSubject.next(res.totalUnseen || 0); // Giả định server trả về totalUnread
         this.loading = false;
       });
   }
 
-    // Đánh dấu 1 thông báo đã đọc (Optimistic Update)
-  markAsSeen(noti: any) {
-    if (noti.isSeen) return;
-
-    noti.isSeen = true; // Cập nhật UI ngay lập tức
-    this.unreadCountSubject.next(Math.max(0, this.unreadCountSubject.value - 1));
-
-    this.notiApi.markAsRead(noti.id).subscribe({
-      error: () => {
-        noti.isRead = false; // Hoàn tác nếu lỗi
-        this.unreadCountSubject.next(this.unreadCountSubject.value + 1);
-      }
-    });
-  }
-  
   // Đánh dấu 1 thông báo đã đọc (Optimistic Update)
   markAsRead(noti: any) {
     if (noti.isRead) return;

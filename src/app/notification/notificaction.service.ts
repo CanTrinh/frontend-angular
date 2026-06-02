@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 export interface NotificationResponse {
   data: any[];
   totalNoti: number;
-  totalUnread: number;
+  totalUnseen: number;
   currentPage: number;
   totalPages: number;
   limitNotiforAPage: number;
@@ -37,13 +37,17 @@ export class NotificationService {
     return this.http.get<NotificationResponse>(this.API_URL, { params });
   }
 
+  markAsSeen(isSeen: boolean){
+    return this.http.patch<NotificationResponse>(`${this.API_URL}/seen`, {isSeen});
+  }
+
   /*
   *
    * Đánh dấu một thông báo là đã đọc
    * @param notificationId ID của thông báo
    */
   markAsRead(notificationId: string): Observable<any> {
-    return this.http.patch(`${this.API_URL}/${notificationId}/read`, {});
+    return this.http.patch(`${this.API_URL}/${notificationId}/read`,{});
   }
 
   /*
