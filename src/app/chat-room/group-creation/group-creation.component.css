@@ -1,7 +1,7 @@
 /* Container tổng - Ôm trọn thành phần tạo nhóm */
 .group-create-container {
   display: flex;
-  /*flex-direction: column;*/
+  flex-direction: column;
   width: 100%;
   max-width: 360px; /* Giới hạn chiều rộng để vừa với sidebar/phòng chat cha */
   /*height: 100%;    Chiếm toàn bộ chiều cao của component cha cấp cho nó */
@@ -64,7 +64,7 @@
   font-size: 0.9rem;
   color: #666666;
   margin-bottom: 10px;
-  position: sticky; /* Giữ chữ "Chọn thành viên" cố định khi cuộn danh sách */
+  /*position: sticky;*/ /* Giữ chữ "Chọn thành viên" cố định khi cuộn danh sách */
   top: 0;
   background: #ffffff;
 }
