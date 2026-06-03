@@ -64,7 +64,7 @@
   font-size: 0.9rem;
   color: #666666;
   margin-bottom: 10px;
-  /*position: sticky;  Giữ chữ "Chọn thành viên" cố định khi cuộn danh sách */
+  position: sticky; /* Giữ chữ "Chọn thành viên" cố định khi cuộn danh sách */
   top: 0;
   background: #ffffff;
 }
