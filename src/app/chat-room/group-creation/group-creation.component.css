@@ -101,6 +101,7 @@
 }
 
 /* Ảnh Avatar tròn nhỏ */
+/*
 .avatar-sm {
   width: 36px;
   height: 36px;
@@ -109,6 +110,7 @@
   margin-right: 12px;
   background-color: #eee;
 }
+*/
 
 /* Tên bạn bè */
 .friend-checkbox-item span {

@@ -24,9 +24,15 @@
           (change)="onCheckboxChange($event, friend.id)"
         />
         <label [for]="'friend-' + friend.id">
-          <img [src]="friend.avatar" class="avatar-sm" />
+          <!--<img [src]="friend.avatar" class="avatar-sm" />-->
+        <app-avatar [imageUrl]="friend.avatar" 
+              [firstLetter]="friend.name ?.slice(0,1)"
+              [status]="friend.id | userStatusPipe | async" 
+              [size]="20">
+        </app-avatar>
           <span>{{ friend.name }}</span>
         </label>
+
       </div>
     </div>
 

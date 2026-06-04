@@ -5,11 +5,13 @@ import { SocketService } from '../../core/services/socket.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../user/user.service';
 import { FriendInforDto } from 'src/app/shared/types/friendInfor.interface';
+import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
+import { UserStatusPipe } from 'src/app/pipes/user-status.pipe';
 
 @Component({
   selector: 'app-group-creation',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AvatarComponent,UserStatusPipe],
   templateUrl: './group-creation.component.html',
   styleUrls: ['./group-creation.component.css']
 })
