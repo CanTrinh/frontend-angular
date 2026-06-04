@@ -25,7 +25,7 @@ export class UserSearchComponent {
     activeRoom: any = null; // Lấy từ route hoặc danh sách phòng
     messages: any[] = [];
 
-    public apiUrlCloudFront = `${environment.cloudFrontUrl}`;
+    public apiUrlCloudFront = `${environment.cloudFrontUrl}/`;
     
     isCalling = false;
     incomingCallData: any = null;
