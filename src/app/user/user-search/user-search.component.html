@@ -45,15 +45,10 @@
   <!-- Danh sách kết quả tìm kiếm -->
   <div class="search-results" *ngIf="showSearchResults">
     <div class="user-item" *ngFor="let user of searchUsers">
-       <app-avatar [imageUrl]="user.profilePic" 
-              [firstLetter]="user.name?.slice(0,1)"
-              [status]="user.id | userStatusPipe | async" 
-              [size]="20">
-        </app-avatar>
       <div class="user-info" (click)="openDirectChat(user.id, user.name)">
         <app-avatar [imageUrl]="user.profilePic" 
               [firstLetter]="user.name?.slice(0,1)"
-              [status]="user.sub | userStatusPipe | async" 
+              [status]="user.id | userStatusPipe | async" 
               [size]="20">
         </app-avatar>
         <!--<span>{{ user.name }}</span>-->

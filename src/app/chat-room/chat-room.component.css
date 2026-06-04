@@ -67,10 +67,10 @@
 
 .room-item:hover { background: #f0f0f0; }
 .room-item.active { background: #e3efff; border-right: 3px solid #007bff; }
-
+/*
 .avatar-container { position: relative; }
 .avatar-container img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
-
+*/
 .status-dot {
   position: absolute; bottom: 2px; right: 2px;
   width: 12px; height: 12px; border-radius: 50%;
