@@ -1,5 +1,6 @@
 <div class="search-container">
   <!-- Thanh tìm kiếm -->
+   <!--
   <div class="search-bar">
     <input 
       type="text" 
@@ -7,32 +8,72 @@
       (input)="onSearchChange()" 
       placeholder="Tìm kiếm người dùng bằng email hoặc tên..." 
     />
+  </div>-->
+  <div class="search-bar">
+    <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchUser()"  >
+      <input type="search" name="search" id="search" formControlName="search" aria-label="Search our site" placeholder="Tìm bạn bè mới...">
+
+    </form>
   </div>
+  <!--
+  <div class="search-results-popover" *ngIf="showSearchResults">
+       
+    <div *ngIf="isLoading" class="loading-text">Đang tìm kiếm...</div>
+
+    
+    <div class="search-item" *ngFor="let user of searchUsers">
+      <img [src]="user.avatar || 'assets/default-avatar.png'" class="mini-avatar">
+      <span>{{ user.name }}</span>
+      <button class="btn-add-small" 
+        [disabled]="pendingRequestIds.has(user.id)"
+        (click)="sendFriendRequest(user.id)">
+      
+           
+        <span *ngIf="!pendingRequestIds.has(user.id)">+</span>
+        <span *ngIf="pendingRequestIds.has(user.id)">✓</span>
+      </button>
+
+    </div>
+
+        
+    <div *ngIf="!isLoading && searchUsers.length === 0" class="no-result">
+          Không tìm thấy người dùng này.
+    </div>
+  </div>-->
+  
 
   <!-- Danh sách kết quả tìm kiếm -->
-  <div class="search-results" *ngIf="searchResults.length > 0">
-    <div class="user-item" *ngFor="let user of searchResults">
+  <div class="search-results" *ngIf="showSearchResults">
+    <div class="user-item" *ngFor="let user of searchUsers">
       <div class="user-info" (click)="openDirectChat(user.id, user.name)">
-        <img [src]="user.profilePic || 'assets/default-avatar.png'" class="avatar" />
-        <span class="user-name">{{ user.name }}</span>
+        <app-avatar [imageUrl]="user.profilePic" 
+              [firstLetter]="user.name?.slice(0,1)"
+              [status]="user.sub | userStatusPipe | async" 
+              [size]="20">
+        </app-avatar>
       </div>
       
       <!-- Nút hành động dựa trên trạng thái kết bạn -->
       <div class="actions">
         <button 
-          *ngIf="user.friendshipStatus === 'NONE'" 
-          (click)="addFriend(user.id)" 
+          [disabled]="pendingRequestIds.has(user.id)"
+          (click)="sendFriendRequest(user.id)" 
           class="btn-add-friend"
+          *ngIf="!pendingRequestIds.has(user.id)"
         >
           ➕ Kết bạn
         </button>
-        <span *ngIf="user.friendshipStatus === 'PENDING'" class="status-pending">
+        <span *ngIf="pendingRequestIds.has(user.id)" class="status-pending">
           ⏳ Đã gửi lời mời
         </span>
-        <span *ngIf="user.friendshipStatus === 'ACCEPTED'" class="status-friend">
+        <span *ngIf="user.friendsOf.status === 'ACCEPTED'" class="status-friend">
           ✔ Bạn bè
         </span>
       </div>
+    </div>
+
+    <div *ngIf="!isLoading && searchUsers.length === 0" class="no-result">
+          Không tìm thấy người dùng này.
     </div>
   </div>
 </div>

@@ -60,7 +60,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       }
     });
 
-    this.socketService.connect();
+    //this.socketService.connect();
     this.socketService.setupChatListeners();
 
     // 1. Lắng nghe tin nhắn từ BehaviorSubject của Service
