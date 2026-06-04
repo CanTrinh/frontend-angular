@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { UserService } from '../user.service';
 import { AvatarComponent } from 'src/app/shared/components/avatar/avatar.component';
 import { UserStatusPipe } from 'src/app/pipes/user-status.pipe';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-user-search',
@@ -23,10 +24,13 @@ export class UserSearchComponent {
     rooms: any[] = [];
     activeRoom: any = null; // Lấy từ route hoặc danh sách phòng
     messages: any[] = [];
+
+    public apiUrlCloudFront = `${environment.cloudFrontUrl}`;
     
     isCalling = false;
     incomingCallData: any = null;
     private subs = new Subscription();
+
   
     // Lưu danh sách ID đã bấm gửi để thay đổi trạng thái UI
     pendingRequestIds: Set<string> = new Set();
