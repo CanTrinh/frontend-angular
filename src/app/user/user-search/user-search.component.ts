@@ -31,9 +31,6 @@ export class UserSearchComponent {
     // Lưu danh sách ID đã bấm gửi để thay đổi trạng thái UI
     pendingRequestIds: Set<string> = new Set();
   
-    // Luồng dữ liệu tìm kiếm
-    private searchSubject = new Subject<string>();
-    private searchSubscription?: Subscription;
   
     searchUsers: any[] = [];
     showSearchResults = false;
