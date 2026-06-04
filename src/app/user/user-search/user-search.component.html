@@ -60,7 +60,7 @@
           [disabled]="pendingRequestIds.has(user.id)"
           (click)="sendFriendRequest(user.id)" 
           class="btn-add-friend"
-          *ngIf="user.friendsOf[0].status === 'PENDING'"
+          *ngIf="user.friendshipStatus === 'PENDING'"
         >
         <span > ➕ Kết bạn</span>
           
@@ -70,7 +70,7 @@
         </span>
       </div>
       <div>
-        <span *ngIf="user.friendsOf[0].status === 'ACCEPTED'" class="status-friend">
+        <span *ngIf="user.friendshipStatus === 'ACCEPTED'" class="status-friend">
             ✔ Bạn bè
         </span>
       </div>
