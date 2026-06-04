@@ -25,22 +25,24 @@
 }
 
 /* Khung chứa kết quả tìm kiếm đổ xuống */
-.search-results {
+/*.search-results {
   margin-top: 10px;
-  overflow-y: auto; /* Cuộn dọc nếu kết quả tìm kiếm quá dài */
+  overflow-y: auto; 
   flex: 1;
-}
+}*/
 
 /* Từng dòng user tìm thấy */
+/*
 .user-item {
   display: flex;
   align-items: center;
   justify-content: start;
   padding: 8px 0;
   border-bottom: 1px solid #f9f9f9;
-}
+}*/
 
 /* Khối thông tin click để chat 1-1 */
+
 .user-info {
   display: flex;
   align-items: center;
