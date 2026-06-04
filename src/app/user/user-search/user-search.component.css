@@ -52,14 +52,7 @@
   color: #007bff; /* Tên đổi màu xanh dương báo hiệu click được */
 }
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
-  background-color: #eaeaea;
-}
+
 
 .user-name {
   font-size: 0.9rem;
