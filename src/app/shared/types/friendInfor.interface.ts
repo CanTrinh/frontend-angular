@@ -1,5 +1,7 @@
  export interface FriendInforDto {
-  id: string;
-  name: string;
-  avatar: string;
+  friend:{
+    id: string;
+    name: string;
+    profilePic: string;
+  }
 }
