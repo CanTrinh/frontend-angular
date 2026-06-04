@@ -19,18 +19,18 @@
       <div class="friend-checkbox-item" *ngFor="let friend of friendsList; let i = index">
         <input 
           type="checkbox" 
-          [id]="'friend-' + friend.friend.id"
-          [checked]="isFriendSelected(friend.friend.id)"
-          (change)="onCheckboxChange($event, friend.friend.id)"
+          [id]="'friend-' + friend.id"
+          [checked]="isFriendSelected(friend.id)"
+          (change)="onCheckboxChange($event, friend.id)"
         />
-        <label [for]="'friend-' + friend.friend.id">
+        <label [for]="'friend-' + friend.id">
           <!--<img [src]="friend.avatar" class="avatar-sm" />-->
-        <app-avatar [imageUrl]="friend.friend.profilePic" 
-              [firstLetter]="friend.friend.name ?.slice(0,1)"
-              [status]="friend.friend.id | userStatusPipe | async" 
+        <app-avatar [imageUrl]="friend.avatar" 
+              [firstLetter]="friend.name ?.slice(0,1)"
+              [status]="friend.id | userStatusPipe | async" 
               [size]="20">
         </app-avatar>
-          <span>{{ friend.friend.name }}</span>
+          <span>{{ friend.name }}</span>
         </label>
 
       </div>
