@@ -62,9 +62,10 @@
           class="btn-add-friend"
           *ngIf="!pendingRequestIds.has(user.id)"
         >
+        <!--
         <span *ngIf="user.friendsOf.status === 'ACCEPTED'" class="status-friend">
           ✔ Bạn bè
-        </span>
+        </span>-->
         <span *ngIf="user.friendsOf.status === 'PENDING'"> ➕ Kết bạn</span>
           
         </button>
