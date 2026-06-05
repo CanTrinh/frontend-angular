@@ -51,7 +51,7 @@
               [status]="user.id | userStatusPipe | async" 
               [size]="20">
         </app-avatar>
-        <!--<span>{{ user.name }}</span>-->
+        <span>{{ user.name }}</span>
       </div>
       
       <!-- Nút hành động dựa trên trạng thái kết bạn -->
@@ -68,7 +68,7 @@
         <span *ngIf="user.friendshipStatus === 'PENDING'" class="status-pending">
           ⏳ Đã gửi lời mời
         </span>
-        
+
         <span *ngIf="user.friendshipStatus === 'ACCEPTED'" class="status-friend">
             ✔ Bạn bè
         </span>
