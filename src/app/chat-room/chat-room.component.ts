@@ -79,6 +79,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       })
     );
 
+    this.loadRooms();
+
     /*
     this.searchSubscription = this.searchSubject.pipe(
       debounceTime(400),           // Đợi 400ms sau khi ngừng gõ mới phát tín hiệu

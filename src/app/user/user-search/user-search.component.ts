@@ -106,7 +106,7 @@ export class UserSearchComponent {
       name: name,
       isGroup: false
     };
-    this.userService.createRoom(payload);
+    this.userService.createRoom(payload).subscribe();
     //this.searchQuery = '';
     //this.searchResults = [];
   }
