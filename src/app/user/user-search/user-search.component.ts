@@ -99,12 +99,13 @@ export class UserSearchComponent {
       });
     }
 
-  openDirectChat(userId: string , name: string) {
+  openDirectChat(userId: string , name: string, avatar: string) {
     // Khởi tạo phòng chat 1-1 (isGroup = false) thông qua REST API
     const payload = {
-      userIds: [userId], // Danh sách ID thành viên [A, B, C...]
       name: name,
-      isGroup: false
+      userIds: [userId], // Danh sách ID thành viên [A, B, C...]
+      isGroup: false,
+      avatar: avatar
     };
     this.userService.createRoom(payload).subscribe();
     //this.searchQuery = '';
