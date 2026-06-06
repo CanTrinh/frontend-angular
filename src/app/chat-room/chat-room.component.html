@@ -50,9 +50,23 @@
            [class.active]="activeRoom?.id === room.id"
            (click)="selectRoom(room)">
         <div class="avatar-container">
+          <app-avatar [imageUrl]="apiCloudFront + room.participants[0].user.profilePic" 
+                [firstLetter]="room.participants[0].user.name.slice(0,1)"
+                [status]="room.participants[0].user.id | userStatusPipe | async" 
+                [size]="20"
+                *ngIf="room.type==='DIRECT'">
+          </app-avatar>
+          <app-avatar [imageUrl]="room.avatar" 
+                [firstLetter]="room.participants[0].user.name.slice(0,1)"
+                [status]="room.participants[0].user.id | userStatusPipe | async" 
+                [size]="20"
+                *ngIf="room.type!=='DIRECT'">
+          </app-avatar>
+          <!--
           <img [src]="apiCloudFront + room.participants[0].user.profilePic" *ngIf="room.type==='DIRECT'">
           <img [src]="room.avatar" *ngIf="room.type!=='DIRECT'" >
           <span class="status-dot" [class.online]="(socketService.userStatusMap$ | async)?.get(room.userId) === 'online'"></span>
+        -->
         </div>
         <div class="room-info">
           <span class="room-name">{{ room.name }}</span>

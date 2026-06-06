@@ -8,11 +8,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { GroupCreationComponent } from './group-creation/group-creation.component';
 import { UserSearchComponent } from '../user/user-search/user-search.component';
 import { environment } from 'src/environments/environment.prod';
+import { AvatarComponent } from "../shared/components/avatar/avatar.component";
+import { UserStatusPipe } from '../pipes/user-status.pipe';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent, UserSearchComponent ],
+  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent, UserSearchComponent, AvatarComponent, UserStatusPipe],
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })

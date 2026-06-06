@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 import { SocketService } from 'src/app/core/services/socket.service';
 
+
 @Component({
   selector: 'app-avatar',
   standalone: true,
