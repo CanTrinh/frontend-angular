@@ -210,7 +210,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   }
 
   // Thực hiện cuộc gọi (Bên gọi)
-  async startCall(callType: string) {
+  async startCall(callType:'VOICE'|'VIDEO' ) {
     const channelName = `call_${Date.now()}`; // Tạo channel ngẫu nhiên
     const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
 
@@ -219,7 +219,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     if (res.status === 'calling') {
       this.isCalling = true;
       // Dùng Token trả về từ NestJS để join Agora
-      await this.videoService.joinCall(res.appId, channelName, res.agoraToken, 'My_UUID', 'VOICE');
+      await this.videoService.joinCall(res.appId, channelName, res.agoraToken, 'My_UUID', callType);
     } else {
       alert('Người dùng hiện không online!');
     }

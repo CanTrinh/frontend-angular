@@ -102,10 +102,11 @@ export class UserSearchComponent {
   openDirectChat(userId: string , name: string, avatar: string) {
     // Khởi tạo phòng chat 1-1 (isGroup = false) thông qua REST API
     const payload = {
-      name: name,
+      name: name,  //name của room cũng là name của người nhận khi chat 1-1
       userIds: [userId], // Danh sách ID thành viên [A, B, C...]
       isGroup: false,
-      avatar: avatar
+      avatar: avatar,
+      type:"CHAT_1_1"
     };
     this.userService.createRoom(payload).subscribe();
     //this.searchQuery = '';

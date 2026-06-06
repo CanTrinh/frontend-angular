@@ -42,6 +42,13 @@
               <p>{{ noti.content }}</p>
             </div>
           </div>
+
+          <div *ngSwitchCase="'CHAT_1_1'" class="noti-content">
+            <img [src]="noti.metadata.thumbnailUrl" class="avatar-small">
+            <div class="text">
+              <p>{{ noti.content }}</p>
+            </div>
+          </div>
         </div>
         <span class="time">{{ noti.createdAt | date:'shortTime' }}</span>
       </div>
