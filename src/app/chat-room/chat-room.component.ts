@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GroupCreationComponent } from './group-creation/group-creation.component';
 import { UserSearchComponent } from '../user/user-search/user-search.component';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-chat-room',
@@ -20,6 +21,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   
   searchForm!: FormGroup;
+
+  public apiCloudFront = `${environment.cloudFrontUrl}/`;
   
   rooms: any[] = [];
   activeRoom: any = null; // Lấy từ route hoặc danh sách phòng

@@ -50,7 +50,7 @@
            [class.active]="activeRoom?.id === room.id"
            (click)="selectRoom(room)">
         <div class="avatar-container">
-          <img [src]="`https://cdn.ctlife.xyz/${room.participants[0].user.profilePic}`" *ngIf="room.type==='DIRECT'">
+          <img [src]="apiCloudFront + room.participants[0].user.profilePic" *ngIf="room.type==='DIRECT'">
           <img [src]="room.avatar" *ngIf="room.type!=='DIRECT'" >
           <span class="status-dot" [class.online]="(socketService.userStatusMap$ | async)?.get(room.userId) === 'online'"></span>
         </div>
