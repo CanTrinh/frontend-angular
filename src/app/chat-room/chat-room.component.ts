@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SocketService } from '../core/services/socket.service';
 import { debounceTime, distinctUntilChanged, filter, Subject, Subscription, switchMap } from 'rxjs';
@@ -10,6 +10,7 @@ import { UserSearchComponent } from '../user/user-search/user-search.component';
 import { environment } from 'src/environments/environment.prod';
 import { AvatarComponent } from "../shared/components/avatar/avatar.component";
 import { UserStatusPipe } from '../pipes/user-status.pipe';
+import { LoginService } from '../features/auth/login/login.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -20,13 +21,17 @@ import { UserStatusPipe } from '../pipes/user-status.pipe';
 })
 export class ChatRoomComponent implements OnInit, OnDestroy{
 
+  
+
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   
   searchForm!: FormGroup;
+  user: any;
 
   public apiCloudFront = `${environment.cloudFrontUrl}/`;
   
   rooms: any[] = [];
+  participantIds: any[] = [];
   activeRoom: any = null; // Lấy từ route hoặc danh sách phòng
   messages: any[] = [];
   
@@ -49,8 +54,14 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     public socketService: SocketService,
     public videoService: VideoService,
     private userService: UserService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private loginService: LoginService
+  ) {
+     this.loginService.user$.subscribe(u => {
+      // 1. Cập nhật user mới nhất (bao gồm cả profilePic mới)
+      this.user = u; 
+    });
+  }
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -200,6 +211,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
 
   selectRoom(room: any) {
     this.activeRoom = room;
+    this.participantIds = room.participants.map(r => r.user.id);
     this.userService.getMessages(room.id).subscribe((msgs:any) => {
       this.socketService.setInitialMessages(room.id, msgs);
       this.scrollToBottom();
@@ -215,11 +227,11 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   }
 
   // Thực hiện cuộc gọi (Bên gọi)
-  async startCall(callType:'VOICE'|'VIDEO' ) {
+  async startCall(callType:'VOICE'|'VIDEO') {
     const channelName = `call_${Date.now()}`; // Tạo channel ngẫu nhiên
-    const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
-
-    const res: any = await this.socketService.makeCall(targetUserId, 'Tên_Của_Tôi', channelName);
+    //const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
+    
+    const res: any = await this.socketService.makeCall(this.participantIds,this.user.name, channelName);
     
     if (res.status === 'calling') {
       this.isCalling = true;

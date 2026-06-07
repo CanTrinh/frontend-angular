@@ -151,11 +151,13 @@ export class SocketService {
   }
 
   // Hàm thực hiện cuộc gọi
-  makeCall(toUserId: string, fromName: string, channelName: string) {
+  makeCall(toUserIds: string[], fromName: string, channelName: string) {
     return new Promise((resolve) => {
-      this.socket.emit('callUser', { toUserId, fromName, channelName }, (res: any) => {
+      toUserIds.forEach((toUserId) => {
+        this.socket.emit('callUser', { toUserId, fromName, channelName }, (res: any) => {
         resolve(res); // Nhận về status và agoraToken cho người gọi
       });
+      })
     });
   }
 
