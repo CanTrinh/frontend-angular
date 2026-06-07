@@ -69,7 +69,8 @@
         -->
         </div>
         <div class="room-info">
-          <span class="room-name">{{ room.name }}</span>
+          <span class="room-name" *ngIf="room.type==='DIRECT'">{{ room.participants[0].user.name }}</span>
+          <span class="room-name" *ngIf="room.type!=='DIRECT'">{{ room.name }}</span>
           <span class="last-msg text-truncate">{{ room.lastMessage }}</span>
         </div>
       </div>
