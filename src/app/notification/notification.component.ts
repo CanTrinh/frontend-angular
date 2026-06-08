@@ -6,11 +6,13 @@ import { UserService } from '../user/user.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ClickOutsideDirective } from '../shared/directives/click-outside.directive';
 import { LoginService } from '../features/auth/login/login.service';
+import { AvatarComponent } from "../shared/components/avatar/avatar.component";
+import { UserStatusPipe } from '../pipes/user-status.pipe';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CommonModule, DatePipe, ClickOutsideDirective],
+  imports: [CommonModule, DatePipe, ClickOutsideDirective, AvatarComponent, UserStatusPipe],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })

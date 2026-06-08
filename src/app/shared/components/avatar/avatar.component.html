@@ -1,4 +1,4 @@
 <div class="avatar-wrapper" [ngClass]="status" [style.width.px]="size" [style.height.px]="size">
-  <img [src]="imageUrl" [alt]="firstLetter" class="avatar-img">
+  <img [src]="imageUrl || null" [alt]="firstLetter" class="avatar-img">
 </div>
 

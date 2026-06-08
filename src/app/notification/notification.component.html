@@ -24,6 +24,11 @@
         <div [ngSwitch]="noti.type">
           <!-- Giao diện Lời mời kết bạn -->
           <div *ngSwitchCase="'FRIEND_REQUEST'" class="noti-content">
+            <app-avatar [imageUrl]="noti.sender.profilePic" 
+            [firstLetter]="noti.sender.name?.slice(0,1)"
+            [status]="noti.sender.id | userStatusPipe | async" 
+            [size]="25">
+            </app-avatar>
             <img [src]="noti.metadata.thumbnailUrl" class="avatar-small">
             <div class="text">
               <p>{{ noti.content }}</p>
@@ -37,6 +42,11 @@
 
           <!-- Giao diện Chấp nhận kết bạn -->
           <div *ngSwitchCase="'FRIEND_ACCEPT'" class="noti-content">
+            <app-avatar [imageUrl]="noti.sender.profilePic" 
+            [firstLetter]="noti.sender.name?.slice(0,1)"
+            [status]="noti.sender.id | userStatusPipe | async" 
+            [size]="25">
+            </app-avatar>
             <img [src]="noti.metadata.thumbnailUrl" class="avatar-small">
             <div class="text">
               <p>{{ noti.content }}</p>
@@ -44,6 +54,11 @@
           </div>
 
           <div *ngSwitchCase="'CHAT_1_1'" class="noti-content">
+            <app-avatar [imageUrl]="noti.sender.profilePic" 
+            [firstLetter]="noti.sender.name?.slice(0,1)"
+            [status]="noti.sender.id | userStatusPipe | async" 
+            [size]="25">
+            </app-avatar>
             <img [src]="noti.metadata.thumbnailUrl" class="avatar-small">
             <div class="text">
               <p>{{ noti.content }}</p>

@@ -3,7 +3,7 @@ import { SocketService } from "../core/services/socket.service";
 import { UserStatus } from "../shared/types/user-status.type";
 import { map, Observable } from "rxjs";
 
-@Pipe({ name: 'userStatusPipe', pure: true, standalone: true })
+@Pipe({ name: 'userStatusPipe', pure: true, standalone: true, })
 export class UserStatusPipe implements PipeTransform {
   constructor(private socketService: SocketService) {}
 
