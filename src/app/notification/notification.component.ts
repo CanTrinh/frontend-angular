@@ -118,7 +118,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   handleFriend(noti: any, status: 'ACCEPTED' | 'REJECTED', event: Event) {
     event.stopPropagation(); // Ngăn sự kiện click lan ra hàm markAsRead của item cha
 
-    noti.isProcessed = true; // Ẩn các nút action ngay lập tức
+    noti.metadata.isProcessed = true; // Ẩn các nút action ngay lập tức
     noti.isRead = true;
 
     this.userService.resAddFriend(noti, status).subscribe({
@@ -126,7 +126,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         // Có thể thực hiện thêm logic chuyển hướng hoặc thông báo thành công
       },
       error: () => {
-        noti.isProcessed = false; // Hoàn tác nếu lỗi
+        noti.metadata.isProcessed = false; // Hoàn tác nếu lỗi
       }
     });
   }
