@@ -150,16 +150,20 @@ export class SocketService {
     });
   }
 
-  // Hàm thực hiện cuộc gọi
-  makeCall(toUserIds: string[], fromName: string, channelName: string) {
-    return new Promise((resolve) => {
-      toUserIds.forEach((toUserId) => {
-        this.socket.emit('callUser', { toUserId, fromName, channelName }, (res: any) => {
-        resolve(res); // Nhận về status và agoraToken cho người gọi
+
+  // Gửi một phát toàn bộ dữ liệu, nhận về 1 bản ghi Token duy nhất cho CHÍNH người gọi
+  makeCall(roomId: string, toUserIds: string[], fromName: string, channelName: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('callUser', { roomId, toUserIds, fromName, channelName }, (res: any) => {
+        if (res.error) {
+          reject(res.error);
+        } else {
+          resolve(res); // Trả về status và agoraToken cho CHÍNH người gọi (A)
+        }
       });
-      })
     });
   }
+
 
   //phat di thong bao tao phong chat hay 1-1
   createRoomchat(roomId: string, userIds:string[]) {

@@ -231,7 +231,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     const channelName = `call_${Date.now()}`; // Tạo channel ngẫu nhiên
     //const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
     
-    const res: any = await this.socketService.makeCall(this.participantIds,this.user.name, channelName);
+    const res: any = await this.socketService.makeCall(this.activeRoom.id,this.participantIds,this.user.name, channelName);
     
     if (res.status === 'calling') {
       this.isCalling = true;
