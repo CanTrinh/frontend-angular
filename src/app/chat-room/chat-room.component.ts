@@ -258,6 +258,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   rejectCall() {
     this.incomingCallData = null;
     this.stopRingtone();
+    this.videoService.leaveCall();
     // Gửi sự kiện respondCall nếu cần (như trong service bạn đã có)
   }
 
