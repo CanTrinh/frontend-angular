@@ -23,8 +23,8 @@ export class VideoService {
       [this.localAudioTrack, this.localVideoTrack] = await AgoraRTC.createMicrophoneAndCameraTracks();
       await this.client.publish([this.localAudioTrack, this.localVideoTrack]);
       
-      // Phát hình ảnh local của mình lên giao diện HTML có id 'local-video'
-      this.localVideoTrack.play('local-video');
+      // Phát hình ảnh local của mình lên giao diện HTML có id 'local-player'
+      this.localVideoTrack.play('local-player');
     } else {
       // Chỉ bật mic cho Voice Call
       this.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
@@ -37,7 +37,7 @@ export class VideoService {
       
       if (mediaType === 'video' && callType === 'VIDEO') {
         // Tạo một thẻ div động hoặc gán ID cố định để hiển thị camera người kia
-        user.videoTrack?.play('remote-video-container');
+        user.videoTrack?.play('remote-player');
       }
       if (mediaType === 'audio') {
         user.audioTrack?.play(); // Tự động phát âm thanh qua loa/tai nghe

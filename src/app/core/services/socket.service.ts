@@ -152,9 +152,9 @@ export class SocketService {
 
 
   // Gửi một phát toàn bộ dữ liệu, nhận về 1 bản ghi Token duy nhất cho CHÍNH người gọi
-  makeCall(roomId: string, toUserIds: string[], fromName: string, channelName: string): Promise<any> {
+  makeCall(roomId: string, toUserIds: string[], fromName: string, channelName: string, callType: "VOICE"|"VIDEO"): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.socket.emit('callUser', { roomId, toUserIds, fromName, channelName }, (res: any) => {
+      this.socket.emit('callUser', { roomId, toUserIds, fromName, channelName, callType }, (res: any) => {
         if (res.error) {
           reject(res.error);
         } else {

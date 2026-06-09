@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 import { AvatarComponent } from "../shared/components/avatar/avatar.component";
 import { UserStatusPipe } from '../pipes/user-status.pipe';
 import { LoginService } from '../features/auth/login/login.service';
+import { AudioService } from './audio.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -53,6 +54,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   constructor(
     public socketService: SocketService,
     public videoService: VideoService,
+    private audioService: AudioService,
     private userService: UserService,
     private fb: FormBuilder,
     private loginService: LoginService
@@ -231,12 +233,12 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     const channelName = `call_${Date.now()}`; // Tạo channel ngẫu nhiên
     //const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
     
-    const res: any = await this.socketService.makeCall(this.activeRoom.id,this.participantIds,this.user.name, channelName);
+    const res: any = await this.socketService.makeCall(this.activeRoom.id,this.participantIds,this.user.name, channelName, callType);
     
     if (res.status === 'calling') {
       this.isCalling = true;
       // Dùng Token trả về từ NestJS để join Agora
-      await this.videoService.joinCall(res.appId, channelName, res.agoraToken, 'My_UUID', callType);
+      await this.videoService.joinCall(res.appId, channelName, res.agoraToken, res.callerId , callType);
     } else {
       alert('Người dùng hiện không online!');
     }
@@ -250,7 +252,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.stopRingtone();
 
     // Lấy appId từ đâu? Bạn có thể gửi kèm appId trong socket 'incomingCall' từ NestJS
-    await this.videoService.joinCall('YOUR_AGORA_APP_ID', data.channelName, data.agoraToken, 'My_UUID','VOICE');
+    await this.videoService.joinCall(data.appId, data.channelName, data.agoraToken, data.receiverId ,data.callType);
   }
 
   rejectCall() {
@@ -272,6 +274,10 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   }
 
   // Mock-up nhạc chuông
-  playRingtone() { /* logic phát file audio */ }
-  stopRingtone() { /* logic dừng file audio */ }
+  playRingtone() { 
+    this.audioService.playRingtone();
+  }
+  stopRingtone() { 
+    this.audioService.stopRingtone();
+   }
 }
