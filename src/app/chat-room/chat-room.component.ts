@@ -214,6 +214,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   selectRoom(room: any) {
     this.activeRoom = room;
     this.participantIds = room.participants.map(r => r.user.id);
+  
     this.userService.getMessages(room.id).subscribe((msgs:any) => {
       this.socketService.setInitialMessages(room.id, msgs);
       this.scrollToBottom();
@@ -232,6 +233,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   async startCall(callType:'VOICE'|'VIDEO') {
     const channelName = `call_${Date.now()}`; // Tạo channel ngẫu nhiên
     //const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
+    console.log(this.participantIds);
     
     const res: any = await this.socketService.makeCall(this.activeRoom.id,this.participantIds,this.user.name, channelName, callType);
     

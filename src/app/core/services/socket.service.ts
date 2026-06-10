@@ -113,7 +113,10 @@ export class SocketService {
     });
 
     // --- LẮNG NGHE TÍN HIỆU CUỘC GỌI AGORA ---
-    this.socket.on('incomingCall', (data) => this.incomingCall.next(data));
+    this.socket.on('incomingCall', (data) => {
+      console.log('dữ liệu cuộc gọi người nhận:', data);
+      this.incomingCall.next(data);
+    });
     this.socket.on('callResponse', (data) => this.callResponse.next(data));
     this.socket.on('callEnded', (data) => this.callResponse.next({ roomId: data.roomId, status: 'REJECTED', userId: '' }));
 
