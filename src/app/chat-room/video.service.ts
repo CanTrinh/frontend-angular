@@ -1,6 +1,9 @@
 // video.service.ts
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import AgoraRTC, { IAgoraRTCClient, ICameraVideoTrack, IMicrophoneAudioTrack } from 'agora-rtc-sdk-ng';
+import { io, Socket } from 'socket.io-client';
+import { SocketService } from '../core/services/socket.service';
+
 
 @Injectable({ providedIn: 'root' })
 export class VideoService {
@@ -8,14 +11,19 @@ export class VideoService {
   localVideoTrack: ICameraVideoTrack;
   localAudioTrack: IMicrophoneAudioTrack;
 
+  private socketService = inject(SocketService);
+
+
   constructor() {
     this.client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
   }
 
-  async joinCall(appId: string, channel: string, token: string, userId: string,callType: 'VOICE' | 'VIDEO') {
+  async joinCall(roomId: string, appId: string, channel: string, token: string, userId: string,callType: 'VOICE' | 'VIDEO') {
     // 1. Join vào channel Agora
     await this.client.join(appId, channel, token, userId);
 
+    await this.socketService.changeStatusCall(roomId);
+    console.log('🚀 Đã báo cáo lên NestJS chuyển trạng thái phòng sang ONGOING');
     
         // 2. Phân loại cấu hình thiết bị phần cứng theo loại cuộc gọi
     if (callType === 'VIDEO') {

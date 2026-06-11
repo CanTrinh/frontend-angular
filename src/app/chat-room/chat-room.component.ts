@@ -233,14 +233,14 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   async startCall(callType:'VOICE'|'VIDEO') {
     const channelName = `call_${Date.now()}`; // Tạo channel ngẫu nhiên
     //const targetUserId = 'id-nguoi-nhan'; // Lấy từ danh sách đang chat
-    console.log(this.participantIds);
+ 
     
     const res: any = await this.socketService.makeCall(this.activeRoom.id,this.participantIds,this.user.name, channelName, callType);
     
     if (res.status === 'calling') {
       this.isCalling = true;
       // Dùng Token trả về từ NestJS để join Agora
-      await this.videoService.joinCall(res.appId, channelName, res.agoraToken, res.callerId , callType);
+      await this.videoService.joinCall(this.activeRoom.id,res.appId, channelName, res.agoraToken, res.callerId , callType);
     } else {
       alert('Người dùng hiện không online!');
     }
@@ -253,11 +253,26 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.incomingCallData = null;
     this.stopRingtone();
 
-    // Lấy appId từ đâu? Bạn có thể gửi kèm appId trong socket 'incomingCall' từ NestJS
-    await this.videoService.joinCall(data.appId, data.channelName, data.agoraToken, data.receiverId ,data.callType);
+    const res: any = await this.socketService.acceptedCall(data.roomId,data.channelName);
+    
+    if (res.status === 'SUCCESS') {
+      this.isCalling = true;
+      // Dùng Token trả về từ NestJS để join Agora
+      await this.videoService.joinCall(data.roomId,res.appId, data.channelName, res.agoraToken, res.receiverId , data.callType);
+    } else {
+      alert('đã có lỗi xảy ra khi join agora channel');
+    }
   }
 
   rejectCall() {
+    this.incomingCallData = null;
+    this.isCalling = false;
+    this.stopRingtone();
+    this.videoService.leaveCall();
+    // Gửi sự kiện respondCall nếu cần (như trong service bạn đã có)
+  }
+
+  endedCall() {
     this.incomingCallData = null;
     this.isCalling = false;
     this.stopRingtone();
