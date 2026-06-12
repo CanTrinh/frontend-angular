@@ -102,6 +102,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       this.socketService.callResponse$.subscribe(data => {
        if(data.status === 'REJECTED'){
         this.duration= data.duration;
+        this.videoService.leaveCall();
         this.isCalling = false;
        }else if(data.status === 'ACCEPTED') {
         this.isCalling = true;
@@ -113,7 +114,9 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.subs.add(
       this.socketService.callEnded$.subscribe(data => {
         this.duration = data.duration;
+        this.videoService.leaveCall();
         this.isCalling = false;
+        
       })
     );
 

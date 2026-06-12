@@ -19,6 +19,19 @@ export class VideoService {
   }
 
   async joinCall(roomId: string, appId: string, channel: string, token: string, userId: string,callType: 'VOICE' | 'VIDEO') {
+        // 3. Lắng nghe luồng dữ liệu (Stream) từ những người khác tham gia phòng họp
+    this.client.on('user-published', async (user, mediaType) => {
+      await this.client.subscribe(user, mediaType);
+      
+      if (mediaType === 'video' && callType === 'VIDEO') {
+        // Tạo một thẻ div động hoặc gán ID cố định để hiển thị camera người kia
+        user.videoTrack?.play('remote-player');
+      }
+      if (mediaType === 'audio') {
+        user.audioTrack?.play(); // Tự động phát âm thanh qua loa/tai nghe
+      }
+    });
+
     // 1. Join vào channel Agora
     await this.client.join(appId, channel, token, userId);
 
@@ -40,7 +53,7 @@ export class VideoService {
     }
 
     // 3. Lắng nghe luồng dữ liệu (Stream) từ những người khác tham gia phòng họp
-    this.client.on('user-published', async (user, mediaType) => {
+    /*this.client.on('user-published', async (user, mediaType) => {
       await this.client.subscribe(user, mediaType);
       
       if (mediaType === 'video' && callType === 'VIDEO') {
@@ -50,7 +63,7 @@ export class VideoService {
       if (mediaType === 'audio') {
         user.audioTrack?.play(); // Tự động phát âm thanh qua loa/tai nghe
       }
-    });
+    });*/
   }
 
   async leaveCall() {
