@@ -200,9 +200,9 @@ export class SocketService {
     });
   }
 
-  endedCall(roomId: string, channelName: string,){
+  endedCall(roomId: string, callerId: string,){
     return new Promise((resolve, reject) => {
-      this.socket.emit('endCall', { roomId,channelName}, (res: any) => {
+      this.socket.emit('endCall', { roomId,callerId}, (res: any) => {
         if (res.error) {
           reject(res.error);
         } else {
