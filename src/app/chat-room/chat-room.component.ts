@@ -296,7 +296,11 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   async endedCall() {
     this.isCalling = false;
     this.videoService.leaveCall();
-    await this.socketService.endedCall(this.incomingCallData.roomId, this.incomingCallData.channelName );
+    if(!this.incomingCallData){
+      await this.socketService.endedCall(this.activeRoom.roomId,  this.user.sub );
+    } else {
+      await this.socketService.endedCall(this.incomingCallData.roomId,  this.incomingCallData.fromUserId );
+    }
 
   }
 
