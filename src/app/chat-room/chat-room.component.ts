@@ -35,6 +35,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   participantIds: any[] = [];
   activeRoom: any = null; // Lấy từ route hoặc danh sách phòng
   messages: any[] = [];
+
+  duration: number;
   
   isCalling = false;
   incomingCallData: any = null;
@@ -78,8 +80,6 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       }
     });
 
-    //this.socketService.connect();
-    //this.socketService.setupChatListeners();
 
     // 1. Lắng nghe tin nhắn từ BehaviorSubject của Service
     this.subs.add(
@@ -94,6 +94,26 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       this.socketService.incomingCall$.subscribe(data => {
         this.incomingCallData = data;
         this.playRingtone(); // Hàm phát nhạc chuông
+      })
+    );
+
+    // 2. Lắng nghe người nhận từ chối hoặc chấp nhận đóng giao diện gọi
+    this.subs.add(
+      this.socketService.callResponse$.subscribe(data => {
+       if(data.status === 'REJECTED'){
+        this.duration= data.duration;
+        this.isCalling = false;
+       }else if(data.status === 'ACCEPTED') {
+        this.isCalling = true;
+       }    
+      })
+    );
+
+    // 2. Lắng nghe có tín hiệu kết thúc đóng giao diện gọi
+    this.subs.add(
+      this.socketService.callEnded$.subscribe(data => {
+        this.duration = data.duration;
+        this.isCalling = false;
       })
     );
 
@@ -264,22 +284,20 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     }
   }
 
-  rejectCall() {
+  async rejectCall() {
+    const data = this.incomingCallData;
     this.incomingCallData = null;
     this.isCalling = false;
     this.stopRingtone();
     this.videoService.leaveCall();
-    // Gửi sự kiện respondCall nếu cần (như trong service bạn đã có)
+    await this.socketService.rejectCall(data.roomId,data.fromUserId,data.callType )
   }
 
   async endedCall() {
-    
-  
-    this.stopRingtone();
+    this.isCalling = false;
     this.videoService.leaveCall();
     await this.socketService.endedCall(this.incomingCallData.roomId, this.incomingCallData.channelName );
-    this.incomingCallData = null;
-    this.isCalling = false;
+
   }
 
   private scrollToBottom(): void {

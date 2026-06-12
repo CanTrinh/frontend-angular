@@ -16,8 +16,11 @@ export class SocketService {
   private incomingCall = new Subject<any>();
   incomingCall$ = this.incomingCall.asObservable();
   
-  private callResponse = new Subject<{ roomId: string; status: 'ACCEPTED' | 'REJECTED'; userId: string }>();
+  private callResponse = new Subject<any>();
   callResponse$ = this.callResponse.asObservable();
+
+  private callEnded = new Subject<any>();
+  callEnded$ = this.callEnded.asObservable();
 
   // --- QUẢN LÝ CHAT ROOMS & MESSAGES ---
   // BehaviorSubject quản lý toàn bộ danh sách phòng chat hiển thị ở Sidebar (Tự động cập nhật khi có phòng mới)
@@ -117,8 +120,9 @@ export class SocketService {
       console.log('dữ liệu cuộc gọi người nhận:', data);
       this.incomingCall.next(data);
     });
-    this.socket.on('callResponse', (data) => this.callResponse.next(data));
-    this.socket.on('callEnded', (data) => this.callResponse.next({ roomId: data.roomId, status: 'REJECTED', userId: '' }));
+    this.socket.on('callRejectedEvent', (data) => this.callResponse.next(data));
+    this.socket.on('callAcceptedEvent', (data) => this.callResponse.next(data));
+    this.socket.on('callEndedEvent', (data) => this.callEnded.next(data));
 
 
     // Xử lý lỗi token hết hạn khi đang chạy
@@ -168,7 +172,7 @@ export class SocketService {
   }
 
   acceptedCall(roomId: string, channelName: string,){
-        return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.socket.emit('acceptCall', { roomId,channelName}, (res: any) => {
         if (res.error) {
           reject(res.error);
@@ -184,9 +188,9 @@ export class SocketService {
     this.socket.emit('callConnectedSuccess', { roomId });
   }
 
-  rejectCall(roomId: string, channelName: string,){
+  rejectCall(roomId: string, callerId: string, callType: 'VOICE' | 'VIDEO' ){
         return new Promise((resolve, reject) => {
-      this.socket.emit('acceptCall', { roomId,channelName}, (res: any) => {
+      this.socket.emit('rejectCall', { roomId,callerId,callType}, (res: any) => {
         if (res.error) {
           reject(res.error);
         } else {
@@ -197,8 +201,8 @@ export class SocketService {
   }
 
   endedCall(roomId: string, channelName: string,){
-        return new Promise((resolve, reject) => {
-      this.socket.emit('acceptCall', { roomId,channelName}, (res: any) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('endCall', { roomId,channelName}, (res: any) => {
         if (res.error) {
           reject(res.error);
         } else {
