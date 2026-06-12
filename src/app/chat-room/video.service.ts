@@ -22,7 +22,7 @@ export class VideoService {
     // 1. Join vào channel Agora
     await this.client.join(appId, channel, token, userId);
 
-    await this.socketService.changeStatusCall(roomId);
+    this.socketService.changeStatusCall(roomId);
     console.log('🚀 Đã báo cáo lên NestJS chuyển trạng thái phòng sang ONGOING');
     
         // 2. Phân loại cấu hình thiết bị phần cứng theo loại cuộc gọi

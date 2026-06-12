@@ -1,44 +1,12 @@
 <div class="chat-wrapper">
   
   <div class="search-box">
-    <!--
-    <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchUser()"  >
-      <input type="search" name="search" id="search" formControlName="search" aria-label="Search our site" placeholder="Tìm bạn bè mới...">
-
-    </form>
     
-    <div class="search-results-popover" *ngIf="showSearchResults">
-       
-        <div *ngIf="isLoading" class="loading-text">Đang tìm kiếm...</div>
-
-    
-        <div class="search-item" *ngFor="let user of searchUsers">
-          <img [src]="user.avatar || 'assets/default-avatar.png'" class="mini-avatar">
-          <span>{{ user.name }}</span>
-          <button class="btn-add-small" 
-            [disabled]="pendingRequestIds.has(user.id)"
-            (click)="sendFriendRequest(user.id)">
-      
-           
-            <span *ngIf="!pendingRequestIds.has(user.id)">+</span>
-            <span *ngIf="pendingRequestIds.has(user.id)">✓</span>
-          </button>
-
-        </div>
-
-        
-        <div *ngIf="!isLoading && searchUsers.length === 0" class="no-result">
-          Không tìm thấy người dùng này.
-        </div>
-    </div>-->
     <app-user-search></app-user-search>
 
     <app-group-creation></app-group-creation>
 
   </div>
-
-
-
   <!-- Cột trái: Danh sách phòng -->
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -62,11 +30,6 @@
                 [size]="20"
                 *ngIf="room.type!=='DIRECT'">
           </app-avatar>
-          <!--
-          <img [src]="apiCloudFront + room.participants[0].user.profilePic" *ngIf="room.type==='DIRECT'">
-          <img [src]="room.avatar" *ngIf="room.type!=='DIRECT'" >
-          <span class="status-dot" [class.online]="(socketService.userStatusMap$ | async)?.get(room.userId) === 'online'"></span>
-        -->
         </div>
         <div class="room-info">
           <span class="room-name" *ngIf="room.type==='DIRECT'">{{ room.participants[0].user.name }}</span>

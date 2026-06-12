@@ -12,7 +12,7 @@ export class AudioService {
 
   private initRingtone() {
     // Khởi tạo đối tượng Audio với đường dẫn file từ thư mục assets
-    this.ringtone = new Audio('assets/sounds/nokia_ringstone');
+    this.ringtone = new Audio('../../assets/sounds/nokia_ringstone.mp3');
     // Bật chế độ tự động lặp lại khi hết bài (phù hợp cho nhạc chuông)
     this.ringtone.loop = true;
     this.ringtone.load();

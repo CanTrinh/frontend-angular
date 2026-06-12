@@ -272,12 +272,14 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     // Gửi sự kiện respondCall nếu cần (như trong service bạn đã có)
   }
 
-  endedCall() {
-    this.incomingCallData = null;
-    this.isCalling = false;
+  async endedCall() {
+    
+  
     this.stopRingtone();
     this.videoService.leaveCall();
-    // Gửi sự kiện respondCall nếu cần (như trong service bạn đã có)
+    await this.socketService.endedCall(this.incomingCallData.roomId, this.incomingCallData.channelName );
+    this.incomingCallData = null;
+    this.isCalling = false;
   }
 
   private scrollToBottom(): void {

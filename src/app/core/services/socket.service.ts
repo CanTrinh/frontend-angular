@@ -179,9 +179,35 @@ export class SocketService {
     });
   }
 
+
   changeStatusCall(roomId:string){
     this.socket.emit('callConnectedSuccess', { roomId });
   }
+
+  rejectCall(roomId: string, channelName: string,){
+        return new Promise((resolve, reject) => {
+      this.socket.emit('acceptCall', { roomId,channelName}, (res: any) => {
+        if (res.error) {
+          reject(res.error);
+        } else {
+          resolve(res); // Trả về status và agoraToken cho CHÍNH người gọi (A)
+        }
+      });
+    });
+  }
+
+  endedCall(roomId: string, channelName: string,){
+        return new Promise((resolve, reject) => {
+      this.socket.emit('acceptCall', { roomId,channelName}, (res: any) => {
+        if (res.error) {
+          reject(res.error);
+        } else {
+          resolve(res); // Trả về status và agoraToken cho CHÍNH người gọi (A)
+        }
+      });
+    });
+  }
+
 
 
   //phat di thong bao tao phong chat hay 1-1
