@@ -39,6 +39,8 @@ export class UserSearchComponent {
     searchUsers: any[] = [];
     showSearchResults = false;
     isLoading = false;
+
+    iscreate= false;
   
     constructor(
       public socketService: SocketService,
@@ -100,6 +102,7 @@ export class UserSearchComponent {
     }
 
   openDirectChat(userId: string , name: string, avatar: string) {
+    this.iscreate = true;
     // Khởi tạo phòng chat 1-1 (isGroup = false) thông qua REST API
     const payload = {
       name: name,  //name của room cũng là name của người nhận khi chat 1-1
