@@ -73,19 +73,6 @@
       </div>
       <div id="remote-player" class="video-window">
         <span class="label">Đối phương</span>
-        <div class="call-controls">
-          <!-- Nút điều khiển Micro -->
-          <button (click)="onToggleMic()" [ngClass]="{'btn-active': videoService.isMicEnabled, 'btn-muted': !videoService.isMicEnabled}">
-            <i class="fas" [ngClass]="videoService.isMicEnabled ? 'fa-microphone' : 'fa-microphone-slash'"></i>
-            {{ videoService.isMicEnabled ? 'Tắt Mic' : 'Bật Mic' }}
-          </button>
-
-          <!-- Nút điều khiển Camera -->
-          <button (click)="onToggleCam()" [ngClass]="{'btn-active': videoService.isCamEnabled, 'btn-muted': !videoService.isCamEnabled}">
-            <i class="fas" [ngClass]="videoService.isCamEnabled ? 'fa-video' : 'fa-video-slash'"></i>
-            {{ videoService.isCamEnabled ? 'Tắt Cam' : 'Bật Cam' }}
-          </button>
-        </div>
       </div>
       <button class="btn-hangup" (click)="endedCall()">Kết thúc</button>
     </section>
