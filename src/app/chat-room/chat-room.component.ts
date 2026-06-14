@@ -313,6 +313,14 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
 
   }
 
+  async onToggleMic() {
+    await this.videoService.toggleMic();
+  }
+
+  async onToggleCam() {
+    await this.videoService.toggleCam();
+  }
+
   private scrollToBottom(): void {
     setTimeout(() => {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;

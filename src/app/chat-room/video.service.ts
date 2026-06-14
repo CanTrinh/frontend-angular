@@ -11,6 +11,9 @@ export class VideoService {
   localVideoTrack: ICameraVideoTrack;
   localAudioTrack: IMicrophoneAudioTrack;
 
+  isMicEnabled = true;
+  isCamEnabled = true;
+
   private socketService = inject(SocketService);
 
 
@@ -64,6 +67,34 @@ export class VideoService {
         user.audioTrack?.play(); // Tự động phát âm thanh qua loa/tai nghe
       }
     });*/
+  }
+
+  //bật tắt Mic
+  async toggleMic() {
+    if (!this.localAudioTrack) return null;
+    
+    // Đảo ngược trạng thái hiện tại
+    this.isMicEnabled = !this.isMicEnabled;
+    
+    // setEnabled(true): Bật tiếng | setEnabled(false): Tắt tiếng (Mute) [AG]
+    await this.localAudioTrack.setEnabled(this.isMicEnabled);
+    
+    console.log(`🎙️ Trạng thái Micro hiện tại: ${this.isMicEnabled ? 'BẬT' : 'MUTE'}`);
+    return this.isMicEnabled;
+  }
+
+  // Bật tắt cam
+  async toggleCam() {
+    if (!this.localVideoTrack) return null;
+    
+    // Đảo ngược trạng thái hiện tại
+    this.isCamEnabled = !this.isCamEnabled;
+    
+    // setEnabled(true): Hiện hình | setEnabled(false): Tắt hình (Màn hình đen) [AG]
+    await this.localVideoTrack.setEnabled(this.isCamEnabled);
+    
+    console.log(`📹 Trạng thái Camera hiện tại: ${this.isCamEnabled ? 'BẬT' : 'MUTE'}`);
+    return this.isCamEnabled;
   }
 
   async leaveCall() {
