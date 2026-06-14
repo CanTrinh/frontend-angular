@@ -42,6 +42,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   incomingCallData: any = null;
   private subs = new Subscription();
 
+  isCallComing= false;
+
   // Lưu danh sách ID đã bấm gửi để thay đổi trạng thái UI
   pendingRequestIds: Set<string> = new Set();
 
@@ -93,6 +95,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.subs.add(
       this.socketService.incomingCall$.subscribe(data => {
         this.incomingCallData = data;
+        this.isCallComing = true;
         this.playRingtone(); // Hàm phát nhạc chuông
       })
     );
@@ -274,8 +277,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   // Chấp nhận cuộc gọi (Bên nhận)
   async acceptCall() {
     const data = this.incomingCallData;
+    this.isCallComing= false;
     this.isCalling = true;
-    this.incomingCallData = null;
     this.stopRingtone();
 
     const res: any = await this.socketService.acceptedCall(data.roomId,data.channelName);
@@ -291,7 +294,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
 
   async rejectCall() {
     const data = this.incomingCallData;
-    this.incomingCallData = null;
+    this.isCallComing= false;
     this.isCalling = false;
     this.stopRingtone();
     this.videoService.leaveCall();
