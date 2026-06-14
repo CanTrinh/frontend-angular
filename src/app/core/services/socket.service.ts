@@ -220,7 +220,7 @@ export class SocketService {
   }
 
   joinRoom(roomId: string) {
-    this.socket.emit('join-room', { roomId:roomId});
+    this.socket.emit('join_room', { roomId:roomId});
   }
 
   setInitialMessages(roomId: string, httpMessages: any[]) {
