@@ -301,7 +301,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   async endedCall() {
     this.isCalling = false;
     this.videoService.leaveCall();
-    console.log(this.incomingCallData);
+    console.log(`dataCall: ${this.incomingCallData}`);
     if(!this.incomingCallData){
       await this.socketService.endedCall(this.activeRoom.id,  this.user.sub );
     } else if(this.incomingCallData) {
