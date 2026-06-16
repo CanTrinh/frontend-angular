@@ -161,6 +161,7 @@
 
   .logo .year{
     font-size: small;
+    border: black;
   }
 
   .mode ul {
