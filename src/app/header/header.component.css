@@ -12,7 +12,7 @@
   font-weight: normal;
   font-style: normal;
 }
-@media screen and (width > 1024px) {
+@media screen and (width > 40em) {
   .weather{
     display: flex;
     height: 43.04px ;
@@ -47,7 +47,7 @@
   }
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (width <= 40em) {
   .logo{
     grid-area: logo; 
     display: flex;
