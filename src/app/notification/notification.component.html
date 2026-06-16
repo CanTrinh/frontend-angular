@@ -2,7 +2,8 @@
 <div class="notification-container" (clickOutside)="isOpen = false">
   <!-- Biểu tượng chuông và Badge số lượng -->
   <div class="bell-icon" (click)="toggleDropdown()">
-    <i class="uil uil-bell"></i>
+    <!--<i class="uil uil-bell"></i>-->
+    <img class="tet" src="../../assets/img/bell-1.svg" alt="">
     <span class="badge"  *ngIf="(unseenCount$ | async) as count">{{ count > 9 ? '9+' : count }}</span>
   </div>
 
