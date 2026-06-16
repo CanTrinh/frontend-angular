@@ -30,11 +30,14 @@
     border-right: 1px solid black;
     font-size: 1.2rem;
     height:40px;
-    justify-content: space-around;
     margin-left: 10px;
     box-sizing: content-box;
     overflow: hidden;
 
+  }
+
+  .logo .event{
+    float: right;
   }
   .mode{
     display: flex;
