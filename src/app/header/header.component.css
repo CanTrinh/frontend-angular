@@ -38,6 +38,7 @@
   .mode{
     display: flex;
     align-items: center;
+    justify-content: space-around;
   }
 }
 
@@ -164,9 +165,7 @@
     border: black;
   }
 
-  .mode ul{
-    float: right;
-  }
+ 
 
     
 
