@@ -164,6 +164,13 @@
     border: black;
   }
 
+  .mode .ul{
+    float: right;
+  }
+
+    
+
+
   .mode ul {
     padding: 0;
     margin: 0;
