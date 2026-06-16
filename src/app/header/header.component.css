@@ -159,6 +159,10 @@
 
   }
 
+  .logo .year{
+    font-size: small;
+  }
+
   .mode ul {
     padding: 0;
     margin: 0;
