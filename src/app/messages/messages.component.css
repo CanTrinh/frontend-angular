@@ -1,18 +1,18 @@
-.message-panel {
+/*.message-panel {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 350px;
   max-height: 400px;
-  background: #2d3436; /* Màu tối cho chuyên nghiệp */
+  background: #2d3436; 
   color: #dfe6e9;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  z-index: 10000; /* Luôn trên cùng */
+  z-index: 10000; 
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Courier New', Courier, monospace; /* Kiểu font console */
+  font-family: 'Courier New', Courier, monospace; 
 }
 
 .message-header {
@@ -43,16 +43,16 @@
 }
 
 .message-item {
-  /*padding: 8px 5px;
+  padding: 8px 5px;
   border-bottom: 1px solid #444;
-  font-size: 0.8rem;*/
+  font-size: 0.8rem;
   line-height: 1.4;
-  word-break: break-all; /* Để không bị tràn link dài */
+  word-break: break-all; 
 }
 
 .dot { color: #55efc4; margin-right: 5px; }
 
-/* Hiệu ứng xuất hiện */
+
 @keyframes fadeInRight {
   from {
     opacity: 0;
@@ -68,13 +68,46 @@
   padding: 10px;
   border-bottom: 1px solid #444;
   font-size: 0.85rem;
-  animation: fadeInRight 0.3s ease-out; /* Chạy khi tin nhắn được add */
-  transition: all 0.5s ease; /* Mượt mà khi phần tử bị xóa */
+  animation: fadeInRight 0.3s ease-out; 
+  transition: all 0.5s ease; 
 }
 
-/* Thêm hiệu ứng hover để người dùng tạm dừng đọc nếu muốn */
+
 .message-panel:hover {
   opacity: 1;
   box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-}
+} */
+
+:host { display: block; width: 100%; }
+.message-row { display: flex; flex-direction: column; margin-bottom: 8px; width: 100%; }
+
+/* Định vị vị trí */
+.msg-me { align-self: flex-end; align-items: flex-end; }
+.msg-them { align-self: flex-start; align-items: flex-start; }
+.msg-call-center { align-self: center; align-items: center; max-width: 480px; margin: 12px auto; }
+
+/* Bong bóng chat văn bản */
+.bubble { padding: 10px 14px; border-radius: 18px; max-width: 70%; font-size: 15px; word-break: break-word; }
+.msg-me .text-bubble { background: #0084ff; color: white; border-bottom-right-radius: 2px; }
+.msg-them .text-bubble { background: #e4e6eb; color: black; border-bottom-left-radius: 2px; }
+
+/* Khung hiển thị ảnh */
+.media-group { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; max-width: 70%; }
+.chat-img { max-width: 240px; border-radius: 12px; cursor: pointer; transition: opacity 0.2s; }
+.chat-img:hover { opacity: 0.9; }
+
+/* Khung hiển thị tài liệu đính kèm giống Zalo */
+.file-box { display: flex; align-items: center; background: white; border: 1px solid #e4e6eb; border-radius: 12px; padding: 10px 14px; width: 280px; gap: 12px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.file-icon { font-size: 24px; }
+.file-details { flex: 1; min-width: 0; }
+.file-name { font-size: 14px; font-weight: 500; color: #1c1e21; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+.file-download { color: #8a8d91; }
+
+/* Hộp lịch sử cuộc gọi */
+.call-log-box { display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1px solid #e4e6eb; border-radius: 12px; padding: 10px 16px; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+.call-log-info { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #333; font-weight: 500; }
+.call-log-info i { font-size: 16px; color: #2ecc71; }
+.btn-call-back { background: #e8f4fd; color: #0084ff; border: none; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; }
+.btn-call-back:hover { background: #d0e7fc; }
+
 
