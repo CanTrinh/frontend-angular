@@ -1,3 +1,19 @@
+@media screen and (width <= 40em) {
+  .chat-wrapper {
+  display: block;
+ 
+}
+
+}
+
+@media screen and (width > 40em) {
+  .chat-wrapper {
+  display: flex;
+ 
+}
+
+}
+
 .search-box {
   padding: 10px;
   /*position: relative;*/
@@ -40,7 +56,7 @@
 */
 
 .chat-wrapper {
-  display: flex;
+  /*display: flex;*/
   height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
