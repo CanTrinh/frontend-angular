@@ -1,6 +1,6 @@
 //import { pipe } from '@angular/common';
 import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
-import { AfterViewInit, Component, Directive, EventEmitter, Output, Type } from '@angular/core';
+import { AfterViewInit, Component, Directive, EventEmitter, OnInit, Output, Type } from '@angular/core';
 import { WeatherApiService } from './weather-api.service';
 import { IconDirective } from './icon.directive';
 import { SvgComponent } from '../svg/svg.component';
@@ -26,7 +26,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   providers: [WeatherApiService, ThemeService],
 })
 
-export class HeaderComponent implements AfterViewInit{
+export class HeaderComponent implements OnInit{
   isPaused: boolean = false;
   today: number = Date.now();
   dayName = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
@@ -152,7 +152,7 @@ export class HeaderComponent implements AfterViewInit{
 }
 
   // dung ngAfterViewInit de moi khi tai khung nhin ta thuc thi tim nap du lieu thoi tiet va cap nhat gia tri
-   ngAfterViewInit(): void {
+   ngOnInit(): void {
 
     this.weather.getWeatherData('10.7769', '106.7009')
       .subscribe(res => {
