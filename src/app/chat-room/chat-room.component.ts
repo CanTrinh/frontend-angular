@@ -12,11 +12,13 @@ import { AvatarComponent } from "../shared/components/avatar/avatar.component";
 import { UserStatusPipe } from '../pipes/user-status.pipe';
 import { LoginService } from '../features/auth/login/login.service';
 import { AudioService } from './audio.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faVideo, faVideoSlash, faMicrophoneSlash, faMicrophone } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent, UserSearchComponent, AvatarComponent, UserStatusPipe],
+  imports: [CommonModule, ReactiveFormsModule, GroupCreationComponent, UserSearchComponent, AvatarComponent, UserStatusPipe,FontAwesomeModule],
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })
@@ -28,6 +30,11 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   
   searchForm!: FormGroup;
   user: any;
+
+  faMicro = faMicrophone;
+  faMicroSlash = faMicrophoneSlash;
+  faVideo = faVideo;
+  faVideoSlash = faVideoSlash;
 
   public apiCloudFront = `${environment.cloudFrontUrl}/`;
   

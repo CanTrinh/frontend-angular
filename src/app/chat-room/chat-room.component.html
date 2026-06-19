@@ -59,13 +59,13 @@
         <div class="call-controls">
           <!-- Nút điều khiển Micro -->
           <button (click)="onToggleMic()" [ngClass]="{'btn-active': videoService.isMicEnabled, 'btn-muted': !videoService.isMicEnabled}">
-            <i class="fas" [ngClass]="videoService.isMicEnabled ? 'fa-microphone' : 'fa-microphone-slash'"></i>
+            <fa-icon [icon]="videoService.isMicEnabled ? faMicro : faMicroSlash"></fa-icon>
             {{ videoService.isMicEnabled ? 'Tắt Mic' : 'Bật Mic' }}
           </button>
 
           <!-- Nút điều khiển Camera -->
           <button (click)="onToggleCam()" [ngClass]="{'btn-active': videoService.isCamEnabled, 'btn-muted': !videoService.isCamEnabled}">
-            <i class="fas" [ngClass]="videoService.isCamEnabled ? 'fa-video' : 'fa-video-slash'"></i>
+            <fa-icon [icon]="videoService.isCamEnabled ? faVideo : faVideoSlash"></fa-icon>
             {{ videoService.isCamEnabled ? 'Tắt Cam' : 'Bật Cam' }}
           </button>
         </div>
