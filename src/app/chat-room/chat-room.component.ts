@@ -267,7 +267,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       content: content,
       roomId: this.activeRoom?.id
     }
-    this.socketService.sendMessage(this.activeRoom?.id, content, 'Tên_Của_Tôi');
+    this.socketService.sendMessage( content);
     this.messageService.createMessage(payload).subscribe();
   }
 

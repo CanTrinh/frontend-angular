@@ -135,14 +135,13 @@ export class SocketService {
   }
 
   // Gửi tin nhắn
-  sendMessage(roomId: string, message: string, senderName: string) {
+  sendMessage( content: string) {
     //this.socket.emit('sendMessage', { roomId, message, senderName });
       
     // Update local ngay lập tức để user thấy tin nhắn của mình (UX mượt)
     const currentMsgs = this.currentRoomMessagesSource.value;
     this.currentRoomMessagesSource.next([...currentMsgs, { 
-      text: message, 
-      senderName: senderName, 
+      content: content, 
       time: new Date(),
       isMe: true 
     }]);
