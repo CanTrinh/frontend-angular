@@ -14,8 +14,8 @@ export class MessageService {
     return this.http.get<any[]>(`${this.apiUrl}/messages`);
   }
 
-  createMessage(message:string) {
+  createMessage(payload: any) {
     
-    return this.http.post<any>(`${this.apiUrl}/message/create`, message);
+    return this.http.post<any>(`${this.apiUrl}/messages/create`, payload);
   }
 }

@@ -136,26 +136,26 @@ export class SocketService {
 
   // Gửi tin nhắn
   sendMessage(roomId: string, message: string, senderName: string) {
-    this.socket.emit('sendMessage', { roomId, message, senderName });
+    //this.socket.emit('sendMessage', { roomId, message, senderName });
       
     // Update local ngay lập tức để user thấy tin nhắn của mình (UX mượt)
     const currentMsgs = this.currentRoomMessagesSource.value;
     this.currentRoomMessagesSource.next([...currentMsgs, { 
       text: message, 
-      sender: 'Me', 
+      senderName: senderName, 
       time: new Date(),
       isMe: true 
     }]);
   }
 
-  // Lắng nghe tin nhắn mới
+  /* Lắng nghe tin nhắn mới
   setupChatListeners() {
     this.socket.on('newMessage', (data) => {
       const currentMsgs = this.currentRoomMessagesSource.value;
       // Chỉ thêm nếu không phải tin nhắn của chính mình (vì mình đã update ở trên)
       this.currentRoomMessagesSource.next([...currentMsgs, { ...data, isMe: false }]);
     });
-  }
+  }*/
 
 
   // Gửi một phát toàn bộ dữ liệu, nhận về 1 bản ghi Token duy nhất cho CHÍNH người gọi

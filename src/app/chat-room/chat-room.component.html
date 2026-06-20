@@ -83,7 +83,14 @@
            class="message-row" 
            [class.me]="m.isMe">
         <div class="message-bubble">
-          <p>{{ m.text }}</p>
+
+          <app-avatar [imageUrl]="apiCloudFront + m.sender.profilePic" 
+                [firstLetter]="m.sender.name.slice(0,1)"
+                [status]="m.sender.id | userStatusPipe | async" 
+                [size]="15"
+                *ngIf="m.isMe === false">
+          </app-avatar>
+          <p>{{ m.content }}</p>
           <span class="message-time">{{ m.time | date:'HH:mm' }}</span>
         </div>
       </div>

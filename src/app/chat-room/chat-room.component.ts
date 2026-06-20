@@ -14,6 +14,7 @@ import { LoginService } from '../features/auth/login/login.service';
 import { AudioService } from './audio.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faVideo, faVideoSlash, faMicrophoneSlash, faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from '../messages/messages.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -68,7 +69,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     private audioService: AudioService,
     private userService: UserService,
     private fb: FormBuilder,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private messageService: MessageService
   ) {
      this.loginService.user$.subscribe(u => {
       // 1. Cập nhật user mới nhất (bao gồm cả profilePic mới)
@@ -259,9 +261,14 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   }
 
   // Gửi tin nhắn
-  sendMessage(text: string) {
-    if (!text.trim()) return;
-    this.socketService.sendMessage(this.activeRoom?.id, text, 'Tên_Của_Tôi');
+  sendMessage(content: string) {
+    if (!content.trim()) return;
+    const payload = {
+      content: content,
+      roomId: this.activeRoom?.id
+    }
+    this.socketService.sendMessage(this.activeRoom?.id, content, 'Tên_Của_Tôi');
+    this.messageService.createMessage(payload).subscribe();
   }
 
   // Thực hiện cuộc gọi (Bên gọi)
