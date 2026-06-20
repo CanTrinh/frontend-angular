@@ -60,7 +60,7 @@ export class UserSearchComponent {
           this.showSearchResults = false; 
         }
       });
-      this.socketService.setupSocketListeners();
+      //this.socketService.setupSocketListeners();
     }
   
     // Hàm gọi khi người dùng gõ phím
