@@ -91,6 +91,12 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       }
     });
 
+    // 1. Lắng nghe có người tạo roomchat với bạn từ BehaviorSubject của Service
+    this.subs.add(
+      this.socketService.rooms$.subscribe(rooms => {
+        this.rooms = rooms; 
+      })
+    );
 
     // 1. Lắng nghe tin nhắn từ BehaviorSubject của Service
     this.subs.add(
