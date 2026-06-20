@@ -61,7 +61,7 @@ export class SocketService {
     this.socket.connect();
   }
 
-  private setupSocketListeners() {
+  public setupSocketListeners() {
     this.socket.on('userStatusChanged', (data: { userId: string, status: UserStatus }) => {
       const currentMap = new Map(this.userStatusMap.value);
       currentMap.set(data.userId, data.status);
