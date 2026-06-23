@@ -27,10 +27,14 @@ export class SocketService {
   private roomsSource = new BehaviorSubject<any[]>([]);
   rooms$ = this.roomsSource.asObservable();
 
+  // 🌟 Biến activeRoomId chuyển thành BehaviorSubject để đồng bộ toàn cục
+  private activeRoomIdSource = new BehaviorSubject<string | null>(null);
+  activeRoomId$ = this.activeRoomIdSource.asObservable();
+
   // BehaviorSubject quản lý tin nhắn của PHÒNG CHAT ĐANG MỞ (Để tránh loạn tin nhắn giữa các phòng)
   private currentRoomMessagesSource = new BehaviorSubject<any[]>([]);
   currentRoomMessages$ = this.currentRoomMessagesSource.asObservable();
-  private activeRoomId: string | null = null;
+  
 
   // --- QUẢN LÝ CHUÔNG THÔNG BÁO ---
   private notificationSub = new BehaviorSubject<any>(null);
@@ -96,8 +100,9 @@ export class SocketService {
 
     // Lắng nghe tin nhắn mới đổ về
     this.socket.on('newMessage', (messageData: any) => {
+      const activeRoomId = this.activeRoomIdSource.value;
       // 1. Cập nhật tin nhắn vào giao diện nếu user đang mở đúng phòng chat này
-      if (this.activeRoomId === messageData.roomId) {
+      if (activeRoomId === messageData.roomId) {
         const currentMsgs = this.currentRoomMessagesSource.value;
         // Chặn trùng lặp tin nhắn nếu client tự append trước đó
         if (!currentMsgs.some(m => m.id === messageData.id)) {
@@ -108,7 +113,7 @@ export class SocketService {
       // 2. Cập nhật tin nhắn mới nhất hiển thị dưới dạng "Preview" ở Sidebar
       const currentRooms = this.roomsSource.value.map(room => {
         if (room.id === messageData.roomId) {
-          return { ...room, lastMessage: messageData, unreadCount: this.activeRoomId === room.id ? 0 : (room.unreadCount || 0) + 1 };
+          return { ...room, lastMessage: messageData, unreadCount: activeRoomId === room.id ? 0 : (room.unreadCount || 0) + 1 };
         }
         return room;
       });
@@ -133,6 +138,22 @@ export class SocketService {
     });
     
   }
+
+
+  // 🌟 Hàm này sẽ được Component gọi mỗi khi người dùng click Chọn phòng chat
+  setActiveRoom(roomId: string) {
+    this.activeRoomIdSource.next(roomId);
+    
+    // Tiện tay reset luôn số chấm đỏ của phòng này về 0 trên mảng cục bộ
+    const updatedRooms = this.roomsSource.value.map(room => {
+      if (room.id === roomId) {
+        return { ...room, unreadCount: 0 };
+      }
+      return room;
+    });
+    this.roomsSource.next(updatedRooms);
+  }
+
 
   // Gửi tin nhắn
   sendMessage( content: string) {
@@ -224,7 +245,7 @@ export class SocketService {
 
   setInitialMessages(roomId: string, httpMessages: any[]) {
     // 1. Đánh dấu phòng này là phòng đang mở trực tiếp trên giao diện
-    this.activeRoomId = roomId;
+    this.activeRoomIdSource.next(roomId);
 
     // 2. Kiểm tra và đảo ngược mảng NẾU Backend của bạn trả về dạng tin mới lên trước (desc)
     // Nếu Backend đã sắp xếp sẵn theo thứ tự thời gian tăng dần (asc), bạn có thể bỏ qua dòng .reverse() này

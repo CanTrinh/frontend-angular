@@ -18,18 +18,20 @@
            [class.active]="activeRoom?.id === room.id"
            (click)="selectRoom(room)">
         <div class="avatar-container">
-          <app-avatar [imageUrl]="apiCloudFront + room.participants[0].user.profilePic" 
-                [firstLetter]="room.participants[0].user.name.slice(0,1)"
-                [status]="room.participants[0].user.id | userStatusPipe | async" 
+          <app-avatar [imageUrl]="apiCloudFront + room.profilePic" 
+                [firstLetter]="room.name.slice(0,1)"
+                [status]="room.idUser | userStatusPipe | async" 
                 [size]="20"
                 *ngIf="room.type==='DIRECT'">
           </app-avatar>
-          <app-avatar [imageUrl]="room.avatar" 
-                [firstLetter]="room.participants[0].user.name.slice(0,1)"
-                [status]="room.participants[0].user.id | userStatusPipe | async" 
+    
+          <app-avatar [imageUrl]="room.roomAvatar" 
+                [firstLetter]="room.roomName.slice(0,1)"
+                [status]="room.id | userStatusPipe | async" 
                 [size]="20"
                 *ngIf="room.type!=='DIRECT'">
           </app-avatar>
+     
         </div>
         <div class="room-info">
           <span class="room-name" *ngIf="room.type==='DIRECT'">{{ room.participants[0].user.name }}</span>

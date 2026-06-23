@@ -254,6 +254,11 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
 
   selectRoom(room: any) {
     this.activeRoom = room;
+    
+    //gán giá trị id của phòng room đang active để socket làm việc khi nghe tin nhắn
+    this.socketService.setActiveRoom(this.activeRoom.id);
+
+
     this.participantIds = room.participants.map(r => r.user.id);
 
     // Join room qua socket
