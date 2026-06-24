@@ -16,7 +16,7 @@
       <div *ngFor="let room of rooms" 
            class="room-item" 
            [class.active]="activeRoom?.id === room.id"
-           (click)="selectRoom(room.id)">
+           (click)="selectRoom(room)">
         <div class="avatar-container">
           <app-avatar [imageUrl]="apiCloudFront + room.profilePic" 
                 [firstLetter]="room.name.slice(0,1)"
