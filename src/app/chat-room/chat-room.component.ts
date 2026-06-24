@@ -259,7 +259,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.socketService.setActiveRoom(this.activeRoom.id);
 
 
-    this.participantIds = room.participants.map(r => r.user.id);
+    this.participantIds = room.idUser;
 
     // Join room qua socket
     this.socketService.joinRoom(room.id);

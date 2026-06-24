@@ -20,7 +20,7 @@
         <div class="avatar-container">
           <app-avatar [imageUrl]="apiCloudFront + room.profilePic" 
                 [firstLetter]="room.name.slice(0,1)"
-                [status]="room.idUser | userStatusPipe | async" 
+                [status]="room.idUser[0] | userStatusPipe | async" 
                 [size]="20"
                 *ngIf="room.type==='DIRECT'">
           </app-avatar>
