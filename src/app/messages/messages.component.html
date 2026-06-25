@@ -15,14 +15,16 @@
 
 </div> 
 -->
+<!--
 <div class="message-row" 
      [ngClass]="{
        'msg-me': message.senderId === currentUserId && !getCallDetails(message.content), 
        'msg-them': message.senderId !== currentUserId && !getCallDetails(message.content),
        'msg-call-center': getCallDetails(message.content)
      }">
-
+-->
   <!-- PHÂN HỆ 1: LỊCH SỬ CUỘC GỌI (GIỐNG ZALO) -->
+   <!--
   <div *ngIf="getCallDetails(message.content) as call" class="call-log-box">
     <div class="call-log-info">
       <i class="fas" [ngClass]="{
@@ -41,24 +43,25 @@
     </div>
     <button class="btn-call-back" (click)="onCallback.emit(call.callType)">Gọi lại</button>
   </div>
-
+-->
   <!-- PHÂN HỆ 2: TIN NHẮN CHỮ & MEDIA THƯỜNG -->
+<!--
   <ng-container *ngIf="!getCallDetails(message.content)">
-    
+  -->   
     <!-- Nội dung chữ -->
-    <div *ngIf="message.content" class="bubble text-bubble">
+ <!--   <div *ngIf="message.content" class="bubble text-bubble">
       {{ message.content }}
     </div>
-
+  -->
     <!-- Khối danh sách file đính kèm (Bảng Media[] của bạn) -->
-    <div *ngIf="message.media && message.media.length > 0" class="media-group">
+ <!--   <div *ngIf="message.media && message.media.length > 0" class="media-group">
       <div *ngFor="let file of message.media" class="media-item">
-        
+      -->      
         <!-- Định dạng hình ảnh -->
-        <img *ngIf="file.type === 'IMAGE'" [src]="file.url" class="chat-img" (click)="onPreviewImage.emit(file.url)" />
-        
+  <!--      <img *ngIf="file.type === 'IMAGE'" [src]="file.url" class="chat-img" (click)="onPreviewImage.emit(file.url)" />
+      -->      
         <!-- Định dạng file tài liệu -->
-        <div *ngIf="file.type === 'FILE'" class="file-box" (click)="onDownloadFile.emit(file.url)">
+  <!--      <div *ngIf="file.type === 'FILE'" class="file-box" (click)="onDownloadFile.emit(file.url)">
           <div class="file-icon"><i class="fas" [ngClass]="getFileIcon(file.url)"></i></div>
           <div class="file-details">
             <span class="file-name">{{ getFileName(file.url) }}</span>
@@ -71,5 +74,5 @@
 
   </ng-container>
 </div>
-
+-->
 
