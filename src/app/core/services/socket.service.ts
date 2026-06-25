@@ -247,10 +247,10 @@ export class SocketService {
     // 1. Đánh dấu phòng này là phòng đang mở trực tiếp trên giao diện
     this.activeRoomIdSource.next(roomId);
 
-    const messages = httpMessages.map(m => m.content);
+    //const messages = httpMessages.map(m => m.content);
     // 2. Kiểm tra và đảo ngược mảng NẾU Backend của bạn trả về dạng tin mới lên trước (desc)
     // Nếu Backend đã sắp xếp sẵn theo thứ tự thời gian tăng dần (asc), bạn có thể bỏ qua dòng .reverse() này
-    const formattedMessages = [...messages].reverse(); 
+    const formattedMessages = [...httpMessages].reverse(); 
 
     // 3. Xóa sạch tin cũ và nạp mảng tin nhắn mới vào Stream
     this.currentRoomMessagesSource.next(formattedMessages);
