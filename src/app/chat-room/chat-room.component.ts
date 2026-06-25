@@ -265,7 +265,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.socketService.joinRoom(room.id);
   
     this.userService.getMessages(room.id).subscribe((msgs:any) => {
-      this.socketService.setInitialMessages(room.id, msgs);
+      this.socketService.setInitialMessages(room.id, msgs.messages);
       this.scrollToBottom();
     });
 
