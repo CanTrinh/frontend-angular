@@ -28,7 +28,7 @@
         <app-avatar [imageUrl]="friend.avatar" 
               [firstLetter]="friend.name ?.slice(0,1)"
               [status]="friend.id | userStatusPipe | async" 
-              [size]="20">
+              [size]="30">
         </app-avatar>
           <span>{{ friend.name }}</span>
         </label>
