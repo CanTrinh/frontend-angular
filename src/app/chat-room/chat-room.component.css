@@ -75,7 +75,8 @@
 .sidebar-header { padding: 20px; border-bottom: 1px solid #eee; }
 
 .room-info{
-  display: block;
+  display: flex;
+  flex-flow: column;
 }
 
 .last-msg {
