@@ -21,14 +21,14 @@
           <app-avatar [imageUrl]="apiCloudFront + room.profilePic" 
                 [firstLetter]="room.name.slice(0,1)"
                 [status]="room.idUser[0] | userStatusPipe | async" 
-                [size]="20"
+                [size]="30"
                 *ngIf="room.type==='DIRECT'">
           </app-avatar>
     
           <app-avatar [imageUrl]="room.roomAvatar" 
                 [firstLetter]="room.roomName.slice(0,1)"
                 [status]="room.id | userStatusPipe | async" 
-                [size]="20"
+                [size]="30"
                 *ngIf="room.type!=='DIRECT'">
           </app-avatar>
      
