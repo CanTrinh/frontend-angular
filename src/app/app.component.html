@@ -63,13 +63,15 @@
             <a routerLink="user/profile" class="profile-avatar" *ngIf="user.profilePic">
                 <img [src]="user.profilePic" crossorigin="anonymous" alt="Avatar">
             </a>-->
-
+            <a routerLink="user/profile">
+                
+            
                 <app-avatar [imageUrl]="user.profilePic" 
                         [firstLetter]="user.name?.slice(0,1) | uppercase "
                         [status]="user.sub | userStatusPipe | async" 
                         [size]="32">
                 </app-avatar>
-
+            </a>
             </ng-container>
 
                 <ul class="sub profile" *ngIf="showMenu">
