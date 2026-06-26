@@ -74,6 +74,14 @@
 
 .sidebar-header { padding: 20px; border-bottom: 1px solid #eee; }
 
+.room-info{
+  display: block;
+}
+
+.last-msg {
+  font-size: 80%;
+}
+
 .room-item {
   display: flex;
   padding: 15px;

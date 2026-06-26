@@ -145,13 +145,14 @@ export class SocketService {
     this.activeRoomIdSource.next(roomId);
     
     // Tiện tay reset luôn số chấm đỏ của phòng này về 0 trên mảng cục bộ
-    const updatedRooms = this.roomsSource.value.map(room => {
+   /* const updatedRooms = this.roomsSource.value.map(room => {
       if (room.id === roomId) {
         return { ...room, unreadCount: 0 };
       }
       return room;
     });
     this.roomsSource.next(updatedRooms);
+   */
   }
 
 
