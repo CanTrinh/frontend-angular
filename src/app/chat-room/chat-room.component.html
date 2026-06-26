@@ -89,7 +89,7 @@
           <app-avatar [imageUrl]="apiCloudFront + m.sender.profilePic" 
                 [firstLetter]="m.sender.name.slice(0,1)"
                 [status]="m.sender.id | userStatusPipe | async" 
-                [size]="15"
+                [size]="20"
                 *ngIf="m.isMe === false">
           </app-avatar>
           <p>{{ m.content }}</p>
