@@ -102,7 +102,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     this.subs.add(
       this.socketService.currentRoomMessages$.subscribe(msgs => {
         this.messages = msgs;
-       // this.scrollToBottom();
+        this.scrollToBottom();
       })
     );
 

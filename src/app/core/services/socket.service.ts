@@ -118,6 +118,8 @@ export class SocketService {
         return room;
       });
       this.roomsSource.next(currentRooms);
+      console.log('Các room chat bạn hiện tham gia:', this.roomsSource.value);
+
     });
 
     // --- LẮNG NGHE TÍN HIỆU CUỘC GỌI AGORA ---
