@@ -113,7 +113,7 @@ export class SocketService {
       // 2. Cập nhật tin nhắn mới nhất hiển thị dưới dạng "Preview" ở Sidebar
       const currentRooms = this.roomsSource.value.map(room => {
         if (room.id === messageData.roomId) {
-          return { ...room, lastMessage: messageData, unreadCount: activeRoomId === room.id ? 0 : (room.unreadCount || 0) + 1 };
+          return { ...room, lastMessage: messageData.content, unreadCount: activeRoomId === room.id ? 0 : (room.unreadCount || 0) + 1 };
         }
         return room;
       });
