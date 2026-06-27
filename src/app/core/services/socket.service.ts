@@ -157,6 +157,10 @@ export class SocketService {
    */
   }
 
+  setInitialRooms(initialRooms: any){
+    this.roomsSource.next(initialRooms);
+  }
+
 
   // Gửi tin nhắn
   sendMessage( content: string) {
