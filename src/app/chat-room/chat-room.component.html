@@ -31,7 +31,7 @@
                 [size]="30"
                 *ngIf="room.type!=='DIRECT'">
           </app-avatar>
-     
+          <span class="badge"  *ngIf="(room.unreadCount | async)">{{ room.unreadCount > 9 ? '9+' : room.unreadCount }}</span>
         </div>
         <div class="room-info">
           <span class="room-name" *ngIf="room.type==='DIRECT'">{{ room.name }}</span>
