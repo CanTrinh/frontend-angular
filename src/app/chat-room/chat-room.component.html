@@ -36,7 +36,7 @@
         <div class="room-info">
           <span class="room-name" *ngIf="room.type==='DIRECT'">{{ room.name }}</span>
           <span class="room-name" *ngIf="room.type!=='DIRECT'">{{ room.roomName }}</span>
-          <span class="last-msg text-truncate">{{ room.lastMessage }}</span>
+          <span class="last-msg text-truncate">{{ room.lastMessage }} {{room.unreadCount}}</span>
         </div>
       </div>
     </div>
