@@ -31,12 +31,12 @@
                 [size]="30"
                 *ngIf="room.type!=='DIRECT'">
           </app-avatar>
-          <span class="badge">{{ room.unreadCount > 9 ? '9+' : room.unreadCount }}</span>
+          <span class="badge" *ngIf="room.unreadCount > 0">{{ room.unreadCount > 9 ? '9+' : room.unreadCount }}</span>
         </div>
         <div class="room-info">
           <span class="room-name" *ngIf="room.type==='DIRECT'">{{ room.name }}</span>
           <span class="room-name" *ngIf="room.type!=='DIRECT'">{{ room.roomName }}</span>
-          <span class="last-msg text-truncate">{{ room.lastMessage }} {{room.unreadCount}}</span>
+          <span class="last-msg text-truncate">{{ room.lastMessage }}</span>
         </div>
       </div>
     </div>
