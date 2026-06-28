@@ -92,13 +92,13 @@
   transition: background 0.2s;
 }
 
-.avatar-container{
+.room-item .avatar-container{
   display: flex;
   flex-flow: column;
 }
 
 .badge {
-  position: absolute;
+  /*position: absolute;*/
   background-color: #ff4d4f;
   color: white;
   font-size: 11px;
