@@ -132,13 +132,47 @@
       max-width: 100%;
       display: block;
   }
-
+/*
   .logo .world-cup{
-    padding: 10px 0 10px 0; /*top right bottom left*/
+    padding: 10px 0 10px 0; 
     text-align: center;
     align-items: center;
   }
+*/
+.match-card {
+    display: grid;
+    grid-template-rows: auto auto; /* Chia thành 2 hàng tự động */
+    gap: 10px;                     /* Khoảng cách giữa hàng trên và hàng dưới */
+    justify-items: center;         /* Căn giữa tất cả các thành phần theo chiều ngang */
+    align-items: center;           /* Căn giữa theo chiều dọc */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
 
+.year {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Định dạng hàng chứa các cặp đấu ở dưới */
+.teams {
+    display: flex;                 /* Dùng flex để xếp 3 phần tử nằm ngang */
+    align-items: center;           /* Căn giữa ảnh và dấu gạch ngang theo chiều dọc */
+    gap: 15px;                     /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
+}
+
+/* Định dạng kích thước kích thước cờ */
+.world-cup {
+    width: 40px;                   /* Thay đổi kích thước cờ tùy ý */
+    height: auto;
+}
+
+/* Định dạng dấu gạch ngang */
+.versus {
+    font-weight: bold;
+    font-size: 18px;
+}
 
   .logo p {
     font: 1em "typewriter", monospace;
@@ -171,12 +205,12 @@
     overflow: hidden;
 
   }
-
+/*
   .logo .year{
     font-size: 50%;
     border: black;
   }
-
+*/
  
 
     
