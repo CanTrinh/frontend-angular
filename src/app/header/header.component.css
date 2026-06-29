@@ -135,6 +135,8 @@
 
   .logo .world-cup{
     padding: 10px 0 10px 0; /*top right bottom left*/
+    text-align: center;
+    align-items: center;
   }
 
   .logo p {
