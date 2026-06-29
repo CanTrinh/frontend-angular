@@ -143,27 +143,27 @@
     display: grid;
     grid-template-rows: auto auto; /* Chia thành 2 hàng tự động */
     justify-items: center;         /* Căn giữa tất cả các thành phần theo chiều ngang */
-    align-items: center;           /* Căn giữa theo chiều dọc */
+    /*  align-items: center;          Căn giữa theo chiều dọc */
     padding-bottom: 10px;
    
 }
 
 .year {
     font-size: 50%;
-    color: #333;
+    color: #969595;
 }
 
 /* Định dạng hàng chứa các cặp đấu ở dưới */
 .teams {
     display: flex;                 /* Dùng flex để xếp 3 phần tử nằm ngang */
     align-items: center;           /* Căn giữa ảnh và dấu gạch ngang theo chiều dọc */
-    gap: 15px;                     /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
+    gap: 10px;                     /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
 }
 
 /* Định dạng kích thước kích thước cờ */
 .world-cup {
     width: 40px;                   /* Thay đổi kích thước cờ tùy ý */
-    height: auto;
+    height: 25px;
 }
 
 /* Định dạng dấu gạch ngang */
