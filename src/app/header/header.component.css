@@ -146,12 +146,11 @@
     justify-items: center;         /* Căn giữa tất cả các thành phần theo chiều ngang */
     align-items: center;           /* Căn giữa theo chiều dọc */
     padding: 10px;
-    border: 1px solid #eee;
-    border-radius: 8px;
+   
 }
 
 .year {
-    font-size: 16px;
+    font-size: 50%;
     color: #333;
 }
 
