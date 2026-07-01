@@ -22,7 +22,7 @@ bootstrapApplication(AppComponent,{
   provideRouter(appRoutes, withComponentInputBinding()),
   //importProvidersFrom(HttpClientModule), HttpErrorHandler,MessageService,LoginService, 
   provideAnimations(),
-      provideHttpClient(
+  provideHttpClient(
       withInterceptors([
         authInterceptor,    // 1. Gắn token trước
         cacheInterceptor,   // 2. Kiểm tra cache (lưu cả request đã có token)

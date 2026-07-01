@@ -1,6 +1,6 @@
 //import { pipe } from '@angular/common';
 import { DatePipe, NgFor, NgIf, NgForOf, } from '@angular/common';
-import { AfterViewInit, Component, Directive, EventEmitter, OnInit, Output, Type } from '@angular/core';
+import { AfterViewInit, Component, Directive, EventEmitter, OnDestroy, OnInit, Output, Type } from '@angular/core';
 import { WeatherApiService } from './weather-api.service';
 import { IconDirective } from './icon.directive';
 import { SvgComponent } from '../svg/svg.component';
@@ -11,6 +11,7 @@ import { LunarService } from './lunar.service';
 import { SanitizeUrlService } from '../sanitize-url.service';
 import { NotificationComponent } from '../notification/notification.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 //import { MatIconRegistry } from '@angular/material/icon';
 //import { DomSanitizer } from '@angular/platform-browser';
@@ -24,9 +25,23 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrls: ['./header.component.css'],
   imports: [DatePipe, IconDirective, MatIconModule, NgForOf, NotificationComponent,RouterLink, RouterLinkActive, NgIf],
   providers: [WeatherApiService, ThemeService],
+  animations: [
+    trigger('slideAnimation', [
+      transition(':enter', [
+        // Khi phần tử xuất hiện: bắt đầu từ ngoài cùng bên phải (100%) và ẩn đi (opacity 0)
+        style({ transform: 'translateX(100%)', opacity: 0 }),
+        // Trượt vào vị trí cũ trong 0.5 giây
+        animate('500ms ease-out', style({ transform: 'translateX(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        // Khi phần tử biến mất: trượt sang bên trái (-100%) và mờ dần
+        animate('500ms ease-in', style({ transform: 'translateX(-100%)', opacity: 0 }))
+      ])
+    ])
+  ]
 })
 
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnDestroy{
   isPaused: boolean = false;
   today: number = Date.now();
   dayName = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
@@ -97,7 +112,19 @@ export class HeaderComponent implements OnInit{
   { "name": "Vĩnh Long", "lat": 10.2500, "lon": 105.9500 },
   { "name": "Vĩnh Phúc", "lat": 21.3000, "lon": 105.6000 },
   { "name": "Yên Bái", "lat": 21.7000, "lon": 104.8667 }
-]
+];
+
+
+  // 1. Mảng chứa dữ liệu 3 cặp đấu
+  matches = [
+    { team1: 'gb-eng.svg', name1: 'England', team2: 'cd.svg', name2: 'Congo', time: '23:00 01/07/2026' },
+    { team1: 'be.svg', name1: 'Belgium', team2: 'sn.svg', name2: 'Senegal', time: '03:00 02/07/2026' },
+    { team1: 'us.svg', name1: 'United States', team2: 'ba.svg', name2: 'Bosnia', time: '07:00 02/07/2026' }
+  ];
+
+  // 2. Vị trí cặp đấu đang được hiển thị
+  currentIndex: number = 0;
+  intervalId: any;
 
 
 
@@ -200,9 +227,21 @@ export class HeaderComponent implements OnInit{
       }
     } else{
       this.tetDay = `${this.lunarDate.day}/${this.lunarDate.month}/${this.lunarDate.year}`;
-    }
+    };
+
+    // 3. Cứ mỗi 3 giây (3000ms) thì chuyển sang cặp đấu tiếp theo, lặp lại vô hạn
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.matches.length;
+    }, 3000);
 
     
+  }
+
+  ngOnDestroy() {
+    // Xóa bộ đếm khi đóng component để tránh lỗi bộ nhớ
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
 
