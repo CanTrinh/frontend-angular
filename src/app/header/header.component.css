@@ -27,6 +27,7 @@
 
    .logo {
     display: flex;
+    position: relative; 
     border-right: 1px solid black;
     font-size: 1.2rem;
     height:40px;
