@@ -21,7 +21,8 @@
 
    .date-time{
     border-right: 1px solid black;
-    padding: 10px 0;
+    border-left: 1px solid black;
+    padding-top: 10px;
     display: grid;
     grid-template-rows: auto auto; 
 
@@ -34,7 +35,7 @@
    .logo {
     display: flex;
     position: relative; 
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     font-size: 1.2rem;
     height:40px;
     margin-left: 10px;

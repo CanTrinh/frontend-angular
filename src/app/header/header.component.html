@@ -28,9 +28,9 @@
 -->
     <div class="date-time">
         <span class="dl">{{result}} {{today | date: 'dd/MM/yyyy'}}</span>
-        <span class="al">{{tetDay}}</span>
+        <span class="al">{{tetDay}} âm lịch</span>
     </div>
-    
+
     <div class="weather">
         <select id="town" name="town" (change)="onChangeValue($event)">
                 <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>
