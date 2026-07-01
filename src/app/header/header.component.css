@@ -28,8 +28,13 @@
 
   }
 
-  .date-time .al{
+  .date-time .al {
     font-size: 50%;
+  }
+
+  .date-time .al,
+  .date-time .dl{
+    margin: 0 auto;
   }
 
    .logo {
