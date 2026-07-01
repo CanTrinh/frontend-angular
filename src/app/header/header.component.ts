@@ -35,7 +35,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
       ]),
       transition(':leave', [
         // Khi phần tử biến mất: trượt sang bên trái (-100%) và mờ dần
-        animate('500ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
+        animate('500ms ease-in', style({ transform: 'translateY(-100%)', opacity: 0 }))
       ])
     ])
   ]
