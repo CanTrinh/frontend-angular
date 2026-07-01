@@ -20,17 +20,17 @@
         </ng-container>
         </div>
 
-        <!--
-        <span class="year"><strong>00:00 30/06/2026</strong></span>
-        <img class="world-cup" src="../../assets/img/world-cup/br.svg" alt="">
-        <span class="world-cup" style="margin-left: 10px; margin-right: 10px;">-</span>
-        <img class="world-cup" src="../../assets/img/world-cup/jp.svg" alt="">
-    -->
    
 </div>
 
-<!--<div class="marquee-group" [class.paused]="isPaused">-->
+<!--
     <div class="date-time">{{result}} {{today | date: 'dd/MM/yyyy'}} || {{tetDay}}</div>
+-->
+    <div class="date-time">
+        <span class="dl">{{result}} {{today | date: 'dd/MM/yyyy'}}</span>
+        <span class="al">{{tetDay}}</span>
+    </div>
+    
     <div class="weather">
         <select id="town" name="town" (change)="onChangeValue($event)">
                 <option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</option>

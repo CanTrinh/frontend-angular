@@ -122,6 +122,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     { team1: 'us.svg', name1: 'United States', team2: 'ba.svg', name2: 'Bosnia', time: '07:00 02/07/2026' }
   ];
 
+  
+
   // 2. Vị trí cặp đấu đang được hiển thị
   currentIndex: number = 0;
   intervalId: any;
