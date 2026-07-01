@@ -143,7 +143,7 @@
 
 .match-box-container {
   position: relative;  /* Làm gốc tọa độ mới cho card */
-  /*width: 150px;         Độ rộng vừa đủ cho cặp đấu (bạn tự chỉnh theo ý muốn) */
+  width: 100px;        /* Độ rộng vừa đủ cho cặp đấu (bạn tự chỉnh theo ý muốn) */
   /*height: 60px;        /* Chiều cao vừa đủ cho cặp đấu */
   overflow: hidden;    /* Bắt buộc phải có để ẩn phần animation khi trượt */
   
