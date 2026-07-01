@@ -140,7 +140,6 @@
   }
 */
 .match-card {
-    position: absolute;
     display: grid;
     grid-template-rows: auto auto; /* Chia thành 2 hàng tự động */
     justify-items: center;         /* Căn giữa tất cả các thành phần theo chiều ngang */
