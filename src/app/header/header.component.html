@@ -5,6 +5,7 @@
         
         <img class="event" src="../../assets/img/world-cup-trophy.svg" alt="">
 
+        <div class="match-box-container">
         <ng-container *ngFor="let match of matches; let i = index">
             <div class="match-card" *ngIf="i === currentIndex" [@slideAnimation]>    
                 <!-- Tầng trên: 3 phần tử bọc lại cho dễ quản lý -->
@@ -17,6 +18,7 @@
                 <span class="year"><strong>{{ match.time }}</strong></span>
             </div>
         </ng-container>
+        </div>
 
         <!--
         <span class="year"><strong>00:00 30/06/2026</strong></span>
