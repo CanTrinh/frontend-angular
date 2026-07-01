@@ -31,11 +31,11 @@ import { animate, style, transition, trigger } from '@angular/animations';
         // Khi phần tử xuất hiện: bắt đầu từ ngoài cùng bên phải (100%) và ẩn đi (opacity 0)
         style({ transform: 'translateX(100%)', opacity: 0 }),
         // Trượt vào vị trí cũ trong 0.5 giây
-        animate('500ms ease-out', style({ transform: 'translateX(0)', opacity: 1 }))
+        animate('500ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
       ]),
       transition(':leave', [
         // Khi phần tử biến mất: trượt sang bên trái (-100%) và mờ dần
-        animate('500ms ease-in', style({ transform: 'translateX(-100%)', opacity: 0 }))
+        animate('500ms ease-in', style({ transform: 'translateY(-100%)', opacity: 0 }))
       ])
     ])
   ]
