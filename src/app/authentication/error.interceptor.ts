@@ -10,26 +10,46 @@ let refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<st
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginService);
   const messageService = inject(MessageService);
-  let isLoggingOut = false; // Biến flag nằm ngoài function
+
+
+  // CHẶN NGAY TỪ ĐẦU: Nếu đang trong quá trình logout hoặc đã mất access_token, 
+  // không cho phép request chạy tiếp (hoặc ít nhất là không cho tự động refresh)
+  if (authService.isLoggingOut || !localStorage.getItem('access_token')) {
+    // Nếu request hiện tại chính là API logout thì cho đi qua thoải mái
+    if (!req.url.includes('/logout')) {
+      return throwError(() => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized (Logging out)' }));
+    }
+  }
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       //loi mat ket noi hoac sap server
       if (error.status === 0) {
-               // CHỈ gọi logout nếu chưa có luồng logout nào đang chạy
+        /* CHỈ gọi logout nếu chưa có luồng logout nào đang chạy
         if (!isLoggingOut) {
           isLoggingOut = true;
           authService.logout();
           
           // Reset flag sau một khoảng thời gian ngắn
           setTimeout(() => isLoggingOut = false, 2000);
+        }*/
+
+        // Dùng biến flag từ authService để đồng bộ giữa các request
+        if (!authService.isLoggingOut) {
+          authService.logout();
         }
+        return throwError(() => error);
       }
       
 
       
       // 1. Xử lý lỗi 401 (Hết hạn Access Token)
       if (error.status === 401||error.status === 403) {
+        // NẾU ĐANG LOGOUT THÌ KHÔNG REFRESH TOKEN NỮA
+        if (authService.isLoggingOut) {
+          return throwError(() => error);
+        }
+
         if (!isRefreshing) {
           isRefreshing = true;
           refreshTokenSubject.next(null);
@@ -47,7 +67,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             }),
             catchError((err) => {
               isRefreshing = false;
-              authService.logout(); // Refresh thất bại mới logout
+              // Nếu refresh thất bại và không phải đang tự bấm logout thì mới kích hoạt hàm logout
+              if (!authService.isLoggingOut) {
+                authService.logout(); 
+              }
               return throwError(() => err);
             })
           );

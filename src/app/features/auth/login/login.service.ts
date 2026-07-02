@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable, catchError, map, take, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, finalize, map, take, tap, throwError } from 'rxjs';
 import { UserSignIn } from './dto/loginUser';
 //import { HttpErrorHandler, HandleError } from '../../../http-error-handler.service';
 import { RegisterUser } from './dto/registerUser.dto';
@@ -28,6 +28,9 @@ export class LoginService {
   //private handleError: HandleError;
   private userSubject = new BehaviorSubject<any>(this.getInitialUser());
   user$ = this.userSubject.asObservable();
+
+  // 1. Thêm biến flag này ở đầu Service để quản lý trạng thái logout toàn cục
+  public isLoggingOut = false; 
   
   constructor(
       private http: HttpClient,
@@ -155,6 +158,10 @@ loadUserFromStorage() {
 
 
 logout() {
+
+  // Bật flag lên ngay lập tức để chặn Interceptor
+  this.isLoggingOut = true; 
+
   // 1. Dọn dẹp local TRƯỚC để chặn vòng lặp
   const token = localStorage.getItem('access_token');
 
@@ -166,11 +173,16 @@ logout() {
   // 2. Chỉ gọi API logout lên server nếu có token và không phải trường hợp server đang sập
   if (token) {
     this.http.post(`${this.API_URL}/logout`, {}, { withCredentials: true })
-      .pipe(take(1)) // Đảm bảo chỉ thực hiện 1 lần
+      .pipe(take(1),
+        // Dù API logout thành công hay lỗi, cuối cùng cũng tắt flag logout
+          finalize(() => this.isLoggingOut = false) 
+      ) // Đảm bảo chỉ thực hiện 1 lần
       .subscribe({
         next: () => console.log('Server session cleared'),
         error: () => console.log('Server unreachable, local cleared anyway')
       });
+  }else {
+      this.isLoggingOut = false;
   }
 }
 

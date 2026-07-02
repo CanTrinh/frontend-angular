@@ -49,8 +49,8 @@ export class AppComponent implements AfterViewInit{
   
   }
 
-  logout() {
-    this.loginService.logout();
+  async logout() {
+     return this.loginService.logout();
   }
 
 
