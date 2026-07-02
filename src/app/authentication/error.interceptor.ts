@@ -12,15 +12,28 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const messageService = inject(MessageService);
 
 
-  // CHẶN NGAY TỪ ĐẦU: Nếu đang trong quá trình logout hoặc đã mất access_token, 
-  // không cho phép request chạy tiếp (hoặc ít nhất là không cho tự động refresh)
-  if (authService.isLoggingOut || !localStorage.getItem('access_token')) {
-    // Nếu request hiện tại chính là API logout thì cho đi qua thoải mái
-    if (!req.url.includes('/logout')) {
-      return throwError(() => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized (Logging out)' }));
+  // 1. Định nghĩa DANH SÁCH các từ khóa URL được phép đi qua tự do
+  const PUBLIC_APIS = [
+    '/login',
+    '/register',
+    '/logout',
+    '/posts',        
+    '/products/list', 
+    '/news'            
+  ];
+
+  // 2. Tự động kiểm tra xem Request hiện tại có thuộc danh sách công khai không
+  const isPublicApi = PUBLIC_APIS.some(api => req.url.includes(api));
+
+  // 3. Nếu KHÔNG PHẢI API công khai VÀ (đang logout HOẶC không có token) -> Chặn lại
+  if (!isPublicApi) {
+    if (authService.isLoggingOut || !localStorage.getItem('access_token')) {
+      return throwError(() => new HttpErrorResponse({ 
+        status: 401, 
+        statusText: 'Unauthorized (No token or Logging out)' 
+      }));
     }
   }
-
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       //loi mat ket noi hoac sap server
