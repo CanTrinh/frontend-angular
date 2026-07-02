@@ -117,9 +117,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   // 1. Mảng chứa dữ liệu 3 cặp đấu
   matches = [
-    { team1: 'gb-eng.svg', name1: 'England', team2: 'cd.svg', name2: 'Congo', time: '23:00 01/07/2026' },
-    { team1: 'be.svg', name1: 'Belgium', team2: 'sn.svg', name2: 'Senegal', time: '03:00 02/07/2026' },
-    { team1: 'us.svg', name1: 'United States', team2: 'ba.svg', name2: 'Bosnia', time: '07:00 02/07/2026' }
+    { team1: 'es.svg', name1: 'Spain', team2: 'at.svg', name2: 'Austia', time: '02:00 03/07/2026' },
+    { team1: 'pt.svg', name1: 'Portugal', team2: 'hr.svg', name2: 'Croatia', time: '06:00 03/07/2026' },
+    { team1: 'ch.svg', name1: 'Switzerland', team2: 'dz.svg', name2: 'Algeria', time: '10:00 03/07/2026' }
   ];
 
   
