@@ -17,7 +17,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     '/login',
     '/register',
     '/logout',
-    '/posts',        
+    '/posts', 
+    '/api.weatherapi',       
     '/products/list', 
     '/news'            
   ];
