@@ -110,6 +110,8 @@ export class LoginComponent {
   pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$'
   patternName='^[A-Za-z0-9]{4,}$'
 
+  patternLogin='^{4,}$'
+
   @Input() loginName!: string;
   @Output() loginNameChange =new EventEmitter<string>();
   constructor(private fb: FormBuilder,
@@ -118,7 +120,7 @@ export class LoginComponent {
             private dialog: DialogService
             ) {
     this.loginForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(this.patternName) || Validators.email]],
+      name: ['', [Validators.required, Validators.pattern(this.patternLogin)]],
       password: ['', [Validators.required, Validators.pattern(this.pattern)]]
     });
 
