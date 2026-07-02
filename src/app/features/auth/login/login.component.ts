@@ -118,7 +118,7 @@ export class LoginComponent {
             private dialog: DialogService
             ) {
     this.loginForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(this.patternName)]],
+      name: ['', [Validators.required, Validators.pattern(this.patternName) || Validators.email]],
       password: ['', [Validators.required, Validators.pattern(this.pattern)]]
     });
 
