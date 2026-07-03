@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject, Observable, catchError, finalize, map, take, tap, throwError } from 'rxjs';
@@ -9,6 +9,7 @@ import { RegisterUser } from './dto/registerUser.dto';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 import { SocketService } from 'src/app/core/services/socket.service';
+import { IS_PUBLIC_API } from 'src/app/authentication/http-context';
 
 export const httpOptions = {
   headers: new HttpHeaders({
@@ -74,7 +75,7 @@ export class LoginService {
   
     
   signINUser(userSignIn: UserSignIn): Observable<UserSignIn> {
-      return this.http.post<UserSignIn>(`${this.loginUrl}`, userSignIn, httpOptions)
+      return this.http.post<UserSignIn>(`${this.loginUrl}`, userSignIn, {context: new HttpContext().set(IS_PUBLIC_API, true)})
 
         .pipe(
           //catchError(this.handleError('signInUser', userSignIn))
@@ -202,7 +203,7 @@ private clearSession() {
 
   registerUser(registerUser: RegisterUser):Observable<RegisterUser>
     {
-      return this.http.post<RegisterUser>(`${this.registerUrl}`, registerUser, httpOptions)
+      return this.http.post<RegisterUser>(`${this.registerUrl}`, registerUser, {context: new HttpContext().set(IS_PUBLIC_API, true)})
        /* .pipe(
           catchError(this.handleError('registerUser', registerUser))
         );*/

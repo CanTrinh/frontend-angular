@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { CreatePostDto} from './dto/createPost.dto';
 import { environment } from 'src/environments/environment.prod';
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
+import { IS_PUBLIC_API } from '../authentication/http-context';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
@@ -65,7 +66,7 @@ export class PostService {
     params = params.set('search', searchTerm);
   }
 
-  return this.http.get<any>(`${this.apiUrl}`, { params });
+  return this.http.get<any>(`${this.apiUrl}`, { params, context: new HttpContext().set(IS_PUBLIC_API, true)});
 }
 
 
@@ -74,7 +75,7 @@ export class PostService {
   //get post by id
 
   getPost(id: string): Observable<any> {
-     return this.http.get<any>(`${this.apiUrl}/${id}`); 
+     return this.http.get<any>(`${this.apiUrl}/${id}`, {context: new HttpContext().set(IS_PUBLIC_API, true)}); 
   }
 
   updatePost(id: string, data: any): Observable<any> {
@@ -83,7 +84,7 @@ export class PostService {
 
   // Get comments for a post
   getComments(postId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
+    return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`, {context: new HttpContext().set(IS_PUBLIC_API, true)});
   }
 
   // Like a post

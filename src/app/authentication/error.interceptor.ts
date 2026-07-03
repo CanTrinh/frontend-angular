@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { LoginService } from '../features/auth/login/login.service';
 import { MessageService } from '../message.service';
 import { catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
+import { IS_PUBLIC_API } from './http-context';
 
 let isRefreshing = false;
 let refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
@@ -11,7 +12,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginService);
   const messageService = inject(MessageService);
 
+  // Kiểm tra xem API này có được gắn thẻ "IS_PUBLIC_API" là true không
+  const isPublic = req.context.get(IS_PUBLIC_API);
 
+/*
   // 1. Định nghĩa DANH SÁCH các từ khóa URL được phép đi qua tự do
   const PUBLIC_APIS = [
     '/login',
@@ -25,9 +29,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   // 2. Tự động kiểm tra xem Request hiện tại có thuộc danh sách công khai không
   const isPublicApi = PUBLIC_APIS.some(api => req.url.includes(api));
-
+*/
   // 3. Nếu KHÔNG PHẢI API công khai VÀ (đang logout HOẶC không có token) -> Chặn lại
-  if (!isPublicApi) {
+  if (!isPublic) {
     if (authService.isLoggingOut || !localStorage.getItem('access_token')) {
       return throwError(() => new HttpErrorResponse({ 
         status: 401, 
