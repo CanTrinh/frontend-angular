@@ -13,7 +13,7 @@ import { UserStatusPipe } from '../pipes/user-status.pipe';
 import { LoginService } from '../features/auth/login/login.service';
 import { AudioService } from './audio.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faVideo, faVideoSlash, faMicrophoneSlash, faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faVideoSlash, faMicrophoneSlash, faMicrophone, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from '../messages/messages.service';
 
 @Component({
@@ -36,6 +36,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
   faMicroSlash = faMicrophoneSlash;
   faVideo = faVideo;
   faVideoSlash = faVideoSlash;
+  faPaperclip = faPaperclip;
 
   public apiCloudFront = `${environment.cloudFrontUrl}/`;
   
