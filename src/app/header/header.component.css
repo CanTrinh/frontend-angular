@@ -53,6 +53,26 @@
     float: right;
   }
 
+   .logo p {
+    padding: 10px;
+  }
+
+  /* Định dạng kích thước kích thước cờ */
+  .world-cup {
+      width: 40px;                   /* Thay đổi kích thước cờ tùy ý */
+      height: 25px;
+  }
+
+  /* Định dạng dấu gạch ngang */
+  .versus {
+      font-weight: bold;
+      font-size: 18px;
+  }
+
+  .team {
+    gap: 10px;
+  }
+
   .mode{
     display: flex;
     align-items: center;
@@ -69,13 +89,10 @@
   }
 
   .logo p {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 10px 0 10px 0;
   }
 
   .teams {
-    display: flex;                 /* Dùng flex để xếp 3 phần tử nằm ngang */
-    align-items: center;           /* Căn giữa ảnh và dấu gạch ngang theo chiều dọc */
     gap: 0;                     /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
 }
 
@@ -207,25 +224,12 @@
 /* Định dạng hàng chứa các cặp đấu ở dưới */
 .teams {
     display: flex;                 /* Dùng flex để xếp 3 phần tử nằm ngang */
-    align-items: center;           /* Căn giữa ảnh và dấu gạch ngang theo chiều dọc */
-    gap: 10px;                     /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
+    align-items: center;           /* Căn giữa ảnh và dấu gạch ngang theo chiều dọc */                  /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
 }
 
-/* Định dạng kích thước kích thước cờ */
-.world-cup {
-    width: 40px;                   /* Thay đổi kích thước cờ tùy ý */
-    height: 25px;
-}
-
-/* Định dạng dấu gạch ngang */
-.versus {
-    font-weight: bold;
-    font-size: 18px;
-}
 
   .logo p {
     font: 1em "typewriter", monospace;
-    padding: 10px;
   }
   
   .logo {
