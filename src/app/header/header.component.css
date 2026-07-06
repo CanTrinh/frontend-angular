@@ -68,6 +68,13 @@
     justify-content: space-around;
   }
 
+  .team img {
+    width: 40%;
+  }
+  .team span {
+    font-size: small;
+  }
+
   .date-time{
     grid-area: date; 
     display: flex;

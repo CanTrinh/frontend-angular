@@ -49,8 +49,8 @@
         <h4>{{ activeRoom.name }}</h4>
       </div>
       <div class="header-actions" *ngIf="activeRoom">
-        <button class="btn-icon" (click)="startCall('VOICE')">📞</button>
-        <button class="btn-call" (click)="startCall('VIDEO')">📹</button>
+        <button class="btn-icon" (click)="startCall('VOICE')" *ngIf="!isCalling">📞</button>
+        <button class="btn-call" (click)="startCall('VIDEO')" *ngIf="!isCalling">📹</button>
       </div>
     </header>
 
