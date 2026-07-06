@@ -64,16 +64,33 @@
   .logo{
     grid-area: logo; 
     display: flex;
-    /*align-items: center;*/
-    justify-content: space-around;
+    /*align-items: center;
+    justify-content: space-around;*/
   }
 
-  .team img {
-    width: 40%;
+  .logo p {
+    padding-left: 0;
+    padding-right: 0;
   }
-  .team span {
-    font-size: small;
-  }
+
+  .teams {
+    display: flex;                 /* Dùng flex để xếp 3 phần tử nằm ngang */
+    align-items: center;           /* Căn giữa ảnh và dấu gạch ngang theo chiều dọc */
+    gap: 0;                     /* Khoảng cách giữa ảnh và dấu trừ (thay cho margin) */
+}
+
+/* Định dạng kích thước kích thước cờ */
+.world-cup {
+    width: 25px;                   /* Thay đổi kích thước cờ tùy ý */
+    height: 25px;
+}
+
+.versus {
+    font-weight: bold;
+    font-size: 10px;
+}
+
+
 
   .date-time{
     grid-area: date; 
