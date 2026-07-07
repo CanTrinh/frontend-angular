@@ -16,6 +16,8 @@ import { LoginService } from './features/auth/login/login.service';
 import { MessagesComponent } from './messages/messages.component';
 import { AvatarComponent } from './shared/components/avatar/avatar.component';
 import { UserStatusPipe } from './pipes/user-status.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -25,7 +27,7 @@ import { UserStatusPipe } from './pipes/user-status.pipe';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     imports: [HeaderComponent,
-      RouterLink, RouterLinkActive, RouterOutlet,CommonModule, MessagesComponent, AvatarComponent,UserStatusPipe],
+      RouterLink, RouterLinkActive, RouterOutlet,CommonModule, MessagesComponent, AvatarComponent,UserStatusPipe,FontAwesomeModule],
     
 })
 export class AppComponent implements AfterViewInit{
@@ -34,6 +36,8 @@ export class AppComponent implements AfterViewInit{
 
   user: any;
   isLoggedIn = false;
+
+  faHome = faHome;
 
   constructor(public loginService: LoginService) {}
 
