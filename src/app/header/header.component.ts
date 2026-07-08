@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   provinces =[
   { "name": "Hồ Chí Minh", "lat": 10.7769, "lon": 106.7009 },
   { "name": "An Giang", "lat": 10.5149, "lon": 105.1132 },
-  { "name": "Bà Rịa–Vũng Tàu", "lat": 10.3450, "lon": 107.0843 },
+  { "name": "Vũng Tàu", "lat": 10.3450, "lon": 107.0843 },
   { "name": "Bắc Giang", "lat": 21.3093, "lon": 106.6165 },
   { "name": "Bắc Kạn", "lat": 22.2572, "lon": 105.8589 },
   { "name": "Bạc Liêu", "lat": 9.3477, "lon": 105.5097 },
@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   { "name": "Thái Bình", "lat": 20.4500, "lon": 106.3333 },
   { "name": "Thái Nguyên", "lat": 21.6000, "lon": 105.8500 },
   { "name": "Thanh Hóa", "lat": 19.8000, "lon": 105.7667 },
-  { "name": "Thừa Thiên–Huế", "lat": 16.4637, "lon": 107.5909 },
+  { "name": "Huế", "lat": 16.4637, "lon": 107.5909 },
   { "name": "Tiền Giang", "lat": 10.3667, "lon": 106.3500 },
   { "name": "Trà Vinh", "lat": 9.9333, "lon": 106.3500 },
   { "name": "Tuyên Quang", "lat": 21.8167, "lon": 105.2167 },
