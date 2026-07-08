@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   result:string = `${this.dayName[this.days.getDay()]}`;
   tetDay: String = '';
   provinces =[
-  { "name": "Hồ Chí Minh City", "lat": 10.7769, "lon": 106.7009 },
+  { "name": "Hồ Chí Minh", "lat": 10.7769, "lon": 106.7009 },
   { "name": "An Giang", "lat": 10.5149, "lon": 105.1132 },
   { "name": "Bà Rịa–Vũng Tàu", "lat": 10.3450, "lon": 107.0843 },
   { "name": "Bắc Giang", "lat": 21.3093, "lon": 106.6165 },
