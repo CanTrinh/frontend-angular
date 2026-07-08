@@ -12,7 +12,7 @@
   font-weight: normal;
   font-style: normal;
 }
-@media screen and (width > 40em) {
+@media screen and (width > 70em) {
   .weather{
     display: flex;
     height: 43.04px ;
@@ -67,6 +67,79 @@
   .versus {
       font-weight: bold;
       font-size: 18px;
+  }
+
+  .team {
+    gap: 10px;
+  }
+
+  .mode{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (40em < width <= 70em) {
+  .weather{
+    display: flex;
+    height: 43.04px ;
+    font-size: 1rem;
+    border-right: 1px solid black;
+  }
+
+   .date-time{
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    padding-top: 10px;
+    display: grid;
+    grid-template-rows: auto auto; 
+
+  }
+
+  .date-time .al {
+    font-size: 50%;
+  }
+
+  .date-time .dl {
+    font-size: 1rem;
+  }
+
+  .date-time .al,
+  .date-time .dl{
+    margin: 0 auto;
+  }
+
+   .logo {
+    display: flex;
+    position: relative; 
+    /*border-right: 1px solid black;*/
+    font-size: 1rem;
+    height:40px;
+    margin-left: 10px;
+    box-sizing: content-box;
+    overflow: hidden;
+
+  }
+
+  .logo .event{
+    float: right;
+  }
+
+   .logo p {
+    padding: 10px;
+  }
+
+  /* Định dạng kích thước kích thước cờ */
+  .world-cup {
+      width: 30px;                   /* Thay đổi kích thước cờ tùy ý */
+      height: 25px;
+  }
+
+  /* Định dạng dấu gạch ngang */
+  .versus {
+      font-weight: bold;
+      font-size: 12px;
   }
 
   .team {
