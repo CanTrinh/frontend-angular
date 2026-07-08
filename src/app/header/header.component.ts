@@ -121,8 +121,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     { team1: 'mx.svg', name1: 'Mexico', score1:'2', team2: 'gb-eng.svg', name2: 'England', score2:'3', time: '07:00 06/07/2026' },
     { team1: 'pt.svg', name1: 'Portugal',score1:'0', team2: 'es.svg', name2: 'Spain', score2:'1', time: '02:00 07/07/2026' },
     { team1: 'us.svg', name1: 'Unite State',score1:'1', team2: 'be.svg', name2: 'Belgium', score2:'4', time: '07:00 07/07/2026' },
-    { team1: 'ar.svg', name1: 'Argentina', team2: 'eg.svg', name2: 'Ai Cập', time: '23:00 07/07/2026' },
-    { team1: 'ch.svg', name1: 'Thụy Sĩ', team2: 'co.svg', name2: 'Colombia', time: '03:00 08/07/2026' }
+    { team1: 'ar.svg', name1: 'Argentina', score1:'3', team2: 'eg.svg', name2: 'Ai Cập', score2:'2', time: '23:00 07/07/2026' },
+    { team1: 'ch.svg', name1: 'Thụy Sĩ', score1:'4', team2: 'co.svg', name2: 'Colombia', score2:'3', time: '03:00 08/07/2026' }
   ];
 
   
