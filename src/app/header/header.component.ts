@@ -117,12 +117,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   // 1. Mảng chứa dữ liệu 3 cặp đấu
   matches = [
-    { team1: 'br.svg', name1: 'Brazil', score1:'1', team2: 'no.svg', name2: 'Na Uy', score2:'2', time: '03:00 06/07/2026' },
-    { team1: 'mx.svg', name1: 'Mexico', score1:'2', team2: 'gb-eng.svg', name2: 'England', score2:'3', time: '07:00 06/07/2026' },
-    { team1: 'pt.svg', name1: 'Portugal',score1:'0', team2: 'es.svg', name2: 'Spain', score2:'1', time: '02:00 07/07/2026' },
-    { team1: 'us.svg', name1: 'Unite State',score1:'1', team2: 'be.svg', name2: 'Belgium', score2:'4', time: '07:00 07/07/2026' },
-    { team1: 'ar.svg', name1: 'Argentina', score1:'3', team2: 'eg.svg', name2: 'Ai Cập', score2:'2', time: '23:00 07/07/2026' },
-    { team1: 'ch.svg', name1: 'Thụy Sĩ', score1:'4', team2: 'co.svg', name2: 'Colombia', score2:'3', time: '03:00 08/07/2026' }
+    { team1: 'fr.svg', name1: 'France', score1:undefined, team2: 'ma.svg', name2: 'Morocco', score2:undefined, time: '03:00 10/07/2026' },
+    { team1: 'es.svg', name1: 'Spain', score1:undefined, team2: 'be.svg', name2: 'Belgium', score2:undefined, time: '02:00 11/07/2026' },
+    { team1: 'gb-eng.svg', name1: 'England',score1:undefined, team2: 'no.svg', name2: 'Na Uy', score2:undefined, time: '04:00 12/07/2026' },
+    { team1: 'ar.svg', name1: 'Argentina', score1:undefined, team2: 'ch.svg', name2: 'Thuy Si', score2:undefined, time: '08:00 12/07/2026' },
+  
   ];
 
   
