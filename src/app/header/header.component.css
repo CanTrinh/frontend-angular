@@ -82,7 +82,7 @@
 
 @media screen and (40em < width <= 70em) {
   .weather{
-    grid-column: 11/17;
+    grid-column: 12/18;
     display: flex;
     height: 43.04px ;
     font-size: 1rem;
@@ -90,7 +90,7 @@
   }
 
    .date-time{
-    grid-column: 7/11;
+    grid-column: 7/12;
     border-right: 1px solid black;
     border-left: 1px solid black;
     padding-top: 10px;
@@ -149,7 +149,7 @@
   }
 
   .mode{
-    grid-column: 17/21;
+    grid-column: 18/21;
     display: flex;
     align-items: center;
     justify-content: space-around;
