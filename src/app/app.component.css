@@ -9,7 +9,7 @@
     }
 }
 
-@media screen and (40em < width <= 70em) {
+@media screen and (51em < width <= 70em) {
     app-header{
         display: grid;
         border-bottom: 5px solid #a66;
@@ -18,7 +18,7 @@
     }
 }
 
-@media screen and (width <= 40em) {
+@media screen and (width <= 51em) {
 
     :host {
     display: grid;
