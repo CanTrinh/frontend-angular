@@ -90,7 +90,7 @@
   }
 
    .date-time{
-    grid-column: 6/9;
+    grid-column: 5.5/9;
     border-right: 1px solid black;
     border-left: 1px solid black;
     padding-top: 10px;
@@ -113,7 +113,7 @@
   }
 
    .logo {
-    grid-column: 1/6;
+    grid-column: 1/5.5;
     display: flex;
     position: relative; 
     /*border-right: 1px solid black;*/
