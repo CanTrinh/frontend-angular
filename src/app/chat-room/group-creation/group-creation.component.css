@@ -7,7 +7,7 @@
   /*height: 100%;    Chiếm toàn bộ chiều cao của component cha cấp cho nó */
   padding: 16px;
   background-color: #ffffff;
-  border-right: 1px solid #e0e0e0; /* Đường vạch ngăn cách nếu để ở bên trái */
+  /*border-right: 1px solid #e0e0e0; /* Đường vạch ngăn cách nếu để ở bên trái */
   box-sizing: border-box;
 }
 

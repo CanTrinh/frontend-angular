@@ -72,7 +72,10 @@
   background: #f9f9f9;
 }
 
-.sidebar-header { padding: 20px; border-bottom: 1px solid #eee; }
+.sidebar-header { 
+  padding: 15px; 
+  border-bottom: 1px solid #eee; 
+}
 
 .room-info{
   display: flex;

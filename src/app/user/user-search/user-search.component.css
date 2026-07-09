@@ -1,8 +1,8 @@
 .search-container {
   display: flex;
   flex-direction: column;
-  padding: 16px 16px 8px 16px;
-  border-bottom: 1px solid #f0f0f0; /* Vạch ngăn nhẹ với khối tạo nhóm bên dưới */
+  padding: 0 16px;
+ /* border-bottom: 1px solid #f0f0f0; /* Vạch ngăn nhẹ với khối tạo nhóm bên dưới */
   max-height: 40%; /* Giới hạn khung tìm kiếm không chiếm quá nhiều chỗ */
 }
 
