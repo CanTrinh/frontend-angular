@@ -82,7 +82,7 @@
 
 @media screen and (40em < width <= 70em) {
   .weather{
-    grid-column: 9/14;
+    grid-column: 11/17;
     display: flex;
     height: 43.04px ;
     font-size: 1rem;
@@ -90,7 +90,7 @@
   }
 
    .date-time{
-    grid-column: 5.5/9;
+    grid-column: 7/11;
     border-right: 1px solid black;
     border-left: 1px solid black;
     padding-top: 10px;
@@ -113,7 +113,7 @@
   }
 
    .logo {
-    grid-column: 1/5.5;
+    grid-column: 1/7;
     display: flex;
     position: relative; 
     /*border-right: 1px solid black;*/
@@ -149,7 +149,7 @@
   }
 
   .mode{
-    grid-column: 14/17;
+    grid-column: 17/21;
     display: flex;
     align-items: center;
     justify-content: space-around;
