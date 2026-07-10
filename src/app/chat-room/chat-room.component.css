@@ -9,9 +9,23 @@
 
 @media screen and (width > 40em) {
   .chat-wrapper {
-  display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
  
   }
+
+  .search-box {
+    grid-column: 1/2;
+  }
+
+  .sidebar{
+    grid-column: 2/3;
+  }
+
+  .chat-main{
+    grid-column: 3/7;
+  }
+
 }
 
 @media screen and (width < 40em) {
