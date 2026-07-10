@@ -22,6 +22,9 @@
 .chat-main{
   height: 60dvh;
 }
+.chat-footer {
+  padding: 0;
+}
  
 }
 
