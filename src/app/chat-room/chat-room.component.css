@@ -55,6 +55,11 @@
   border: 1px solid #ddd;
   outline: none;
 }
+
+.extra {
+  display: flex;
+  justify-content: center;
+}
 /*
 .search-results-popover {
   position: absolute;
