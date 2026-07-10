@@ -11,8 +11,18 @@
   .chat-wrapper {
   display: flex;
  
+  }
 }
 
+@media screen and (width < 40em) {
+.sidebar-header { 
+  padding: 15px; 
+  margin: 0 auto; 
+}
+.chat-main{
+  height: 60dvh;
+}
+ 
 }
 
 .search-box {
@@ -65,7 +75,7 @@
 
 /* Sidebar */
 .sidebar {
-  width: 300px;
+  /*width: 300px;*/
   border-right: 1px solid #ddd;
   display: flex;
   flex-direction: column;
