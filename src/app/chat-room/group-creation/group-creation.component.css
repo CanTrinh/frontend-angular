@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 360px; /* Giới hạn chiều rộng để vừa với sidebar/phòng chat cha */
+  /*max-width: 360px; /* Giới hạn chiều rộng để vừa với sidebar/phòng chat cha */
   /*height: 100%;    Chiếm toàn bộ chiều cao của component cha cấp cho nó */
   padding: 16px;
   background-color: #ffffff;
