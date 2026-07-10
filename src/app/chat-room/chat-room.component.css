@@ -10,7 +10,7 @@
 @media screen and (width > 40em) {
   .chat-wrapper {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
  
   }
 
@@ -23,7 +23,7 @@
   }
 
   .chat-main{
-    grid-column: 3/7;
+    grid-column: 3/6;
   }
 
 }
