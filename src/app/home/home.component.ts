@@ -11,13 +11,15 @@ import { UserStatus } from '../shared/types/user-status.type';
 import { SocketService } from '../core/services/socket.service';
 import { Post } from '../shared/types/post.interface';
 import { UserStatusPipe } from '../pipes/user-status.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 
 @Component({
   selector: 'app-home',
   standalone:true,
-  imports: [ReactiveFormsModule, NgFor,NgIf, RouterLink, RouterLinkActive, DatePipe, AvatarComponent, UserStatusPipe ,AsyncPipe ],
+  imports: [ReactiveFormsModule, NgFor, FontAwesomeModule, NgIf, RouterLink, RouterLinkActive, DatePipe, AvatarComponent, UserStatusPipe ,AsyncPipe ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -31,6 +33,8 @@ export class HomeComponent implements OnInit {
   //loading = false;
   //mistake = false;
   errorMessage: string = '';
+
+  faSearch = faSearch;
   
   private router = inject(Router);
 
