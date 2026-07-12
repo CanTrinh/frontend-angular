@@ -91,7 +91,7 @@
 
 .chat-wrapper {
   /*display: flex;*/
-  height: 100vh;
+  height: max-content;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
 }
