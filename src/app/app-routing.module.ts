@@ -46,7 +46,7 @@ export const appRoutes: Routes = [
   // },
   // { path: 'honda', redirectTo: '/superhonda' },
   // { path: 'honda/:id', redirectTo: '/superhonda/:id' },
-  { path: 'honda',  component: HondaListComponent, data: {animation: 'listxe'} },
+  { path: 'about',  component: HondaListComponent, data: {animation: 'listxe'} },
   { path: 'honda/:id', component: HondaDetailComponent, data: {animation: 'xe'}},
   { path: 'english', component: EnglishComponent},
   { path: 'chat-room', component: ChatRoomComponent},
