@@ -217,7 +217,7 @@ export class SocketService {
 
   rejectCall(roomId: string, callerId: string, callType: 'VOICE' | 'VIDEO' ){
         return new Promise((resolve, reject) => {
-      this.socket.emit('rejectCall', { roomId,callerId,callType}, (res: any) => {
+      this.socket.emit('rejectCall', { roomId,callerId,callType, endReason: 'DECLINE'}, (res: any) => {
         if (res.error) {
           reject(res.error);
         } else {
