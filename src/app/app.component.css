@@ -2,7 +2,6 @@
 @media screen and (width > 70em) {
     app-header{
         display: grid;
-        border-bottom: 5px solid #a66;
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
         color:var(--color--gray);
@@ -12,7 +11,6 @@
 @media screen and (40em < width <= 70em) {
     app-header{
         display: grid;
-        border-bottom: 5px solid #a66;
         grid-template-columns: repeat(20, 1fr);
         color:var(--color--gray);
     }
@@ -56,6 +54,7 @@ nav {
     position: sticky;
     background-color: rgb(234, 232, 232);
     border-bottom: 5px solid #a66;
+    border-top: 5px solid #a66;
     top: 0px;
     left: 0px;
 }
