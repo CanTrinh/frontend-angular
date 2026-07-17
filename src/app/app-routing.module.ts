@@ -35,7 +35,7 @@ export const appRoutes: Routes = [
     path: 'home/create-post',component: PostComponent, canActivate: [authGuard]
   },
   {
-    path: 'yamaha',
+    path: 'shop-mall',
     //component:YamahaCenterComponent,
     loadChildren: () => import('./yamaha/yamaha-center-routing.module').then(m=> m.childroutes),
   },
