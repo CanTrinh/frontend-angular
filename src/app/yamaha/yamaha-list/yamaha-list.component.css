@@ -1,15 +1,24 @@
+.container{
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+}
 .yas{
-    display: flex;
+    display: block;
+    grid-column: 1/5;
     padding: 10px;
 }
 
 .ya {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
     margin: 0;
     padding: 0;
 }
 
 .ya > li {
     padding-top: 5px;
+}
+
+.detail{
+    grid-column: 5/21;
 }
