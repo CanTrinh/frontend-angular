@@ -20,7 +20,7 @@
 </div>
 -->
 
-<form [formGroup]="profileForm" (ngSubmit)="updateProfiles()">
+<form class="profile" [formGroup]="profileForm" (ngSubmit)="updateProfiles()">
             <ul>
                 <li>
         
@@ -39,7 +39,7 @@
             <video #video autoplay></video>
             <button type="button" (click)="capture()">Capture</button>
             <canvas #canvas hidden></canvas>
-        </form>
+</form>
 
 <!--
 <form [formGroup]="profileForm" (ngSubmit)="updateProfiles()">
