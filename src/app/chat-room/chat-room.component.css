@@ -210,9 +210,17 @@
 .message-time { font-size: 10px; opacity: 0.6; display: block; margin-top: 5px; text-align: right; }
 
 /* Footer */
-.chat-footer { padding: 20px; display: flex; gap: 10px; border-top: 1px solid #eee; }
+.chat-footer { 
+  padding: 10px; 
+  display: flex; 
+  gap: 5px; 
+  border-top: 1px solid #eee; 
+}
 .chat-footer input {
-  flex: 1; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none;
+  flex: 1; 
+  padding: 10px; 
+  border-radius: 25px; 
+  border: 1px solid #ddd; outline: none;
 }
 
 /* Call Overlay */
