@@ -119,7 +119,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   matches = [
     { team1: 'fr.svg', name1: 'France', score1:'4', team2: 'gb-eng.svg', name2: 'England', score2:'6', time: '04:00 19/07/2026' },
     { team1: 'ar.svg', name1: 'Argentina', score1:'0', team2: 'es.svg', name2: 'Spain', score2:'1', time: '02:00 20/07/2026 final' },
-    { team1: 'es.svg', name1: 'Spain', score1:'Champion!',},
+    { team1: 'es.svg', name1: 'Spain', finish: true,},
   
   ];
 
