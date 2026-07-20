@@ -84,7 +84,7 @@
       <div *ngFor="let m of messages" 
            class="message-row" 
            [class.me]="m.isMe">
-        <div class="message-bubble">
+        <div class="message-bubble" >
 
           <app-avatar [imageUrl]="apiCloudFront + m.sender.profilePic" 
                 [firstLetter]="m.sender.name.slice(0,1)"

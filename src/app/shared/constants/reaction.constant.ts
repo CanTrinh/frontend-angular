@@ -1,5 +1,7 @@
+import { environment } from "../../../environments/environment.prod";
+
 // Thay URL này bằng Domain CloudFront của bạn
-const CLOUDFRONT_BASE_URL = 'https://cdn.ctlife.xyz';
+const CLOUDFRONT_BASE_URL = `${environment.cloudFrontUrl}`;
 
 export const REACTION_MAP = {
   LIKE: `${CLOUDFRONT_BASE_URL}/static/images/reactions/like_v1.svg`,
