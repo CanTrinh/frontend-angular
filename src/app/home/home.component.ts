@@ -27,7 +27,7 @@ import { environment } from 'src/environments/environment.prod';
 export class HomeComponent implements OnInit {
 
   searchForm!: FormGroup;
-  cloudfrontUrl = environment.cloudFrontUrl;
+  cloudfrontUrl = `${environment.cloudFrontUrl}/`;
   
 
   posts: Post[] = [];
