@@ -48,10 +48,11 @@
         </span>
       </div>
       
-      <h3 class="post-title">{{ post.title }}</h3>
-      <img [src]="cloudfrontUrl+post.media[0].url" alt="">
+      <div class="preview">
+        <img [src]="cloudfrontUrl+post.media[0].url" alt="">
+        <h3 class="post-title">{{ post.title }}</h3>
       <!--<p class="post-excerpt">{{ post.content | slice:0:150 }}...</p>-->
-
+      </div>
       <!-- PHẦN HIỂN THỊ MEDIA NHỎ (Thumbnail) -->
       <div class="post-media-preview" *ngIf="post.metadata">
         <div class="mini-link-card">

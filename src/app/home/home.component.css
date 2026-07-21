@@ -198,5 +198,12 @@ input[type="search"]:hover, input[type="search"]:focus {
   color: #9f224e;
 }
 
+.preview {
+  display: flex;
+}
+
+.preview img{
+  float: left;
+}
 
 
