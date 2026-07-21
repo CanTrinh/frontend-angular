@@ -13,6 +13,7 @@ import { Post } from '../shared/types/post.interface';
 import { UserStatusPipe } from '../pipes/user-status.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment.prod';
 
 
 
@@ -26,6 +27,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export class HomeComponent implements OnInit {
 
   searchForm!: FormGroup;
+  cloudfrontUrl = environment.cloudFrontUrl;
   
 
   posts: Post[] = [];
