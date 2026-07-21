@@ -49,7 +49,7 @@
       </div>
       
       <h3 class="post-title">{{ post.title }}</h3>
-      <img [src]=`${cloudfrontUrl}+${post.media.url[0]}` alt="">
+      <img [src]="cloudfrontUrl+post.media.url[0]" alt="">
       <!--<p class="post-excerpt">{{ post.content | slice:0:150 }}...</p>-->
 
       <!-- PHẦN HIỂN THỊ MEDIA NHỎ (Thumbnail) -->
