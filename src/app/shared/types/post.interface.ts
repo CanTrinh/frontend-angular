@@ -32,6 +32,10 @@ export interface Post {
     name: string,
     bio: string
   };
+
+  media:{
+    url: string[];
+  };
   
   // Trường "ảo" chỉ dùng ở Frontend để hiển thị vòng viền
   authorStatus?: UserStatus; 
