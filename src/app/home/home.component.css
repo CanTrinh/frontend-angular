@@ -199,11 +199,17 @@ input[type="search"]:hover, input[type="search"]:focus {
 }
 
 .preview {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px
 }
 
 .preview img{
-  float: left;
+  grid-column: 1/2;
+}
+
+.preview h3{
+  grid-column: 2/7;
 }
 
 
