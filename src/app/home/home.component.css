@@ -205,7 +205,7 @@ input[type="search"]:hover, input[type="search"]:focus {
 }
 
 .preview img {
-  grid-column: 1/2;
+  grid-column: 1/2 ;
 }
 
 .preview h3{
