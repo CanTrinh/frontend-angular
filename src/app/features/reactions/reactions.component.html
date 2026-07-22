@@ -1,21 +1,73 @@
-<div class="reaction-container">
+<!--<div class="reaction-container">-->
   <!-- Menu icon: Chỉ hiện khi hover vào container -->
-  <div class="reaction-menu">
+  <!--<div class="reaction-menu">
     <div *ngFor="let icon of reactionIcons" 
          class="icon-wrapper" 
          (click)="onSelect(icon.type)">
-      <img [src]="icon.url" [alt]="icon.label" />
+      <img [src]="icon.url" [alt]="icon.label" />-->
       <!-- Tooltip tên icon (ví dụ: LIKE, LOVE) -->
-      <span class="tooltip">{{ icon.type }}</span>
+      <!--<span class="tooltip">{{ icon.type }}</span>
     </div>
-  </div>
+  </div>-->
 
   <!-- Nút chính: Người dùng sẽ hover vào đây -->
-  <button class="main-button" *ngIf="isLogin">
+  <!--<button class="main-button" *ngIf="isLogin">-->
     <!--<img *ngIf="currentUserReaction" [src]="currentUserReaction.iconUrl" class="current-icon" />-->
-    <span [class.active]="currentUserReaction">
+    <!--<span [class.active]="currentUserReaction">
         {{ currentUserReaction ? currentUserReaction.type : 'Thích' }}
     </span>
   </button>
+</div>-->
+
+
+<!-- CHẾ ĐỘ 1: DÀNH CHO BÀI VIẾT (POST) -->
+<div *ngIf="mode === 'post'" class="reaction-container post-mode">
+  <div class="reaction-menu" *ngIf="isLogin">
+    <div *ngFor="let icon of reactionIcons" class="icon-wrapper" (click)="onSelect(icon.type)">
+      <img [src]="icon.url" [alt]="icon.label" />
+      <span class="tooltip">{{ icon.label }}</span>
+    </div>
+  </div>
+
+  <button class="main-button" [disabled]="!isLogin" (click)="onMainButtonClick()">
+    <img *ngIf="currentUserReaction?.iconUrl" [src]="currentUserReaction?.iconUrl" class="current-icon" />
+    <span [class.active]="currentUserReaction">{{ currentUserReaction ? currentUserReaction.type : 'Thích' }}</span>
+  </button>
 </div>
+
+
+<!-- CHẾ ĐỘ 2: DÀNH CHO TIN NHẮN (MESSAGE) - THANH TOOLBAR MESSENGER -->
+<div *ngIf="mode === 'message' || mode === 'comment' " class="message-toolbar-container">
+  
+  <!-- Nhóm 1: Nút Reaction ẩn menu -->
+  <div class="toolbar-item reaction-trigger">
+    <!-- Icon mặt cười kích hoạt -->
+    <button class="toolbar-btn" title="Bày tỏ cảm xúc">😀</button>
+    
+    <!-- Menu bay lên khi hover vào chính nút reaction-trigger này -->
+    <div class="reaction-menu grid-menu">
+      <div *ngFor="let icon of reactionIcons" class="icon-wrapper" (click)="onSelect(icon.type)">
+        <img [src]="icon.url" [alt]="icon.label" />
+        <span class="tooltip">{{ icon.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nhóm 2: Nút Trả lời (Reply) -->
+  <div class="toolbar-item">
+    <button class="toolbar-btn" (click)="replyClicked.emit()" title="Trả lời">
+      <!-- Icon reply hoặc text mẫu -->
+      ↩️
+    </button>
+  </div>
+
+  <!-- Nhóm 3: Nút Xem thêm (More) -->
+  <div class="toolbar-item">
+    <button class="toolbar-btn" (click)="moreClicked.emit()" title="Xem thêm">
+      💬
+    </button>
+  </div>
+
+</div>
+
 

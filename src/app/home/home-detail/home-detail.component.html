@@ -48,7 +48,7 @@
         <div class="action-buttons">
           <app-reactions 
             [targetId]="post.id" 
-            [isPost]="true" 
+            [mode]="'post'" 
             [currentUserReaction]="post.currentUserReaction"
             (reactionChanged)="handleReactionChange($event)">
           </app-reactions>

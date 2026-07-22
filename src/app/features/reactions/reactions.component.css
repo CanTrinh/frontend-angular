@@ -1,11 +1,12 @@
+/*
 .reaction-container {
   position: relative;
   display: inline-block;
 
-  /* 1. Thiết lập menu ban đầu (Ẩn)*/
+  /* 1. Thiết lập menu ban đầu (Ẩn)
   .reaction-menu {
     position: absolute;
-    bottom: 100%; /* Hiện phía trên nút bấm*/
+    bottom: 100%; /* Hiện phía trên nút bấm
     left: 0;
     display: flex;
     gap: 8px;
@@ -14,22 +15,22 @@
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     
-    /* Hiệu ứng ẩn*/
+    /* Hiệu ứng ẩn
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px); /* Đẩy xuống một chút để khi hiện có cảm giác "bay lên"*/
+    transform: translateY(10px); /* Đẩy xuống một chút để khi hiện có cảm giác "bay lên"
     transition: all 0.2s ease-in-out;
     z-index: 10;
   }
 
-  /* 2. Kích hoạt menu khi HOVER vào container*/
+  /* 2. Kích hoạt menu khi HOVER vào container
   &:hover .reaction-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(-10px); /* Bay lên vị trí chuẩn*/
+    transform: translateY(-10px); /* Bay lên vị trí chuẩn
   }
 
-  /* Style cho từng icon trong menu*/
+  /* Style cho từng icon trong menu
   .icon-wrapper {
     position: relative;
     cursor: pointer;
@@ -38,12 +39,12 @@
     transition: transform 0.2s;
 
     img {
-      width: 32px; /* Kích thước icon trong menu bay*/
+      width: 32px; /* Kích thước icon trong menu bay
       height: 32px;
     }
 
     &:hover {
-      transform: scale(1.3); /* Phóng to icon khi rê chuột vào từng cái*/
+      transform: scale(1.3); /* Phóng to icon khi rê chuột vào từng cái
     }
 
     .tooltip {
@@ -56,7 +57,7 @@
       padding: 2px 8px;
       border-radius: 4px;
       font-size: 10px;
-      display: none; /* Chỉ hiện tooltip khi hover vào icon lẻ*/
+      display: none; /* Chỉ hiện tooltip khi hover vào icon lẻ
     }
 
     &:hover .tooltip {
@@ -65,7 +66,7 @@
   }
 }
 
-/* Nút bấm chính "Thích"*/
+/* Nút bấm chính "Thích"
 .main-button {
   border: none;
   background: none;
@@ -83,6 +84,103 @@
   }
 
   .active {
-    color: #2078f4; /* Màu xanh nếu đã react*/
+    color: #2078f4; /* Màu xanh nếu đã react
   }
 }
+*/
+
+/* CHUNG CHO CẢ 2 CHẾ ĐỘ: MENU POPUP ICON */
+.reaction-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px); /* Căn giữa nút kích hoạt */
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.icon-wrapper {
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.2s;
+  img { width: 32px; height: 32px; }
+  &:hover { transform: scale(1.3); }
+  .tooltip {
+    position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+    background: #333; color: white; padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; display: none; white-space: nowrap;
+  }
+  &:hover .tooltip { display: block; }
+}
+
+/* ========================================== */
+/* CHẾ ĐỘ 1: POST MODE (Giữ nguyên logic cũ) */
+/* ========================================== */
+.post-mode {
+  position: relative;
+  display: inline-block;
+  &:hover .reaction-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  .main-button {
+    border: none; background: none; padding: 8px 12px; display: flex;
+    align-items: center; gap: 6px; cursor: pointer; color: #65676b; font-weight: 600;
+    .current-icon { width: 18px; height: 18px; }
+    .active { color: #2078f4; }
+  }
+}
+
+/* ========================================== */
+/* CHẾ ĐỘ 2: MESSAGE TOOLBAR (CHUẨN MESSENGER) */
+/* ========================================== */
+.message-toolbar-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2px 6px;
+  border-radius: 20px;
+
+  .toolbar-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .toolbar-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #e4e6eb;
+    }
+  }
+
+  /* Kích hoạt menu thả thính khi hover vào nút icon mặt cười */
+  .reaction-trigger:hover .reaction-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-6px);
+  }
+}
+
