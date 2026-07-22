@@ -53,7 +53,8 @@ export class ReactionsComponent {
   @Input() mode: 'post' | 'message' | 'comment' = 'post';
   
   @Input() targetId: string;
-  @Input() reactionIcons: any[] = [/* Giữ nguyên mảng danh sách icon cũ */];
+  //@Input() reactionIcons: any[] = [/* Giữ nguyên mảng danh sách icon cũ */];
+  readonly reactionIcons= REACTION_LIST;
   @Input() currentUserReaction: any = null;
   @Input() isLogin: boolean = true;
 
