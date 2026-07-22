@@ -204,7 +204,7 @@ input[type="search"]:hover, input[type="search"]:focus {
   gap: 10px
 }
 
-.preview img{
+.preview img {
   grid-column: 1/2;
 }
 
